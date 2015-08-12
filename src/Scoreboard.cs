@@ -1,55 +1,79 @@
 ﻿using System;
 using System.Collections.Generic;
 
-class Scoreboard
+internal class Scoreboard
 {
-    private const int MAX_NUMBER_OF_RECORDS = 5;
-    private List<KeyValuePair<int, String>> TopFiveRecords;
+    private const int MaxNumberOfRecords = 5;
+    private List<KeyValuePair<int, string>> topFiveRecords;
 
     public Scoreboard()
     {
-        this.TopFiveRecords = new List<KeyValuePair<int, string>>();
+        this.topFiveRecords = new List<KeyValuePair<int, string>>();
     }
 
     public void TryToSignToScoreboard(int numberOfMistakesMade)
     {
-        bool scoreQualifiesForTopFive = CheckIfScoreQualifiesForTopFive(numberOfMistakesMade);
+        bool scoreQualifiesForTopFive = this.CheckIfScoreQualifiesForTopFive(numberOfMistakesMade);
         if (scoreQualifiesForTopFive)
         {
-                AddNewRecord(numberOfMistakesMade);
-                PrintCurrentScoreboard();
+            this.AddNewRecord(numberOfMistakesMade);
+            this.PrintCurrentScoreboard();
         }
+    }
+
+    public void PrintCurrentScoreboard()
+    {
+        Console.WriteLine("Scoreboard:");
+        if (this.topFiveRecords.Count == 0)
+        {
+            Console.WriteLine("There are no records in the scoreboard yet.");
+        }
+        else
+        {
+            for (int index = 0; index < this.topFiveRecords.Count; index++)
+            {
+                string name = this.topFiveRecords[index].Value;
+                int mistakes = this.topFiveRecords[index].Key;
+                Console.WriteLine("{0}. {1} --> {2} mistakes", index + 1, name, mistakes);
+            }
+        }
+    }
+
+    private static int CompareByKeys(KeyValuePair<int, string> pairA, KeyValuePair<int, string> pairB)
+    {
+        return pairA.Key.CompareTo(pairB.Key);
     }
 
     private bool CheckIfScoreQualifiesForTopFive(int numberOfMistakesMade)
     {
         bool scoreQualifiesForTopFive = false;
-        if (TopFiveRecords.Count < MAX_NUMBER_OF_RECORDS)
+        if (this.topFiveRecords.Count < MaxNumberOfRecords)
         {
             scoreQualifiesForTopFive = true;
         }
         else
         {
-            int worstScoreInTopFive = TopFiveRecords[MAX_NUMBER_OF_RECORDS - 1].Key;
+            int worstScoreInTopFive = this.topFiveRecords[MaxNumberOfRecords - 1].Key;
             if (numberOfMistakesMade < worstScoreInTopFive)
             {
                 scoreQualifiesForTopFive = true;
             }
         }
+
         return scoreQualifiesForTopFive;
     }
 
     private void AddNewRecord(int numberOfMistakesMade)
     {
-        if (TopFiveRecords.Count == MAX_NUMBER_OF_RECORDS)
+        if (this.topFiveRecords.Count == MaxNumberOfRecords)
         {
-            DeleteTheWorstRecord();
+            this.DeleteTheWorstRecord();
         }
 
-        string playerName = AskForPlayerName();
+        string playerName = this.AskForPlayerName();
         KeyValuePair<int, string> newRecord = new KeyValuePair<int, string>(numberOfMistakesMade, playerName);
-        TopFiveRecords.Add(newRecord);
-        SortRecordsAscendingByScore();
+        this.topFiveRecords.Add(newRecord);
+        this.SortRecordsAscendingByScore();
     }
 
     private string AskForPlayerName()
@@ -74,40 +98,17 @@ class Scoreboard
                 inputIsAcceptable = true;
             }
         }
+
         return name;
     }
 
     private void DeleteTheWorstRecord()
     {
-        this.TopFiveRecords.RemoveAt(TopFiveRecords.Count - 1);
+        this.topFiveRecords.RemoveAt(this.topFiveRecords.Count - 1);
     }
 
     private void SortRecordsAscendingByScore()
     {
-        TopFiveRecords.Sort(CompareByKeys);
+        this.topFiveRecords.Sort(CompareByKeys);
     }
-
-    private static int CompareByKeys(KeyValuePair<int, string> pairA, KeyValuePair<int, string> pairB)
-    {
-        return pairA.Key.CompareTo(pairB.Key);
-    }
-
-    public void PrintCurrentScoreboard()
-    {
-        Console.WriteLine("Scoreboard:");
-        if (TopFiveRecords.Count == 0)
-        {
-            Console.WriteLine("There are no records in the scoreboard yet.");
-        }
-        else
-        {
-            for (int index = 0; index < TopFiveRecords.Count; index++)
-            {
-                string name = TopFiveRecords[index].Value;
-                int mistakes = TopFiveRecords[index].Key;
-                Console.WriteLine("{0}. {1} --> {2} mistakes", index + 1, name, mistakes);
-            }
-        }
-    }
-
 }

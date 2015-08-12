@@ -1,53 +1,61 @@
 ﻿using System;
 
-class Hangman
+internal class Hangman
 {
-	// tova go pisah vav vlaka kam pernik i super me cepi glavata, lele kvo imashe v tazi bira????
+    private static readonly string[] Words = new string[] 
+    { 
+        "computer", "programmer", "software", "debugger", "compiler", 
+        "developer", "algorithm", "array", "method", "variable" 
+    };
 
     private static Scoreboard scoreboard = new Scoreboard();
-    private static readonly string[] Words = new string[] { "computer", "programmer", "software", "debugger", "compiler", 
-        "developer", "algorithm", "array", "method", "variable"};
+
+    internal static void Main(string[] args)
+    {
+        bool gamesAreOver = false;
+        while (!gamesAreOver)
+        {
+            gamesAreOver = PlayOneGame();
+            Console.WriteLine();
+        }
+    }
 
     private static bool PlayOneGame()
     {
         PrintWelcomeMessage();
 
-        string W = SelectRandomWord();
-        char[] displayableWord = GenerateEmptyWordOfUnderscores(W.Length);
+        string w = SelectRandomWord();
+        char[] displayableWord = GenerateEmptyWordOfUnderscores(w.Length);
         int numberOfMistakesMade = 0;
-
-
-
 
         bool flag = false;
         bool ff = false;
         bool ff2 = false;
 
         while (!ff)
-	    {
+        {
             PrintDisplayableWord(displayableWord);
-            string command = String.Empty;
+            string command = string.Empty;
             string suggestedLetter = GetUserInput(out command);
-            if (suggestedLetter != String.Empty)
+            if (suggestedLetter != string.Empty)
             {
-                ProcessUserGuess(suggestedLetter, W, displayableWord, ref numberOfMistakesMade);
+                ProcessUserGuess(suggestedLetter, w, displayableWord, ref numberOfMistakesMade);
             }
             else
             {
-                ProcessCommand(command, W, displayableWord, out flag, out ff, out ff2);
+                ProcessCommand(command, w, displayableWord, out flag, out ff, out ff2);
             }
 
             bool gameIsWon = CheckIfGameIsWon(displayableWord, ff2, numberOfMistakesMade);
+
             if (gameIsWon)
             {
-
-
-
                 ff = true;
             }
         }
+
         return flag;
-	}
+    }
 
     private static string SelectRandomWord()
     {
@@ -63,10 +71,8 @@ class Hangman
         for (int index = 0; index < wordLength; index++)
         {
             wordOfUnderscores[index] = '_';
-
-
-
         }
+
         return wordOfUnderscores;
     }
 
@@ -77,8 +83,10 @@ class Hangman
         {
             if (helpIsUsed)
             {
-                Console.WriteLine("You won with {0} mistakes but you have cheated. " +
-                    "You are not allowed to enter into the scoreboard.", numberOfMistakesMade);
+                Console.WriteLine(
+                    "You won with {0} mistakes but you have cheated. " +
+                    "You are not allowed to enter into the scoreboard.",
+                    numberOfMistakesMade);
                 PrintDisplayableWord(displayableWord);
             }
             else
@@ -88,20 +96,27 @@ class Hangman
                 scoreboard.TryToSignToScoreboard(numberOfMistakesMade);
             }
         }
+
         return wordIsRevealed;
     }
-    private static void ProcessCommand(string command, string secretWord, char[] displayableWord,out bool endOfAllGames, 
-        out bool endOfCurrentGame, out bool helpIsUsed)
+
+    private static void ProcessCommand(
+        string command,
+        string secretWord,
+        char[] displayableWord,
+        out bool endOfAllGames,
+        out bool endOfCurrentGame,
+        out bool helpIsUsed)
     {
         endOfCurrentGame = false;
         endOfAllGames = false;
         helpIsUsed = false;
         switch (command)
-	    {
-            case "top": 
-                scoreboard.PrintCurrentScoreboard(); 
+        {
+            case "top":
+                scoreboard.PrintCurrentScoreboard();
                 break;
-            case "restart": 
+            case "restart":
                 endOfCurrentGame = true;
                 endOfAllGames = false;
                 break;
@@ -116,8 +131,9 @@ class Hangman
                 break;
             default:
                 break;
-	    }
+        }
     }
+
     private static void HelpByRevealingALetter(string secretWord, char[] displayableWord)
     {
         int nextUnrevealedLetterIndex = 0;
@@ -129,6 +145,7 @@ class Hangman
                 break;
             }
         }
+
         char letterToBeRevealed = secretWord[nextUnrevealedLetterIndex];
         for (int index = 0; index < secretWord.Length; index++)
         {
@@ -137,27 +154,25 @@ class Hangman
                 displayableWord[index] = letterToBeRevealed;
             }
         }
+
         Console.WriteLine("OK, I reveal for you the next letter '{0}'.", letterToBeRevealed);
     }
-    private static void ProcessUserGuess(string suggestedLetter, string secretWord, char[] displayableWord,
-        ref int numberOfMistakesMade)
+
+    private static void ProcessUserGuess(string suggestedLetter, string secretWord, char[] displayableWord, ref int numberOfMistakesMade)
     {
-        int NumberOfRevealedLetters = CheckUserGuess(suggestedLetter, secretWord, displayableWord);
-        if (NumberOfRevealedLetters > 0)
+        int numberOfRevealedLetters = CheckUserGuess(suggestedLetter, secretWord, displayableWord);
+        if (numberOfRevealedLetters > 0)
         {
             bool wordIsRevealed = CheckIfWordIsRevealed(displayableWord);
             if (!wordIsRevealed)
             {
-                if (NumberOfRevealedLetters == 1)
+                if (numberOfRevealedLetters == 1)
                 {
-                    Console.WriteLine("Good job! You revealed {0} letter.", NumberOfRevealedLetters);
+                    Console.WriteLine("Good job! You revealed {0} letter.", numberOfRevealedLetters);
                 }
                 else
                 {
-
-
-
-                    Console.WriteLine("Good job! You revealed {0} letters.", NumberOfRevealedLetters);
+                    Console.WriteLine("Good job! You revealed {0} letters.", numberOfRevealedLetters);
                 }
             }
         }
@@ -170,8 +185,8 @@ class Hangman
 
     private static string GetUserInput(out string command)
     {
-        string suggestedLetter = String.Empty;
-        command = String.Empty;
+        string suggestedLetter = string.Empty;
+        command = string.Empty;
         bool correctInputIsTaken = false;
         while (!correctInputIsTaken)
         {
@@ -207,6 +222,7 @@ class Hangman
                 PrintInvalidEntryMessage();
             }
         }
+
         return suggestedLetter;
     }
 
@@ -226,23 +242,25 @@ class Hangman
                 break;
             }
         }
+
         return wordIsRevealed;
-    } 
+    }
 
     private static void PrintDisplayableWord(char[] displayableWord)
     {
         Console.Write("The secret word is:");
         foreach (var letter in displayableWord)
         {
-		    Console.Write(" {0}", letter);
+            Console.Write(" {0}", letter);
         }
+
         Console.WriteLine();
     }
 
     private static void PrintWelcomeMessage()
     {
         Console.WriteLine("Welcome to “Hangman” game. Please try to guess my secret word.");
-        Console.WriteLine("Use 'top' to view the top scoreboard, 'restart' to start a new game, " + 
+        Console.WriteLine("Use 'top' to view the top scoreboard, 'restart' to start a new game, " +
             "'help' to cheat and 'exit' to quit the game.");
     }
 
@@ -261,6 +279,7 @@ class Hangman
                 }
             }
         }
+
         return numberOfRevealedLetters;
     }
 
@@ -274,16 +293,7 @@ class Hangman
                 letterIsAlreadyRevealed = true;
             }
         }
-        return letterIsAlreadyRevealed;
-    }
 
-    static void Main(string[] args)
-    {
-        bool gamesAreOver = false;
-        while (!gamesAreOver)
-        {
-            gamesAreOver = PlayOneGame();
-            Console.WriteLine();
-        }
+        return letterIsAlreadyRevealed;
     }
 }
