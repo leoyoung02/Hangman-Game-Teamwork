@@ -5,15 +5,24 @@ namespace Hangman.Logic
         internal enum Dictionary
         {
             Computer,
+
             Programmer, 
+
             Software, 
+
             Debugger, 
+
             Compiler,
+
             Developer, 
+
             Algorithm, 
+
             Array, 
+
             Method, 
+
             Variable
-        };
+        }
     }
 }

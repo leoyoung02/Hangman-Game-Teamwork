@@ -6,11 +6,11 @@
     internal class Scoreboard
     {
         private const int MaxNumberOfRecords = 5;
-        private readonly List<KeyValuePair<int, string>> _topFiveRecords;
+        private readonly List<KeyValuePair<int, string>> topFiveRecords;
 
         public Scoreboard()
         {
-            this._topFiveRecords = new List<KeyValuePair<int, string>>();
+            this.topFiveRecords = new List<KeyValuePair<int, string>>();
         }
 
         public void TryToSignToScoreboard(int numberOfMistakesMade)
@@ -25,17 +25,18 @@
 
         public void PrintCurrentScoreboard()
         {
-            Console.WriteLine("Scoreboard:");
-            if (this._topFiveRecords.Count == 0)
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("\nScoreboard:");
+            if (this.topFiveRecords.Count == 0)
             {
                 Console.WriteLine("There are no records in the scoreboard yet.");
             }
             else
             {
-                for (int i = 0; i < this._topFiveRecords.Count; i++)
+                for (int i = 0; i < this.topFiveRecords.Count; i++)
                 {
-                    string name = this._topFiveRecords[i].Value;
-                    int mistakes = this._topFiveRecords[i].Key;
+                    string name = this.topFiveRecords[i].Value;
+                    int mistakes = this.topFiveRecords[i].Key;
                     Console.WriteLine("{0}. {1} --> {2} mistakes", i + 1, name, mistakes);
                 }
             }
@@ -49,13 +50,13 @@
         private bool CheckIfScoreQualifiesForTopFive(int numberOfMistakesMade)
         {
             bool scoreQualifiesForTopFive = false;
-            if (this._topFiveRecords.Count < MaxNumberOfRecords)
+            if (this.topFiveRecords.Count < MaxNumberOfRecords)
             {
                 scoreQualifiesForTopFive = true;
             }
             else
             {
-                int worstScoreInTopFive = this._topFiveRecords[MaxNumberOfRecords - 1].Key;
+                int worstScoreInTopFive = this.topFiveRecords[MaxNumberOfRecords - 1].Key;
                 if (numberOfMistakesMade < worstScoreInTopFive)
                 {
                     scoreQualifiesForTopFive = true;
@@ -67,14 +68,14 @@
 
         private void AddNewRecord(int numberOfMistakesMade)
         {
-            if (this._topFiveRecords.Count == MaxNumberOfRecords)
+            if (this.topFiveRecords.Count == MaxNumberOfRecords)
             {
                 this.DeleteTheWorstRecord();
             }
 
             string playerName = this.AskForPlayerName();
             KeyValuePair<int, string> newRecord = new KeyValuePair<int, string>(numberOfMistakesMade, playerName);
-            this._topFiveRecords.Add(newRecord);
+            this.topFiveRecords.Add(newRecord);
             this.SortRecordsAscendingByScore();
         }
 
@@ -106,12 +107,12 @@
 
         private void DeleteTheWorstRecord()
         {
-            this._topFiveRecords.RemoveAt(this._topFiveRecords.Count - 1);
+            this.topFiveRecords.RemoveAt(this.topFiveRecords.Count - 1);
         }
 
         private void SortRecordsAscendingByScore()
         {
-            this._topFiveRecords.Sort(CompareByKeys);
+            this.topFiveRecords.Sort(CompareByKeys);
         }
     }
 }

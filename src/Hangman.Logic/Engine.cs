@@ -79,30 +79,6 @@
             }
         }
 
-        private static void HelpByRevealingLetter(string secretWord, char[] displayableWord)
-        {
-            int nextUnrevealedLetterIndex = 0;
-            for (int i = 0; i < displayableWord.Length; i++)
-            {
-                if (displayableWord[i] == '_')
-                {
-                    nextUnrevealedLetterIndex = i;
-                    break;
-                }
-            }
-
-            char letterToBeRevealed = secretWord[nextUnrevealedLetterIndex];
-            for (int i = 0; i < secretWord.Length; i++)
-            {
-                if (letterToBeRevealed == secretWord[i])
-                {
-                    displayableWord[i] = letterToBeRevealed;
-                }
-            }
-
-            Console.WriteLine("OK, I reveal for you the next letter '{0}'.", letterToBeRevealed);
-        }
-
         internal static void ProcessUserGuess(string suggestedLetter, string secretWord, char[] displayableWord, ref int numberOfMistakesMade)
         {
             int numberOfRevealedLetters = CheckUserGuess(suggestedLetter, secretWord, displayableWord);
@@ -135,7 +111,7 @@
             bool correctInputIsTaken = false;
             while (!correctInputIsTaken)
             {
-                Console.Write("Enter your guess or command: ");
+                Console.Write("\nEnter your guess or command: ");
                 string inputLine = Console.ReadLine();
                 inputLine = inputLine.ToLower();
 
@@ -171,6 +147,60 @@
             return suggestedLetter;
         }
 
+        internal static void PrintDisplayableWord(char[] displayableWord)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("\nThe secret word is: ");
+            foreach (var letter in displayableWord)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("{0} ", letter);
+            }
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine();
+        }
+
+        internal static void PrintWelcomeMessage()
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(
+                "<< Welcome to “Hangman” game >>\n" +
+                "<< Please try to guess the secret word >>\n");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine(
+                "Commands:\n" +
+                "HELP \t\t Reveals a letter.\n" +
+                "TOP \t\t Displays high scores.\n" +
+                "RESTART \t Starts a new game.\n" +
+                "EXIT \t\t Quits the game.");
+            Console.ResetColor();
+        }
+
+        private static void HelpByRevealingLetter(string secretWord, char[] displayableWord)
+        {
+            int nextUnrevealedLetterIndex = 0;
+            for (int i = 0; i < displayableWord.Length; i++)
+            {
+                if (displayableWord[i] == '_')
+                {
+                    nextUnrevealedLetterIndex = i;
+                    break;
+                }
+            }
+
+            char letterToBeRevealed = secretWord[nextUnrevealedLetterIndex];
+            for (int i = 0; i < secretWord.Length; i++)
+            {
+                if (letterToBeRevealed == secretWord[i])
+                {
+                    displayableWord[i] = letterToBeRevealed;
+                }
+            }
+
+            Console.WriteLine("OK, I reveal for you the next letter '{0}'.", letterToBeRevealed);
+        }
+
         private static void PrintInvalidEntryMessage()
         {
             Console.WriteLine("Incorrect guess or command!");
@@ -189,24 +219,6 @@
             }
 
             return wordIsRevealed;
-        }
-
-        internal static void PrintDisplayableWord(char[] displayableWord)
-        {
-            Console.Write("The secret word is:");
-            foreach (var letter in displayableWord)
-            {
-                Console.Write(" {0}", letter);
-            }
-
-            Console.WriteLine();
-        }
-
-        internal static void PrintWelcomeMessage()
-        {
-            Console.WriteLine("Welcome to “Hangman” game. Please try to guess my secret word.");
-            Console.WriteLine("Use 'top' to view the top scoreboard, 'restart' to start a new game, " +
-                "'help' to cheat and 'exit' to quit the game.");
         }
 
         private static int CheckUserGuess(string suggestedLetter, string secretWord, char[] displayableWord)
