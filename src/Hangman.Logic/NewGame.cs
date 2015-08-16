@@ -4,39 +4,39 @@ namespace Hangman.Logic
     {
         internal static bool Play()
         {
-            Hangman.PrintWelcomeMessage();
+            Engine.PrintWelcomeMessage();
 
-            string w = Hangman.SelectRandomWord();
-            char[] displayableWord = Hangman.GenerateEmptyWordOfUnderscores(w.Length);
+            string word = Engine.SelectRandomWord();
+            char[] displayableWord = Engine.GenerateEmptyWordOfUnderscores(word.Length);
             int numberOfMistakesMade = 0;
 
-            bool flag = false;
-            bool ff = false;
-            bool ff2 = false;
+            bool hasAllGamesEnded = false;
+            bool isCurrentGameEnded = false;
+            bool isHelpUsed = false;
 
-            while (!ff)
+            while (!isCurrentGameEnded)
             {
-                Hangman.PrintDisplayableWord(displayableWord);
+                Engine.PrintDisplayableWord(displayableWord);
                 string command = string.Empty;
-                string suggestedLetter = Hangman.GetUserInput(out command);
+                string suggestedLetter = Engine.GetUserInput(out command);
                 if (suggestedLetter != string.Empty)
                 {
-                    Hangman.ProcessUserGuess(suggestedLetter, w, displayableWord, ref numberOfMistakesMade);
+                    Engine.ProcessUserGuess(suggestedLetter, word, displayableWord, ref numberOfMistakesMade);
                 }
                 else
                 {
-                    Hangman.ProcessCommand(command, w, displayableWord, out flag, out ff, out ff2);
+                    Engine.ProcessCommand(command, word, displayableWord, out hasAllGamesEnded, out isCurrentGameEnded, out isHelpUsed);
                 }
 
-                bool gameIsWon = Hangman.CheckIfGameIsWon(displayableWord, ff2, numberOfMistakesMade);
+                bool gameIsWon = Engine.CheckIfGameIsWon(displayableWord, isHelpUsed, numberOfMistakesMade);
 
                 if (gameIsWon)
                 {
-                    ff = true;
+                    isCurrentGameEnded = true;
                 }
             }
 
-            return flag;
+            return hasAllGamesEnded;
         }
     }
 }

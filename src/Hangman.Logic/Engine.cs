@@ -2,9 +2,9 @@
 {
     using System;
 
-    internal class Hangman
+    internal class Engine
     {
-        private static Scoreboard scoreboard = new Scoreboard();
+        private static readonly Scoreboard Scoreboard = new Scoreboard();
 
         internal static string SelectRandomWord()
         {
@@ -16,20 +16,20 @@
         internal static char[] GenerateEmptyWordOfUnderscores(int wordLength)
         {
             char[] wordOfUnderscores = new char[wordLength];
-            for (int index = 0; index < wordLength; index++)
+            for (int i = 0; i < wordLength; i++)
             {
-                wordOfUnderscores[index] = '_';
+                wordOfUnderscores[i] = '_';
             }
 
             return wordOfUnderscores;
         }
 
-        internal static bool CheckIfGameIsWon(char[] displayableWord, bool helpIsUsed, int numberOfMistakesMade)
+        internal static bool CheckIfGameIsWon(char[] displayableWord, bool isHelpUsed, int numberOfMistakesMade)
         {
             bool wordIsRevealed = CheckIfWordIsRevealed(displayableWord);
             if (wordIsRevealed)
             {
-                if (helpIsUsed)
+                if (isHelpUsed)
                 {
                     Console.WriteLine(
                         "You won with {0} mistakes but you have cheated. " +
@@ -41,7 +41,7 @@
                 {
                     Console.WriteLine("You won with {0} mistakes.", numberOfMistakesMade);
                     PrintDisplayableWord(displayableWord);
-                    scoreboard.TryToSignToScoreboard(numberOfMistakesMade);
+                    Scoreboard.TryToSignToScoreboard(numberOfMistakesMade);
                 }
             }
 
@@ -52,52 +52,51 @@
             string command,
             string secretWord,
             char[] displayableWord,
-            out bool endOfAllGames,
-            out bool endOfCurrentGame,
-            out bool helpIsUsed)
+            out bool hasAllGamesEnded,
+            out bool isCurrentGameEnded,
+            out bool isHelpUsed)
         {
-            endOfCurrentGame = false;
-            endOfAllGames = false;
-            helpIsUsed = false;
+            isCurrentGameEnded = false;
+            hasAllGamesEnded = false;
+            isHelpUsed = false;
             switch (command)
             {
                 case "top":
-                    scoreboard.PrintCurrentScoreboard();
+                    Scoreboard.PrintCurrentScoreboard();
                     break;
                 case "restart":
-                    endOfCurrentGame = true;
-                    endOfAllGames = false;
+                    isCurrentGameEnded = true;
                     break;
                 case "exit":
                     Console.WriteLine("Goodbye!");
-                    endOfCurrentGame = true;
-                    endOfAllGames = true;
+                    isCurrentGameEnded = true;
+                    hasAllGamesEnded = true;
                     break;
                 case "help":
-                    HelpByRevealingALetter(secretWord, displayableWord);
-                    helpIsUsed = true;
+                    HelpByRevealingLetter(secretWord, displayableWord);
+                    isHelpUsed = true;
                     break;
             }
         }
 
-        private static void HelpByRevealingALetter(string secretWord, char[] displayableWord)
+        private static void HelpByRevealingLetter(string secretWord, char[] displayableWord)
         {
             int nextUnrevealedLetterIndex = 0;
-            for (int index = 0; index < displayableWord.Length; index++)
+            for (int i = 0; i < displayableWord.Length; i++)
             {
-                if (displayableWord[index] == '_')
+                if (displayableWord[i] == '_')
                 {
-                    nextUnrevealedLetterIndex = index;
+                    nextUnrevealedLetterIndex = i;
                     break;
                 }
             }
 
             char letterToBeRevealed = secretWord[nextUnrevealedLetterIndex];
-            for (int index = 0; index < secretWord.Length; index++)
+            for (int i = 0; i < secretWord.Length; i++)
             {
-                if (letterToBeRevealed == secretWord[index])
+                if (letterToBeRevealed == secretWord[i])
                 {
-                    displayableWord[index] = letterToBeRevealed;
+                    displayableWord[i] = letterToBeRevealed;
                 }
             }
 
@@ -180,9 +179,9 @@
         private static bool CheckIfWordIsRevealed(char[] displayableWord)
         {
             bool wordIsRevealed = true;
-            for (int index = 0; index < displayableWord.Length; index++)
+            for (int i = 0; i < displayableWord.Length; i++)
             {
-                if (displayableWord[index] == '_')
+                if (displayableWord[i] == '_')
                 {
                     wordIsRevealed = false;
                     break;
@@ -216,11 +215,11 @@
             bool letterIsAlreadyRevealed = CheckIfLetterIsAlreadyRevealed(suggestedLetter, displayableWord);
             if (!letterIsAlreadyRevealed)
             {
-                for (int index = 0; index < secretWord.Length; index++)
+                for (int i = 0; i < secretWord.Length; i++)
                 {
-                    if (suggestedLetter[0] == secretWord[index])
+                    if (suggestedLetter[0] == secretWord[i])
                     {
-                        displayableWord[index] = suggestedLetter[0];
+                        displayableWord[i] = suggestedLetter[0];
                         numberOfRevealedLetters++;
                     }
                 }
@@ -232,9 +231,9 @@
         private static bool CheckIfLetterIsAlreadyRevealed(string suggestedLetter, char[] displayableWord)
         {
             bool letterIsAlreadyRevealed = false;
-            for (int index = 0; index < displayableWord.Length; index++)
+            for (int i = 0; i < displayableWord.Length; i++)
             {
-                if (displayableWord[index] == suggestedLetter[0])
+                if (displayableWord[i] == suggestedLetter[0])
                 {
                     letterIsAlreadyRevealed = true;
                 }
