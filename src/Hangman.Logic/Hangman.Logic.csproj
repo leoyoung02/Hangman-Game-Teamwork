@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntryPoint.cs" />
     <Compile Include="Hangman.cs" />
     <Compile Include="Scoreboard.cs" />
     <Compile Include="Words.cs" />

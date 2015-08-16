@@ -6,17 +6,7 @@
     {
         private static Scoreboard scoreboard = new Scoreboard();
 
-        internal static void Main(string[] args)
-        {
-            bool gamesAreOver = false;
-            while (!gamesAreOver)
-            {
-                gamesAreOver = PlayOneGame();
-                Console.WriteLine();
-            }
-        }
-
-        private static bool PlayOneGame()
+        internal static bool PlayOneGame()
         {
             PrintWelcomeMessage();
 
