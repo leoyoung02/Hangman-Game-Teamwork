@@ -4,12 +4,6 @@
 
     internal class Hangman
     {
-        private static readonly string[] Words = new string[] 
-        { 
-            "computer", "programmer", "software", "debugger", "compiler", 
-            "developer", "algorithm", "array", "method", "variable" 
-        };
-
         private static Scoreboard scoreboard = new Scoreboard();
 
         internal static void Main(string[] args)
@@ -61,10 +55,9 @@
 
         private static string SelectRandomWord()
         {
-            Random randomGenerator = new Random();
-            int randomIndex = randomGenerator.Next(0, Words.Length);
-            string randomWord = Words[randomIndex];
-            return randomWord;
+            Array words = Enum.GetValues(typeof(Words.Dictionary));
+            Words.Dictionary randomWord = (Words.Dictionary)words.GetValue(new Random().Next(words.Length));
+            return randomWord.ToString().ToLower();
         }
 
         private static char[] GenerateEmptyWordOfUnderscores(int wordLength)
