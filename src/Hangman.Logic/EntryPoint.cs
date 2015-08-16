@@ -1,7 +1,7 @@
-using System;
-
 namespace Hangman.Logic
 {
+    using System;
+
     internal class EntryPoint
     {
         internal static void Main(string[] args)
@@ -9,7 +9,7 @@ namespace Hangman.Logic
             bool gamesAreOver = false;
             while (!gamesAreOver)
             {
-                gamesAreOver = Hangman.PlayOneGame();
+                gamesAreOver = NewGame.Play();
                 Console.WriteLine();
             }
         }

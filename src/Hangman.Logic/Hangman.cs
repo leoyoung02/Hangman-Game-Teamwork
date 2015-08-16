@@ -6,51 +6,14 @@
     {
         private static Scoreboard scoreboard = new Scoreboard();
 
-        internal static bool PlayOneGame()
-        {
-            PrintWelcomeMessage();
-
-            string w = SelectRandomWord();
-            char[] displayableWord = GenerateEmptyWordOfUnderscores(w.Length);
-            int numberOfMistakesMade = 0;
-
-            bool flag = false;
-            bool ff = false;
-            bool ff2 = false;
-
-            while (!ff)
-            {
-                PrintDisplayableWord(displayableWord);
-                string command = string.Empty;
-                string suggestedLetter = GetUserInput(out command);
-                if (suggestedLetter != string.Empty)
-                {
-                    ProcessUserGuess(suggestedLetter, w, displayableWord, ref numberOfMistakesMade);
-                }
-                else
-                {
-                    ProcessCommand(command, w, displayableWord, out flag, out ff, out ff2);
-                }
-
-                bool gameIsWon = CheckIfGameIsWon(displayableWord, ff2, numberOfMistakesMade);
-
-                if (gameIsWon)
-                {
-                    ff = true;
-                }
-            }
-
-            return flag;
-        }
-
-        private static string SelectRandomWord()
+        internal static string SelectRandomWord()
         {
             Array words = Enum.GetValues(typeof(Words.Dictionary));
             Words.Dictionary randomWord = (Words.Dictionary)words.GetValue(new Random().Next(words.Length));
             return randomWord.ToString().ToLower();
         }
 
-        private static char[] GenerateEmptyWordOfUnderscores(int wordLength)
+        internal static char[] GenerateEmptyWordOfUnderscores(int wordLength)
         {
             char[] wordOfUnderscores = new char[wordLength];
             for (int index = 0; index < wordLength; index++)
@@ -61,7 +24,7 @@
             return wordOfUnderscores;
         }
 
-        private static bool CheckIfGameIsWon(char[] displayableWord, bool helpIsUsed, int numberOfMistakesMade)
+        internal static bool CheckIfGameIsWon(char[] displayableWord, bool helpIsUsed, int numberOfMistakesMade)
         {
             bool wordIsRevealed = CheckIfWordIsRevealed(displayableWord);
             if (wordIsRevealed)
@@ -85,7 +48,7 @@
             return wordIsRevealed;
         }
 
-        private static void ProcessCommand(
+        internal static void ProcessCommand(
             string command,
             string secretWord,
             char[] displayableWord,
@@ -114,8 +77,6 @@
                     HelpByRevealingALetter(secretWord, displayableWord);
                     helpIsUsed = true;
                     break;
-                default:
-                    break;
             }
         }
 
@@ -143,7 +104,7 @@
             Console.WriteLine("OK, I reveal for you the next letter '{0}'.", letterToBeRevealed);
         }
 
-        private static void ProcessUserGuess(string suggestedLetter, string secretWord, char[] displayableWord, ref int numberOfMistakesMade)
+        internal static void ProcessUserGuess(string suggestedLetter, string secretWord, char[] displayableWord, ref int numberOfMistakesMade)
         {
             int numberOfRevealedLetters = CheckUserGuess(suggestedLetter, secretWord, displayableWord);
             if (numberOfRevealedLetters > 0)
@@ -168,7 +129,7 @@
             }
         }
 
-        private static string GetUserInput(out string command)
+        internal static string GetUserInput(out string command)
         {
             string suggestedLetter = string.Empty;
             command = string.Empty;
@@ -231,7 +192,7 @@
             return wordIsRevealed;
         }
 
-        private static void PrintDisplayableWord(char[] displayableWord)
+        internal static void PrintDisplayableWord(char[] displayableWord)
         {
             Console.Write("The secret word is:");
             foreach (var letter in displayableWord)
@@ -242,7 +203,7 @@
             Console.WriteLine();
         }
 
-        private static void PrintWelcomeMessage()
+        internal static void PrintWelcomeMessage()
         {
             Console.WriteLine("Welcome to “Hangman” game. Please try to guess my secret word.");
             Console.WriteLine("Use 'top' to view the top scoreboard, 'restart' to start a new game, " +

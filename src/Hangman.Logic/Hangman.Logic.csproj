@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="EntryPoint.cs" />
     <Compile Include="Hangman.cs" />
+    <Compile Include="NewGame.cs" />
     <Compile Include="Scoreboard.cs" />
     <Compile Include="Words.cs" />
   </ItemGroup>
