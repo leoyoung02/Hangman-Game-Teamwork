@@ -2,7 +2,7 @@ namespace Hangman.Logic
 {
     internal class Words
     {
-        internal enum Dictionary
+        internal enum Store
         {
             Computer,
             Programmer, 

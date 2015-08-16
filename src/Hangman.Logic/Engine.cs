@@ -1,91 +1,124 @@
 ﻿namespace Hangman.Logic
 {
     using System;
+    using System.ComponentModel;
     using System.Linq;
 
-    internal class Engine
+    internal class Engine : WordInitializer
     {
-        private static readonly Scoreboard Scoreboard = new Scoreboard();
+        private readonly Scoreboard scoreboard = new Scoreboard();
 
-        internal static string SelectRandomWord()
+        private int mistakes;
+        private bool hasAllGamesEnded;
+        private bool isCurrentGameEnded;
+        private bool isHelpUsed;
+
+        internal Engine()
         {
-            Array words = Enum.GetValues(typeof(Words.Dictionary));
-            Words.Dictionary randomWord = (Words.Dictionary)words.GetValue(new Random().Next(words.Length));
-            return randomWord.ToString().ToLower();
+            this.Mistakes = this.mistakes;
+            this.HasAllGamesEnded = this.hasAllGamesEnded;
+            this.IsCurrentGameEnded = this.isCurrentGameEnded;
+            this.IsHelpUsed = this.isHelpUsed;
         }
 
-        internal static char[] GenerateEmptyWordOfUnderscores(int wordLength)
+        [DefaultValue(false)]
+        internal bool HasAllGamesEnded
         {
-            char[] wordOfUnderscores = new char[wordLength];
-            for (int i = 0; i < wordLength; i++)
-            {
-                wordOfUnderscores[i] = '_';
-            }
-
-            return wordOfUnderscores;
+            get { return this.hasAllGamesEnded; }
+            private set { this.hasAllGamesEnded = value; }
         }
 
-        internal static bool CheckIfGameIsWon(char[] displayableWord, bool isHelpUsed, int mistakes)
+        [DefaultValue(false)]
+        internal bool IsCurrentGameEnded
         {
-            bool isWordRevealed = CheckIfWordIsRevealed(displayableWord);
+            get { return this.isCurrentGameEnded; }
+            set { this.isCurrentGameEnded = value; }
+        }
+
+        [DefaultValue(0)]
+        private int Mistakes
+        {
+            get { return this.mistakes; }
+            set { this.mistakes = value; }
+        }
+
+        [DefaultValue(false)]
+        private bool IsHelpUsed
+        {
+            get { return this.isHelpUsed; }
+            set { this.isHelpUsed = value; }
+        }
+
+        private string Command { get; set; }
+
+        internal void PrintWelcomeMessage()
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(
+                "<< Welcome to “Hangman” game >>\n" +
+                "<< Please try to guess the secret word >>\n");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine(
+                "Commands:\n" +
+                "HELP \t\t Reveals a letter.\n" +
+                "TOP \t\t Displays high scores.\n" +
+                "RESTART \t Starts a new game.\n" +
+                "EXIT \t\t Quits the game.");
+            Console.ResetColor();
+        }
+
+        internal bool CheckIfGameIsWon()
+        {
+            bool isWordRevealed = this.CheckIfWordIsRevealed(this.DisplayableWord);
             if (isWordRevealed)
             {
-                if (isHelpUsed)
+                if (this.IsHelpUsed)
                 {
                     Console.WriteLine(
                         "You won with {0} mistakes but you have cheated. " +
                         "You are not allowed to enter into the scoreboard.",
-                        mistakes);
-                    PrintDisplayableWord(displayableWord);
+                        this.Mistakes);
+                    this.PrintDisplayableWord();
                 }
                 else
                 {
-                    Console.WriteLine("You won with {0} mistakes.", mistakes);
-                    PrintDisplayableWord(displayableWord);
-                    Scoreboard.TryToSign(mistakes);
+                    Console.WriteLine("You won with {0} mistakes.", this.Mistakes);
+                    this.PrintDisplayableWord();
+                    this.scoreboard.TryToSign(this.Mistakes);
                 }
             }
 
             return isWordRevealed;
         }
 
-        internal static void ProcessCommand(
-            string command,
-            string secretWord,
-            char[] displayableWord,
-            out bool hasAllGamesEnded,
-            out bool isCurrentGameEnded,
-            out bool isHelpUsed)
+        internal void ProcessCommand()
         {
-            isCurrentGameEnded = false;
-            hasAllGamesEnded = false;
-            isHelpUsed = false;
-            switch (command)
+            switch (this.Command)
             {
                 case "top":
-                    Scoreboard.PrintAllRecords();
+                    this.scoreboard.PrintAllRecords();
                     break;
                 case "restart":
-                    isCurrentGameEnded = true;
+                    this.IsCurrentGameEnded = true;
                     break;
                 case "exit":
                     Console.WriteLine("Goodbye!");
-                    isCurrentGameEnded = true;
-                    hasAllGamesEnded = true;
+                    this.IsCurrentGameEnded = true;
+                    this.HasAllGamesEnded = true;
                     break;
                 case "help":
-                    HelpByRevealingLetter(secretWord, displayableWord);
-                    isHelpUsed = true;
+                    this.RevealeLetter(this.Word, this.DisplayableWord);
+                    this.IsHelpUsed = true;
                     break;
             }
         }
 
-        internal static void ProcessUserGuess(string suggestedLetter, string secretWord, char[] displayableWord, ref int mistakes)
+        internal void ProcessUserGuess(string suggestedLetter)
         {
-            int numberOfRevealedLetters = CheckUserGuess(suggestedLetter, secretWord, displayableWord);
+            int numberOfRevealedLetters = this.CheckUserGuess(suggestedLetter, this.Word, this.DisplayableWord);
             if (numberOfRevealedLetters > 0)
             {
-                bool isWordRevealed = CheckIfWordIsRevealed(displayableWord);
+                bool isWordRevealed = this.CheckIfWordIsRevealed(this.DisplayableWord);
                 if (!isWordRevealed)
                 {
                     Console.WriteLine(
@@ -98,14 +131,13 @@
             else
             {
                 Console.WriteLine("Sorry! There are no unrevealed letters \"{0}\".", suggestedLetter[0]);
-                mistakes++;
+                this.Mistakes++;
             }
         }
 
-        internal static string GetUserInput(out string command)
+        internal string GetUserInput()
         {
             string suggestedLetter = string.Empty;
-            command = string.Empty;
             bool isInputValid = false;
             while (!isInputValid)
             {
@@ -122,33 +154,33 @@
                     }
                     else
                     {
-                        PrintInvalidEntryMessage();
+                        this.PrintInvalidEntryMessage();
                     }
                 }
                 else if (inputLine.Length == 0)
                 {
-                    PrintInvalidEntryMessage();
+                    this.PrintInvalidEntryMessage();
                 }
                 else if ((inputLine == "help") || (inputLine == "top") ||
                     (inputLine == "restart") || (inputLine == "exit"))
                 {
-                    command = inputLine;
+                    this.Command = inputLine;
                     isInputValid = true;
                 }
                 else
                 {
-                    PrintInvalidEntryMessage();
+                    this.PrintInvalidEntryMessage();
                 }
             }
 
             return suggestedLetter;
         }
 
-        internal static void PrintDisplayableWord(char[] displayableWord)
+        internal void PrintDisplayableWord()
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("\nThe secret word is: ");
-            foreach (var letter in displayableWord)
+            foreach (var letter in this.DisplayableWord)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write("{0} ", letter);
@@ -158,23 +190,7 @@
             Console.WriteLine();
         }
 
-        internal static void PrintWelcomeMessage()
-        {
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine(
-                "<< Welcome to “Hangman” game >>\n" +
-                "<< Please try to guess the secret word >>\n");
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine(
-                "Commands:\n" +
-                "HELP \t\t Reveals a letter.\n" +
-                "TOP \t\t Displays high scores.\n" +
-                "RESTART \t Starts a new game.\n" +
-                "EXIT \t\t Quits the game.");
-            Console.ResetColor();
-        }
-
-        private static void HelpByRevealingLetter(string secretWord, char[] displayableWord)
+        private void RevealeLetter(string secretWord, char[] displayableWord)
         {
             int nextUnrevealedLetterIndex = 0;
             for (int i = 0; i < displayableWord.Length; i++)
@@ -195,23 +211,23 @@
                 }
             }
 
-            Console.WriteLine("OK, I reveal for you the next letter '{0}'.", letterToBeRevealed);
+            Console.WriteLine("OK, let's reveal for you the next letter '{0}'.", letterToBeRevealed);
         }
 
-        private static void PrintInvalidEntryMessage()
+        private void PrintInvalidEntryMessage()
         {
             Console.WriteLine("Incorrect guess or command!");
         }
 
-        private static bool CheckIfWordIsRevealed(char[] displayableWord)
+        private bool CheckIfWordIsRevealed(char[] displayableWord)
         {
-            return displayableWord.All(t => t != '_');
+            return displayableWord.All(ch => ch != '_');
         }
 
-        private static int CheckUserGuess(string suggestedLetter, string secretWord, char[] displayableWord)
+        private int CheckUserGuess(string suggestedLetter, string secretWord, char[] displayableWord)
         {
             int numberOfRevealedLetters = 0;
-            bool isLetterAlreadyRevealed = CheckIfLetterIsAlreadyRevealed(suggestedLetter, displayableWord);
+            bool isLetterAlreadyRevealed = this.CheckIfLetterIsAlreadyRevealed(suggestedLetter, displayableWord);
             if (!isLetterAlreadyRevealed)
             {
                 for (int i = 0; i < secretWord.Length; i++)
@@ -227,7 +243,7 @@
             return numberOfRevealedLetters;
         }
 
-        private static bool CheckIfLetterIsAlreadyRevealed(string suggestedLetter, char[] displayableWord)
+        private bool CheckIfLetterIsAlreadyRevealed(string suggestedLetter, char[] displayableWord)
         {
             bool isLetterRevealed = false;
             foreach (char letter in displayableWord)

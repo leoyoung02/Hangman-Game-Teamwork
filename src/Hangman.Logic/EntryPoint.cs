@@ -2,14 +2,15 @@ namespace Hangman.Logic
 {
     using System;
 
-    internal class EntryPoint
+    internal static class EntryPoint
     {
         internal static void Main(string[] args)
         {
-            bool toExit = false;
-            while (!toExit)
+            bool isExitTriggered = false;
+            while (!isExitTriggered)
             {
-                toExit = NewGame.Play();
+                var game = new Game();
+                isExitTriggered = game.Play();
                 Console.WriteLine();
             }
         }

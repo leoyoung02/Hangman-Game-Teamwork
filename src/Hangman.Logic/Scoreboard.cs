@@ -42,7 +42,7 @@
             }
         }
 
-        private static int CompareByKeys(KeyValuePair<int, string> pairA, KeyValuePair<int, string> pairB)
+        private int CompareByKeys(KeyValuePair<int, string> pairA, KeyValuePair<int, string> pairB)
         {
             return pairA.Key.CompareTo(pairB.Key);
         }
@@ -112,7 +112,7 @@
 
         private void SortRecordsAscendingByScore()
         {
-            this.topFiveRecords.Sort(CompareByKeys);
+            this.topFiveRecords.Sort(this.CompareByKeys);
         }
     }
 }
