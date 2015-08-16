@@ -1,6 +1,7 @@
 ﻿namespace Hangman.Logic
 {
     using System;
+    using System.Linq;
 
     internal class Engine
     {
@@ -24,28 +25,28 @@
             return wordOfUnderscores;
         }
 
-        internal static bool CheckIfGameIsWon(char[] displayableWord, bool isHelpUsed, int numberOfMistakesMade)
+        internal static bool CheckIfGameIsWon(char[] displayableWord, bool isHelpUsed, int mistakes)
         {
-            bool wordIsRevealed = CheckIfWordIsRevealed(displayableWord);
-            if (wordIsRevealed)
+            bool isWordRevealed = CheckIfWordIsRevealed(displayableWord);
+            if (isWordRevealed)
             {
                 if (isHelpUsed)
                 {
                     Console.WriteLine(
                         "You won with {0} mistakes but you have cheated. " +
                         "You are not allowed to enter into the scoreboard.",
-                        numberOfMistakesMade);
+                        mistakes);
                     PrintDisplayableWord(displayableWord);
                 }
                 else
                 {
-                    Console.WriteLine("You won with {0} mistakes.", numberOfMistakesMade);
+                    Console.WriteLine("You won with {0} mistakes.", mistakes);
                     PrintDisplayableWord(displayableWord);
-                    Scoreboard.TryToSignToScoreboard(numberOfMistakesMade);
+                    Scoreboard.TryToSign(mistakes);
                 }
             }
 
-            return wordIsRevealed;
+            return isWordRevealed;
         }
 
         internal static void ProcessCommand(
@@ -62,7 +63,7 @@
             switch (command)
             {
                 case "top":
-                    Scoreboard.PrintCurrentScoreboard();
+                    Scoreboard.PrintAllRecords();
                     break;
                 case "restart":
                     isCurrentGameEnded = true;
@@ -79,28 +80,25 @@
             }
         }
 
-        internal static void ProcessUserGuess(string suggestedLetter, string secretWord, char[] displayableWord, ref int numberOfMistakesMade)
+        internal static void ProcessUserGuess(string suggestedLetter, string secretWord, char[] displayableWord, ref int mistakes)
         {
             int numberOfRevealedLetters = CheckUserGuess(suggestedLetter, secretWord, displayableWord);
             if (numberOfRevealedLetters > 0)
             {
-                bool wordIsRevealed = CheckIfWordIsRevealed(displayableWord);
-                if (!wordIsRevealed)
+                bool isWordRevealed = CheckIfWordIsRevealed(displayableWord);
+                if (!isWordRevealed)
                 {
-                    if (numberOfRevealedLetters == 1)
-                    {
-                        Console.WriteLine("Good job! You revealed {0} letter.", numberOfRevealedLetters);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Good job! You revealed {0} letters.", numberOfRevealedLetters);
-                    }
+                    Console.WriteLine(
+                        numberOfRevealedLetters == 1
+                            ? "Good job! You revealed {0} letter."
+                            : "Good job! You revealed {0} letters.", 
+                            numberOfRevealedLetters);
                 }
             }
             else
             {
                 Console.WriteLine("Sorry! There are no unrevealed letters \"{0}\".", suggestedLetter[0]);
-                numberOfMistakesMade++;
+                mistakes++;
             }
         }
 
@@ -108,8 +106,8 @@
         {
             string suggestedLetter = string.Empty;
             command = string.Empty;
-            bool correctInputIsTaken = false;
-            while (!correctInputIsTaken)
+            bool isInputValid = false;
+            while (!isInputValid)
             {
                 Console.Write("\nEnter your guess or command: ");
                 string inputLine = Console.ReadLine();
@@ -117,11 +115,10 @@
 
                 if (inputLine.Length == 1)
                 {
-                    bool isLetter = char.IsLetter(inputLine, 0);
-                    if (isLetter)
+                    if (char.IsLetter(inputLine, 0))
                     {
                         suggestedLetter = inputLine;
-                        correctInputIsTaken = true;
+                        isInputValid = true;
                     }
                     else
                     {
@@ -132,11 +129,11 @@
                 {
                     PrintInvalidEntryMessage();
                 }
-                else if ((inputLine == "top") || (inputLine == "restart") ||
-                    (inputLine == "help") || (inputLine == "exit"))
+                else if ((inputLine == "help") || (inputLine == "top") ||
+                    (inputLine == "restart") || (inputLine == "exit"))
                 {
                     command = inputLine;
-                    correctInputIsTaken = true;
+                    isInputValid = true;
                 }
                 else
                 {
@@ -208,24 +205,14 @@
 
         private static bool CheckIfWordIsRevealed(char[] displayableWord)
         {
-            bool wordIsRevealed = true;
-            for (int i = 0; i < displayableWord.Length; i++)
-            {
-                if (displayableWord[i] == '_')
-                {
-                    wordIsRevealed = false;
-                    break;
-                }
-            }
-
-            return wordIsRevealed;
+            return displayableWord.All(t => t != '_');
         }
 
         private static int CheckUserGuess(string suggestedLetter, string secretWord, char[] displayableWord)
         {
             int numberOfRevealedLetters = 0;
-            bool letterIsAlreadyRevealed = CheckIfLetterIsAlreadyRevealed(suggestedLetter, displayableWord);
-            if (!letterIsAlreadyRevealed)
+            bool isLetterAlreadyRevealed = CheckIfLetterIsAlreadyRevealed(suggestedLetter, displayableWord);
+            if (!isLetterAlreadyRevealed)
             {
                 for (int i = 0; i < secretWord.Length; i++)
                 {
@@ -242,16 +229,16 @@
 
         private static bool CheckIfLetterIsAlreadyRevealed(string suggestedLetter, char[] displayableWord)
         {
-            bool letterIsAlreadyRevealed = false;
-            for (int i = 0; i < displayableWord.Length; i++)
+            bool isLetterRevealed = false;
+            foreach (char letter in displayableWord)
             {
-                if (displayableWord[i] == suggestedLetter[0])
+                if (letter == suggestedLetter[0])
                 {
-                    letterIsAlreadyRevealed = true;
+                    isLetterRevealed = true;
                 }
             }
 
-            return letterIsAlreadyRevealed;
+            return isLetterRevealed;
         }
     }
 }

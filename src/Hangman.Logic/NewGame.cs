@@ -28,9 +28,9 @@ namespace Hangman.Logic
                     Engine.ProcessCommand(command, word, displayableWord, out hasAllGamesEnded, out isCurrentGameEnded, out isHelpUsed);
                 }
 
-                bool gameIsWon = Engine.CheckIfGameIsWon(displayableWord, isHelpUsed, numberOfMistakesMade);
+                bool isGameWon = Engine.CheckIfGameIsWon(displayableWord, isHelpUsed, numberOfMistakesMade);
 
-                if (gameIsWon)
+                if (isGameWon)
                 {
                     isCurrentGameEnded = true;
                 }

@@ -5,7 +5,7 @@
 
     internal class Scoreboard
     {
-        private const int MaxNumberOfRecords = 5;
+        private const int MaxRecords = 5;
         private readonly List<KeyValuePair<int, string>> topFiveRecords;
 
         public Scoreboard()
@@ -13,17 +13,17 @@
             this.topFiveRecords = new List<KeyValuePair<int, string>>();
         }
 
-        public void TryToSignToScoreboard(int numberOfMistakesMade)
+        public void TryToSign(int mistakes)
         {
-            bool scoreQualifiesForTopFive = this.CheckIfScoreQualifiesForTopFive(numberOfMistakesMade);
-            if (scoreQualifiesForTopFive)
+            bool isScoreQualifiedForTopFive = this.CheckIfScoreIsQualifiedForTopFive(mistakes);
+            if (isScoreQualifiedForTopFive)
             {
-                this.AddNewRecord(numberOfMistakesMade);
-                this.PrintCurrentScoreboard();
+                this.AddNewRecord(mistakes);
+                this.PrintAllRecords();
             }
         }
 
-        public void PrintCurrentScoreboard()
+        public void PrintAllRecords()
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("\nScoreboard:");
@@ -37,7 +37,7 @@
                 {
                     string name = this.topFiveRecords[i].Value;
                     int mistakes = this.topFiveRecords[i].Key;
-                    Console.WriteLine("{0}. {1} --> {2} mistakes", i + 1, name, mistakes);
+                    Console.WriteLine("({0}) {1} --> {2} mistakes", i + 1, name, mistakes);
                 }
             }
         }
@@ -47,43 +47,48 @@
             return pairA.Key.CompareTo(pairB.Key);
         }
 
-        private bool CheckIfScoreQualifiesForTopFive(int numberOfMistakesMade)
+        private bool CheckIfScoreIsQualifiedForTopFive(int mistakes)
         {
-            bool scoreQualifiesForTopFive = false;
-            if (this.topFiveRecords.Count < MaxNumberOfRecords)
+            bool isScoreQualified = false;
+            if (this.topFiveRecords.Count < MaxRecords)
             {
-                scoreQualifiesForTopFive = true;
+                isScoreQualified = true;
             }
             else
             {
-                int worstScoreInTopFive = this.topFiveRecords[MaxNumberOfRecords - 1].Key;
-                if (numberOfMistakesMade < worstScoreInTopFive)
+                int worstScoreInTopFive = this.topFiveRecords[MaxRecords - 1].Key;
+                if (mistakes < worstScoreInTopFive)
                 {
-                    scoreQualifiesForTopFive = true;
+                    isScoreQualified = true;
                 }
             }
 
-            return scoreQualifiesForTopFive;
+            return isScoreQualified;
         }
 
-        private void AddNewRecord(int numberOfMistakesMade)
+        private void AddNewRecord(int mistakes)
         {
-            if (this.topFiveRecords.Count == MaxNumberOfRecords)
+            if (this.topFiveRecords.Count == MaxRecords)
             {
-                this.DeleteTheWorstRecord();
+                this.DeleteWorstRecord();
             }
 
             string playerName = this.AskForPlayerName();
-            KeyValuePair<int, string> newRecord = new KeyValuePair<int, string>(numberOfMistakesMade, playerName);
+            KeyValuePair<int, string> newRecord = new KeyValuePair<int, string>(mistakes, playerName);
             this.topFiveRecords.Add(newRecord);
             this.SortRecordsAscendingByScore();
+        }
+
+        private void DeleteWorstRecord()
+        {
+            this.topFiveRecords.RemoveAt(this.topFiveRecords.Count - 1);
         }
 
         private string AskForPlayerName()
         {
             string name = "unknown";
-            bool inputIsAcceptable = false;
-            while (!inputIsAcceptable)
+            bool isInputValid = false;
+            while (!isInputValid)
             {
                 Console.Write("Please enter your name for the top scoreboard: ");
                 string line = Console.ReadLine();
@@ -98,16 +103,11 @@
                 else
                 {
                     name = line;
-                    inputIsAcceptable = true;
+                    isInputValid = true;
                 }
             }
 
             return name;
-        }
-
-        private void DeleteTheWorstRecord()
-        {
-            this.topFiveRecords.RemoveAt(this.topFiveRecords.Count - 1);
         }
 
         private void SortRecordsAscendingByScore()

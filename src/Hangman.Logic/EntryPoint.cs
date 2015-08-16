@@ -6,10 +6,10 @@ namespace Hangman.Logic
     {
         internal static void Main(string[] args)
         {
-            bool gamesAreOver = false;
-            while (!gamesAreOver)
+            bool toExit = false;
+            while (!toExit)
             {
-                gamesAreOver = NewGame.Play();
+                toExit = NewGame.Play();
                 Console.WriteLine();
             }
         }
