@@ -32,7 +32,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -60,6 +60,12 @@
   <ItemGroup>
     <Compile Include="EntryPoint.cs" />
     <Compile Include="Engine.cs" />
+    <Compile Include="ExitCommand.cs" />
+    <Compile Include="GuessLetterCommand.cs" />
+    <Compile Include="HelpCommand.cs" />
+    <Compile Include="ICommand.cs" />
+    <Compile Include="RestartCommand.cs" />
+    <Compile Include="ShowScoreboardCommand.cs" />
     <Compile Include="WordInitializer.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Scoreboard.cs" />

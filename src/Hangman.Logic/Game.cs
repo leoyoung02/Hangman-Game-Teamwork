@@ -13,15 +13,7 @@ namespace Hangman.Logic
             while (!engine.IsCurrentGameEnded)
             {
                 engine.PrintDisplayableWord();
-                string suggestedLetter = engine.GetUserInput();
-                if (suggestedLetter != string.Empty)
-                {
-                    engine.ProcessUserGuess(suggestedLetter);
-                }
-                else
-                {
-                    engine.ProcessCommand();
-                }
+                engine.GetUserInput();
 
                 bool isGameWon = engine.CheckIfGameIsWon();
                 if (isGameWon)

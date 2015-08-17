@@ -29,7 +29,7 @@ namespace Hangman.Logic
         {
             Array words = Enum.GetValues(typeof(Words.Store));
             Words.Store randomWord = (Words.Store)words.GetValue(new Random().Next(words.Length));
-            return randomWord.ToString().ToLower();
+            return randomWord.ToString().ToLower(); 
         }
 
         private char[] GenerateEmptyWordOfUnderscores(int wordLength)
