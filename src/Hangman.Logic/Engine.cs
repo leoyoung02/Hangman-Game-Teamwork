@@ -6,7 +6,7 @@
 
     internal class Engine : WordInitializer
     {
-        private readonly Scoreboard scoreboard = new Scoreboard();
+        private static readonly Scoreboard scoreboard = new Scoreboard();
 
         private int mistakes;
         private bool hasAllGamesEnded;
@@ -84,7 +84,7 @@
                 {
                     Console.WriteLine("You won with {0} mistakes.", this.Mistakes);
                     this.PrintDisplayableWord();
-                    this.scoreboard.TryToSign(this.Mistakes);
+                    scoreboard.TryToSign(this.Mistakes);
                 }
             }
 
@@ -96,7 +96,7 @@
             switch (this.Command)
             {
                 case "top":
-                    this.scoreboard.PrintAllRecords();
+                    scoreboard.PrintAllRecords();
                     break;
                 case "restart":
                     this.IsCurrentGameEnded = true;
