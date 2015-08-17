@@ -6,7 +6,7 @@
 
     internal class Engine : WordInitializer
     {
-        private static readonly Scoreboard scoreboard = new Scoreboard();
+        private readonly Scoreboard scoreboard;
 
         private int mistakes;
         private bool hasAllGamesEnded;
@@ -19,6 +19,7 @@
             this.HasAllGamesEnded = this.hasAllGamesEnded;
             this.IsCurrentGameEnded = this.isCurrentGameEnded;
             this.IsHelpUsed = this.isHelpUsed;
+            this.scoreboard = Scoreboard.Instance;
         }
 
         [DefaultValue(false)]

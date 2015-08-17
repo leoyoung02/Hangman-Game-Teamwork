@@ -3,12 +3,13 @@
     using System;
     using System.Collections.Generic;
 
-    internal class Scoreboard
+    internal sealed class Scoreboard
     {
+        private static Scoreboard instance;
         private const int MaxRecords = 5;
         private readonly List<KeyValuePair<int, string>> topFiveRecords;
 
-        public Scoreboard()
+        private Scoreboard()
         {
             this.topFiveRecords = new List<KeyValuePair<int, string>>();
         }
@@ -113,6 +114,18 @@
         private void SortRecordsAscendingByScore()
         {
             this.topFiveRecords.Sort(this.CompareByKeys);
+        }
+
+        public static Scoreboard Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new Scoreboard();
+                }
+                return instance;
+            }
         }
     }
 }
