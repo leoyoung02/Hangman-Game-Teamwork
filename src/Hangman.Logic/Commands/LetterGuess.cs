@@ -2,7 +2,7 @@
 {
     internal class LetterGuess : ICommand
     {
-        private char inputLetter;
+        private readonly char inputLetter;
         private Engine engine;
 
         internal LetterGuess(string inputCommand, Engine gameEngine)
