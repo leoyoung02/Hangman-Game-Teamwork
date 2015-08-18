@@ -6,12 +6,13 @@
 
         internal Help(Engine gameEngine)
         {
-            engine = gameEngine;
+            this.engine = gameEngine;
         }
+
         public void Execute()
         {
-            engine.RevealeLetter(engine.Word, engine.DisplayableWord);
-            engine.IsHelpUsed = true;
+            this.engine.RevealeLetter(this.engine.Word, this.engine.DisplayableWord);
+            this.engine.IsHelpUsed = true;
         }
     }
 }

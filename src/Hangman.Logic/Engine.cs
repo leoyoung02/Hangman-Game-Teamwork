@@ -3,7 +3,7 @@
     using System;
     using System.ComponentModel;
     using System.Linq;
-    using Hangman.Logic.Commands;
+    using Commands;
 
     internal class Engine : WordInitializer
     {
@@ -115,12 +115,11 @@
 
         internal void GetUserInput()
         {
-            string suggestedLetter = string.Empty;
             bool isInputValid = false;
             ICommand command;
             while (!isInputValid)
             {
-                Console.Write("\nEnter your guess or command: ");
+                Console.Write("\nEnter your guess letter or command: ");
                 string inputLine = Console.ReadLine();
                 inputLine = inputLine.ToLower();
 

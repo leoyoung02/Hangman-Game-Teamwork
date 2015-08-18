@@ -11,7 +11,7 @@
 
         public void Execute()
         {
-            engine.IsCurrentGameEnded = true;
+            this.engine.IsCurrentGameEnded = true;
         }
     }
 }

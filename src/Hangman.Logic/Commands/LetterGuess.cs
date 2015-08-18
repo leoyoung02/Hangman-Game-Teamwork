@@ -2,7 +2,7 @@
 {
     internal class LetterGuess : ICommand
     {
-        private char inputLetter;
+        private readonly char inputLetter;
         private Engine engine;
 
         internal LetterGuess(string inputCommand, Engine gameEngine)
@@ -13,7 +13,7 @@
 
         public void Execute()
         {
-            engine.ProcessUserGuess(inputLetter);
+            this.engine.ProcessUserGuess(this.inputLetter);
         }
     }
 }

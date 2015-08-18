@@ -1,6 +1,6 @@
 ﻿namespace Hangman.Logic.Commands
 {
-    class Top : ICommand
+    internal class Top : ICommand
     {
         private Scoreboard scoreboard;
 
@@ -11,7 +11,7 @@
 
         public void Execute()
         {
-            scoreboard.PrintAllRecords();
+            this.scoreboard.PrintAllRecords();
         }
     }
 }
