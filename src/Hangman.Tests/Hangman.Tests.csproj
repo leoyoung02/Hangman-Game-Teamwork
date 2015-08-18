@@ -54,6 +54,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScoreboardTests.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hangman.Logic\Hangman.Logic.csproj">
+      <Project>{55078fb1-590f-4683-9b7d-abf5e02f81bf}</Project>
+      <Name>Hangman.Logic</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

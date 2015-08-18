@@ -1,10 +1,9 @@
-﻿using Hangman.Logic.Commands;
-
-namespace Hangman.Logic
+﻿namespace Hangman.Logic
 {
     using System;
     using System.ComponentModel;
     using System.Linq;
+    using Hangman.Logic.Commands;
 
     internal class Engine : WordInitializer
     {
@@ -38,18 +37,18 @@ namespace Hangman.Logic
             set { this.isCurrentGameEnded = value; }
         }
 
-        [DefaultValue(0)]
-        private int Mistakes
-        {
-            get { return this.mistakes; }
-            set { this.mistakes = value; }
-        }
-
         [DefaultValue(false)]
         internal bool IsHelpUsed
         {
             get { return this.isHelpUsed; }
             set { this.isHelpUsed = value; }
+        }
+
+        [DefaultValue(0)]
+        private int Mistakes
+        {
+            get { return this.mistakes; }
+            set { this.mistakes = value; }
         }
 
         internal void PrintWelcomeMessage()
@@ -85,7 +84,7 @@ namespace Hangman.Logic
                 {
                     Console.WriteLine("You won with {0} mistakes.", this.Mistakes);
                     this.PrintDisplayableWord();
-                    scoreboard.TryToSign(this.Mistakes);
+                    this.scoreboard.TryToSign(this.Mistakes);
                 }
             }
 
@@ -139,7 +138,7 @@ namespace Hangman.Logic
                             command = new Help(this);
                             break;
                         case "top":
-                            command = new Top(scoreboard);
+                            command = new Top(this.scoreboard);
                             break;
                         case "restart":
                             command = new Restart(this);
@@ -148,7 +147,7 @@ namespace Hangman.Logic
                             command = new Exit(this);
                             break;
                         default:
-                            PrintInvalidEntryMessage();
+                            this.PrintInvalidEntryMessage();
                             isInputValid = false;
                             continue;
                     }

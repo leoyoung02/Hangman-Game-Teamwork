@@ -5,13 +5,26 @@
 
     internal sealed class Scoreboard
     {
-        private static Scoreboard instance;
         private const int MaxRecords = 5;
+        private static Scoreboard instance;
         private readonly List<KeyValuePair<int, string>> topFiveRecords;
 
         private Scoreboard()
         {
             this.topFiveRecords = new List<KeyValuePair<int, string>>();
+        }
+
+        public static Scoreboard Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new Scoreboard();
+                }
+
+                return instance;
+            }
         }
 
         public void TryToSign(int mistakes)
@@ -114,18 +127,6 @@
         private void SortRecordsAscendingByScore()
         {
             this.topFiveRecords.Sort(this.CompareByKeys);
-        }
-
-        public static Scoreboard Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new Scoreboard();
-                }
-                return instance;
-            }
         }
     }
 }
