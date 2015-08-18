@@ -13,7 +13,7 @@
 
         public void Execute()
         {
-            engine.ProcessUserGuess(inputLetter);
+            this.engine.ProcessUserGuess(this.inputLetter);
         }
     }
 }
