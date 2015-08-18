@@ -1,4 +1,6 @@
-﻿namespace Hangman.Logic
+﻿using Hangman.Logic.Commands;
+
+namespace Hangman.Logic
 {
     using System;
     using System.ComponentModel;
@@ -125,7 +127,7 @@
 
                 if (inputLine.Length == 1 && char.IsLetter(inputLine[0]))
                 {
-                    command = new GuessLetterCommand(inputLine, this);
+                    command = new LetterGuess(inputLine, this);
                     isInputValid = true;
                 }
                 else
@@ -134,16 +136,16 @@
                     switch (inputLine)
                     {
                         case "help":
-                            command = new HelpCommand(this);
+                            command = new Help(this);
                             break;
                         case "top":
-                            command = new ShowScoreboardCommand(scoreboard);
+                            command = new Top(scoreboard);
                             break;
                         case "restart":
-                            command = new RestartCommand(this);
+                            command = new Restart(this);
                             break;
                         case "exit":
-                            command = new ExitCommand(this);
+                            command = new Exit(this);
                             break;
                         default:
                             PrintInvalidEntryMessage();

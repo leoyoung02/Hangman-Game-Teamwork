@@ -1,4 +1,4 @@
-﻿namespace Hangman.Logic
+﻿namespace Hangman.Logic.Commands
 {
     internal interface ICommand
     {

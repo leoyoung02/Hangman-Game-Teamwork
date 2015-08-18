@@ -58,14 +58,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Exit.cs" />
+    <Compile Include="Commands\LetterGuess.cs" />
+    <Compile Include="Commands\Help.cs" />
+    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\Restart.cs" />
+    <Compile Include="Commands\Top.cs" />
     <Compile Include="EntryPoint.cs" />
     <Compile Include="Engine.cs" />
-    <Compile Include="ExitCommand.cs" />
-    <Compile Include="GuessLetterCommand.cs" />
-    <Compile Include="HelpCommand.cs" />
-    <Compile Include="ICommand.cs" />
-    <Compile Include="RestartCommand.cs" />
-    <Compile Include="ShowScoreboardCommand.cs" />
     <Compile Include="WordInitializer.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Scoreboard.cs" />

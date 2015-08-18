@@ -1,10 +1,10 @@
-﻿namespace Hangman.Logic
+﻿namespace Hangman.Logic.Commands
 {
-    class ShowScoreboardCommand : ICommand
+    class Top : ICommand
     {
         private Scoreboard scoreboard;
 
-        internal ShowScoreboardCommand(Scoreboard scoreboard)
+        internal Top(Scoreboard scoreboard)
         {
             this.scoreboard = scoreboard;
         }

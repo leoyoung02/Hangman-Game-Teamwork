@@ -1,12 +1,10 @@
-﻿using System;
-
-namespace Hangman.Logic
+﻿namespace Hangman.Logic.Commands
 {
-    internal class ExitCommand : ICommand
+    internal class Exit : ICommand
     {
         private Engine engine;
 
-        internal ExitCommand(Engine gameEngine)
+        internal Exit(Engine gameEngine)
         {
             this.engine = gameEngine;
         }

@@ -1,10 +1,10 @@
-﻿namespace Hangman.Logic
+﻿namespace Hangman.Logic.Commands
 {
-    internal class HelpCommand : ICommand
+    internal class Help : ICommand
     {
         private Engine engine;
 
-        internal HelpCommand(Engine gameEngine)
+        internal Help(Engine gameEngine)
         {
             engine = gameEngine;
         }

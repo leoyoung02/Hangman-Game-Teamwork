@@ -1,11 +1,11 @@
-﻿namespace Hangman.Logic
+﻿namespace Hangman.Logic.Commands
 {
-    internal class GuessLetterCommand : ICommand
+    internal class LetterGuess : ICommand
     {
         private char inputLetter;
         private Engine engine;
 
-        internal GuessLetterCommand(string inputCommand, Engine gameEngine)
+        internal LetterGuess(string inputCommand, Engine gameEngine)
         {
             this.inputLetter = inputCommand[0];
             this.engine = gameEngine;
