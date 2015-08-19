@@ -40,7 +40,7 @@
         [DefaultValue(false)]
         internal bool IsHelpUsed
         {
-            private get { return this.isHelpUsed; }
+            get { return this.isHelpUsed; }
             set { this.isHelpUsed = value; }
         }
 

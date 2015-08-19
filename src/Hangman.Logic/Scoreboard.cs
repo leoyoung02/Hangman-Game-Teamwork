@@ -17,7 +17,7 @@
             this.topFiveRecords = this.LoadRecords();
         }
 
-        internal static Scoreboard Instance
+        public static Scoreboard Instance
         {
             get
             {

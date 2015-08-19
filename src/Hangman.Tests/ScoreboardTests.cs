@@ -7,8 +7,9 @@
     public class ScoreboardTests
     {
         [TestMethod]
-        public void NotImplemented()
+        public void AddingScoreToEmptyScoreboardShoudAddTheScore()
         {
+
         }
     }
 }
