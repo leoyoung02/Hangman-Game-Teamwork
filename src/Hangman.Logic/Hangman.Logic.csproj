@@ -66,6 +66,7 @@
     <Compile Include="Commands\Top.cs" />
     <Compile Include="EntryPoint.cs" />
     <Compile Include="Engine.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WordInitializer.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Scoreboard.cs" />

@@ -1,15 +1,14 @@
 ﻿namespace Hangman.Tests
 {
-    using System;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using NUnit.Framework;
+    using Logic;
 
-    [TestClass]
+    [TestFixture]
     public class ScoreboardTests
     {
-        [TestMethod]
+        [Test]
         public void AddingScoreToEmptyScoreboardShoudAddTheScore()
         {
-
         }
     }
 }
