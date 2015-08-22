@@ -54,6 +54,12 @@
             set { this.mistakes = value; }
         }
 
+        internal ConsolePrinter Printer
+        {
+            get { return this.printer; }
+            private set { this.printer = value; }
+        }
+
         internal bool CheckIfGameIsWon()
         {
             bool isWordRevealed = this.CheckIfWordIsRevealed(this.DisplayableWord);
