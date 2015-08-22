@@ -2,9 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     internal class ConsolePrinter
     {
@@ -93,6 +90,30 @@
         internal void PrintRevealLetterMessage(char letterToBeRevealed)
         {
             Console.WriteLine("OK, let's reveal for you the next letter '{0}'.", letterToBeRevealed);        
+        }
+
+        public void PrintAllRecords(List<KeyValuePair<int, string>> topFiveRecords)
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("\nHigh scores:");
+            if (topFiveRecords.Count != 0)
+            {
+                for (int i = 0; i < topFiveRecords.Count; i++)
+                {
+                    string name = topFiveRecords[i].Value;
+                    int mistakes = topFiveRecords[i].Key;
+                    Console.WriteLine("({0}) {1} - {2} mistakes", i + 1, name, mistakes);
+                }
+            }
+            else
+            {
+                Console.WriteLine("There are no records in the scoreboard yet.");
+            }
+        }
+
+        public void Write(string message)
+        {
+            Console.WriteLine(message);
         }
     }
 }

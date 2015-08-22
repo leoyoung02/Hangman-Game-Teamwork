@@ -11,10 +11,12 @@
         private const int MaxRecords = 5;
         private static Scoreboard instance;
         private List<KeyValuePair<int, string>> topFiveRecords;
+        private ConsolePrinter printer;
 
         private Scoreboard()
         {
             this.topFiveRecords = this.LoadRecords();
+            this.printer = new ConsolePrinter();
         }
 
         public static Scoreboard Instance
@@ -36,27 +38,13 @@
             if (isScoreQualifiedForTopFive)
             {
                 this.AddNewRecord(mistakes);
-                this.PrintAllRecords();
+                this.printer.PrintAllRecords(this.topFiveRecords);
             }
         }
 
         public void PrintAllRecords()
         {
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("\nHigh scores:");
-            if (this.topFiveRecords.Count != 0)
-            {
-                for (int i = 0; i < this.topFiveRecords.Count; i++)
-                {
-                    string name = this.topFiveRecords[i].Value;
-                    int mistakes = this.topFiveRecords[i].Key;
-                    Console.WriteLine("({0}) {1} - {2} mistakes", i + 1, name, mistakes);
-                }
-            }
-            else
-            {
-                Console.WriteLine("There are no records in the scoreboard yet.");
-            }
+            this.printer.PrintAllRecords(this.topFiveRecords);
         }
 
         private List<KeyValuePair<int, string>> LoadRecords()
@@ -158,15 +146,15 @@
             bool isInputValid = false;
             while (!isInputValid)
             {
-                Console.Write("Please enter your name for the top scoreboard: ");
+                this.printer.Write("Please enter your name for the top scoreboard: ");
                 string line = Console.ReadLine();
                 if (line.Length == 0)
                 {
-                    Console.WriteLine("You did not enter a name. Please, try again.");
+                    this.printer.Write("You did not enter a name. Please, try again.");
                 }
                 else if (line.Length > 40)
                 {
-                    Console.WriteLine("The name you entered is too long. Please, enter a name up to 40 characters");
+                    this.printer.Write("The name you entered is too long. Please, enter a name up to 40 characters");
                 }
                 else
                 {
