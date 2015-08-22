@@ -1,0 +1,74 @@
+﻿namespace Hangman.Logic
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    internal class ConsolePrinter
+    {
+        internal ConsolePrinter()
+        {
+        }
+
+        internal void PrintWelcomeMessage()
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(
+                "<< Welcome to “Hangman” game >>\n" +
+                "<< Please try to guess the secret word >>\n");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine(
+                "Commands:\n" +
+                "HELP \t\t Reveals a letter.\n" +
+                "TOP \t\t Displays high scores.\n" +
+                "RESTART \t Starts a new game.\n" +
+                "EXIT \t\t Quits the game.");
+            Console.ResetColor();
+        }
+
+        internal void PrintDisplayableWord(char[] displayableWord)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("\nThe secret word is: ");
+            foreach (var letter in displayableWord)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("{0} ", letter);
+            }
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine();
+        }
+
+        internal void PrintInvalidEntryMessage()
+        {
+            Console.WriteLine("Incorrect guess or command!");
+        }
+
+        internal void PrintWinWithCheatMessage(int mistakesCount)
+        {
+            Console.WriteLine(
+                       "You won with {0} mistakes but you have cheated. " +
+                       "You are not allowed to enter into the scoreboard.",
+                       mistakesCount);
+        }
+
+        internal void PrintWinMessage(int mistakesCount, bool isHelpUsed, Scoreboard scoreboard)
+        {
+            if (isHelpUsed)
+            {
+                Console.WriteLine(
+                        "You won with {0} mistakes but you have cheated. " +
+                        "You are not allowed to enter into the scoreboard.",
+                        mistakesCount);
+            }
+            else
+            {
+                Console.WriteLine("You won with {0} mistakes.", mistakesCount);
+                scoreboard.TryToSign(mistakesCount);
+            }
+        }
+    }
+}

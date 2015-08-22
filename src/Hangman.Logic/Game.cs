@@ -9,13 +9,15 @@ namespace Hangman.Logic
         internal bool Play()
         {
             Engine engine = new Engine();
-            engine.PrintWelcomeMessage();
+            ConsolePrinter consolePrinter = new ConsolePrinter();
+
+            consolePrinter.PrintWelcomeMessage();
             while (!engine.IsCurrentGameEnded)
             {
-                engine.PrintDisplayableWord();
+                consolePrinter.PrintDisplayableWord(engine.DisplayableWord);
                 engine.GetUserInput();
 
-                bool isGameWon = engine.CheckIfGameIsWon();
+                bool isGameWon = engine.CheckIfGameIsWon(consolePrinter);
                 if (isGameWon)
                 {
                     engine.IsCurrentGameEnded = true;

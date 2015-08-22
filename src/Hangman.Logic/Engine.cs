@@ -51,41 +51,13 @@
             set { this.mistakes = value; }
         }
 
-        internal void PrintWelcomeMessage()
-        {
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine(
-                "<< Welcome to “Hangman” game >>\n" +
-                "<< Please try to guess the secret word >>\n");
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine(
-                "Commands:\n" +
-                "HELP \t\t Reveals a letter.\n" +
-                "TOP \t\t Displays high scores.\n" +
-                "RESTART \t Starts a new game.\n" +
-                "EXIT \t\t Quits the game.");
-            Console.ResetColor();
-        }
-
-        internal bool CheckIfGameIsWon()
+        internal bool CheckIfGameIsWon(ConsolePrinter printer)
         {
             bool isWordRevealed = this.CheckIfWordIsRevealed(this.DisplayableWord);
             if (isWordRevealed)
             {
-                if (this.IsHelpUsed)
-                {
-                    Console.WriteLine(
-                        "You won with {0} mistakes but you have cheated. " +
-                        "You are not allowed to enter into the scoreboard.",
-                        this.Mistakes);
-                    this.PrintDisplayableWord();
-                }
-                else
-                {
-                    Console.WriteLine("You won with {0} mistakes.", this.Mistakes);
-                    this.PrintDisplayableWord();
-                    this.scoreboard.TryToSign(this.Mistakes);
-                }
+                printer.PrintWinMessage(this.Mistakes, this.isHelpUsed, this.scoreboard);
+                printer.PrintDisplayableWord(this.DisplayableWord);
             }
 
             return isWordRevealed;
@@ -156,19 +128,7 @@
             }
         }
 
-        internal void PrintDisplayableWord()
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("\nThe secret word is: ");
-            foreach (var letter in this.DisplayableWord)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.Write("{0} ", letter);
-            }
 
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine();
-        }
 
         internal void RevealeLetter(string secretWord, char[] displayableWord)
         {
