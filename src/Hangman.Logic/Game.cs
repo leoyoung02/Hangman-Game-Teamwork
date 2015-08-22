@@ -17,7 +17,7 @@ namespace Hangman.Logic
                 consolePrinter.PrintDisplayableWord(engine.DisplayableWord);
                 engine.GetUserInput();
 
-                bool isGameWon = engine.CheckIfGameIsWon(consolePrinter);
+                bool isGameWon = engine.CheckIfGameIsWon();
                 if (isGameWon)
                 {
                     engine.IsCurrentGameEnded = true;

@@ -14,6 +14,8 @@
         private bool isCurrentGameEnded;
         private bool isHelpUsed;
 
+        private ConsolePrinter printer;
+
         internal Engine()
         {
             this.Mistakes = this.mistakes;
@@ -21,6 +23,7 @@
             this.IsCurrentGameEnded = this.isCurrentGameEnded;
             this.IsHelpUsed = this.isHelpUsed;
             this.scoreboard = Scoreboard.Instance;
+            this.printer = new ConsolePrinter();
         }
 
         [DefaultValue(false)]
@@ -51,13 +54,13 @@
             set { this.mistakes = value; }
         }
 
-        internal bool CheckIfGameIsWon(ConsolePrinter printer)
+        internal bool CheckIfGameIsWon()
         {
             bool isWordRevealed = this.CheckIfWordIsRevealed(this.DisplayableWord);
             if (isWordRevealed)
             {
-                printer.PrintWinMessage(this.Mistakes, this.isHelpUsed, this.scoreboard);
-                printer.PrintDisplayableWord(this.DisplayableWord);
+                this.printer.PrintWinMessage(this.Mistakes, this.isHelpUsed, this.scoreboard);
+                this.printer.PrintDisplayableWord(this.DisplayableWord);
             }
 
             return isWordRevealed;
@@ -71,16 +74,12 @@
                 bool isWordRevealed = this.CheckIfWordIsRevealed(this.DisplayableWord);
                 if (!isWordRevealed)
                 {
-                    Console.WriteLine(
-                        numberOfRevealedLetters == 1
-                            ? "Good job! You revealed {0} letter."
-                            : "Good job! You revealed {0} letters.",
-                            numberOfRevealedLetters);
+                    this.printer.PrintNumberOfRevealedLetters(numberOfRevealedLetters);
                 }
             }
             else
             {
-                Console.WriteLine("Sorry! There are no unrevealed letters \"{0}\".", suggestedLetter);
+                this.printer.PrintNoRevealedLettersMessage(suggestedLetter);
                 this.Mistakes++;
             }
         }
@@ -91,7 +90,7 @@
             ICommand command;
             while (!isInputValid)
             {
-                Console.Write("\nEnter your guess letter or command: ");
+                this.printer.PrintEnterLetterOrCommandMessage();
                 string inputLine = Console.ReadLine();
                 inputLine = inputLine.ToLower();
 
@@ -118,7 +117,7 @@
                             command = new Exit(this);
                             break;
                         default:
-                            this.PrintInvalidEntryMessage();
+                            this.printer.PrintInvalidEntryMessage();
                             isInputValid = false;
                             continue;
                     }
@@ -127,8 +126,6 @@
                 command.Execute();
             }
         }
-
-
 
         internal void RevealeLetter(string secretWord, char[] displayableWord)
         {
@@ -151,12 +148,7 @@
                 }
             }
 
-            Console.WriteLine("OK, let's reveal for you the next letter '{0}'.", letterToBeRevealed);
-        }
-
-        internal void PrintInvalidEntryMessage()
-        {
-            Console.WriteLine("Incorrect guess or command!");
+            this.printer.PrintRevealLetterMessage(letterToBeRevealed);
         }
 
         private bool CheckIfWordIsRevealed(char[] displayableWord)

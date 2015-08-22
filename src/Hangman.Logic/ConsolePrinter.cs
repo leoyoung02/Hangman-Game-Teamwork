@@ -70,5 +70,29 @@
                 scoreboard.TryToSign(mistakesCount);
             }
         }
+
+        internal void PrintNumberOfRevealedLetters(int numberOfRevealedLetters)
+        {
+            Console.WriteLine(
+                numberOfRevealedLetters == 1
+                    ? "Good job! You revealed {0} letter."
+                    : "Good job! You revealed {0} letters.",
+                    numberOfRevealedLetters);            
+        }
+
+        internal void PrintNoRevealedLettersMessage(char suggestedLetter)
+        {
+            Console.WriteLine("Sorry! There are no revealed letters \"{0}\".", suggestedLetter);        
+        }
+
+        internal void PrintEnterLetterOrCommandMessage()
+        {
+            Console.Write("\nEnter your guess letter or command: ");            
+        }
+
+        internal void PrintRevealLetterMessage(char letterToBeRevealed)
+        {
+            Console.WriteLine("OK, let's reveal for you the next letter '{0}'.", letterToBeRevealed);        
+        }
     }
 }
