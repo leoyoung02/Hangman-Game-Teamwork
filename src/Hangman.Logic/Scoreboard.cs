@@ -42,6 +42,11 @@
             }
         }
 
+        public void PrintAllRecords()
+        {
+            this.printer.PrintAllRecords(this.topFiveRecords);
+        }
+
         private List<KeyValuePair<int, string>> LoadRecords()
         {
             List<KeyValuePair<int, string>> records = new List<KeyValuePair<int, string>>();
