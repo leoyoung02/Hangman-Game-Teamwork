@@ -64,7 +64,13 @@
             List<KeyValuePair<int, string>> records = new List<KeyValuePair<int, string>>();
             if (!File.Exists("HighScores.txt"))
             {
-                File.Create("HighScores.txt");
+                // Creating a hidden file for HighScore
+                FileStream fs = File.Create("HighScores.txt");
+                fs.Close();
+                File.SetAttributes(
+                   "HighScores.txt",
+                   FileAttributes.Hidden
+                   );
                 return records;
             }
 
@@ -87,10 +93,25 @@
             return records;
         }
 
+        private void DeleteHighScoreFile()
+        {
+            File.SetAttributes("HighScores.txt", File.GetAttributes("HighScores.txt") & ~FileAttributes.Hidden);
+            File.Delete("HighScores.txt");
+        }
+
         private string Base64Decode(string base64EncodedData)
         {
-            var base64EncodedBytes = Convert.FromBase64String(base64EncodedData);
-            return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+            try
+            {
+                var base64EncodedBytes = Convert.FromBase64String(base64EncodedData);
+                return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+            }
+            catch (System.FormatException)
+            {
+                DeleteHighScoreFile();
+                LoadRecords();
+            }
+            return null;
         }
 
         private bool CheckIfScoreIsQualifiedForTopFive(int mistakes)
@@ -180,7 +201,11 @@
             }
 
             string encodedFile = this.Base64Encode(string.Join(Environment.NewLine, encodedLines));
+
+            // Display file so it can be written in and hide it again
+            File.SetAttributes("HighScores.txt", File.GetAttributes("HighScores.txt") & ~FileAttributes.Hidden);
             File.WriteAllText("HighScores.txt", encodedFile);
+            File.SetAttributes("HighScores.txt", File.GetAttributes("HighScores.txt") | FileAttributes.Hidden);
         }
 
         private string Base64Encode(string plainText)
