@@ -1,9 +1,7 @@
 namespace Hangman.Logic
 {
-    internal class Words
+    internal enum Words
     {
-        internal enum Store
-        {
             Computer,
             Programmer, 
             Software, 
@@ -14,6 +12,5 @@ namespace Hangman.Logic
             Array, 
             Method, 
             Variable
-        }
     }
 }

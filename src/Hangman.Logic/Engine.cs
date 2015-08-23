@@ -62,11 +62,11 @@
 
         internal bool CheckIfGameIsWon()
         {
-            bool isWordRevealed = this.CheckIfWordIsRevealed(this.DisplayableWord);
+            bool isWordRevealed = this.CheckIfWordIsRevealed(this.WordOfUnderscores);
             if (isWordRevealed)
             {
                 this.printer.PrintWinMessage(this.Mistakes, this.isHelpUsed, this.scoreboard);
-                this.printer.PrintDisplayableWord(this.DisplayableWord);
+                this.printer.PrintDisplayableWord(this.WordOfUnderscores);
             }
 
             return isWordRevealed;
@@ -74,10 +74,10 @@
 
         internal void ProcessUserGuess(char suggestedLetter)
         {
-            int numberOfRevealedLetters = this.CheckUserGuess(suggestedLetter, this.Word, this.DisplayableWord);
+            int numberOfRevealedLetters = this.CheckUserGuess(suggestedLetter, this.Word, this.WordOfUnderscores);
             if (numberOfRevealedLetters > 0)
             {
-                bool isWordRevealed = this.CheckIfWordIsRevealed(this.DisplayableWord);
+                bool isWordRevealed = this.CheckIfWordIsRevealed(this.WordOfUnderscores);
                 if (!isWordRevealed)
                 {
                     this.printer.PrintNumberOfRevealedLetters(numberOfRevealedLetters);

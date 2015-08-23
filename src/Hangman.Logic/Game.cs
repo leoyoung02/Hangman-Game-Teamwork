@@ -13,7 +13,7 @@ namespace Hangman.Logic
             engine.Printer.PrintWelcomeMessage();
             while (!engine.IsCurrentGameEnded)
             {
-                engine.Printer.PrintDisplayableWord(engine.DisplayableWord);
+                engine.Printer.PrintDisplayableWord(engine.WordOfUnderscores);
                 engine.GetUserInput();
 
                 bool isGameWon = engine.CheckIfGameIsWon();

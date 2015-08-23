@@ -5,36 +5,52 @@ namespace Hangman.Logic
     internal class WordInitializer
     {
         private string word;
-        private char[] displayableWord;
+        private char[] wordOfUnderscores;
 
         internal WordInitializer()
         {
             this.Word = this.word;
-            this.DisplayableWord = this.displayableWord;
+            this.WordOfUnderscores = this.wordOfUnderscores;
         }
 
         internal string Word
         {
-            get { return this.word; }
-            private set { this.word = this.SelectRandomWord(); }
+            get
+            {
+                return this.word;
+            }
+
+            private set
+            {
+                this.word = this.SelectRandomWord();
+            }
         }
 
-        internal char[] DisplayableWord
+        internal char[] WordOfUnderscores
         {
-            get { return this.displayableWord; }
-            private set { this.displayableWord = this.GenerateEmptyWordOfUnderscores(this.Word.Length); }
+            get 
+            {
+                return this.wordOfUnderscores;
+            }
+
+            private set 
+            {
+                this.wordOfUnderscores = this.GenerateEmptyWordOfUnderscores(this.Word.Length);
+            }
         }
 
         private string SelectRandomWord()
         {
-            Array words = Enum.GetValues(typeof(Words.Store));
-            Words.Store randomWord = (Words.Store)words.GetValue(new Random().Next(words.Length));
-            return randomWord.ToString().ToLower(); 
+            var words = Enum.GetValues(typeof(Words));
+            var random = new Random();
+            Words randomWord = (Words)words.GetValue(random.Next(words.Length));
+            return randomWord.ToString().ToLower();
         }
 
         private char[] GenerateEmptyWordOfUnderscores(int wordLength)
         {
             char[] wordOfUnderscores = new char[wordLength];
+
             for (int i = 0; i < wordLength; i++)
             {
                 wordOfUnderscores[i] = '_';
