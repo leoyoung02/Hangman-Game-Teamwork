@@ -60,7 +60,6 @@
                    "HighScores.txt",
                    FileAttributes.Hidden
                    );
-                return records;
 
             string encodedFile = Decoder.Base64Decode(File.ReadAllText("HighScores.txt"));
             if (!string.IsNullOrEmpty(encodedFile))
@@ -74,7 +73,7 @@
 
                 records = decodedLines
                     .Select(l => Regex.Split(l, @"=([0-9]+)", RegexOptions.RightToLeft))
-                    .ToDictionary(a => Convert.ToInt32(a[1]), a => a[0])
+                    .Select(kvp => new KeyValuePair<int, string>(Convert.ToInt32(kvp[1]), kvp[0]))
                     .ToList();
             }
 
