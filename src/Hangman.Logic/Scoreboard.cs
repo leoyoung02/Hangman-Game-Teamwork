@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Text.RegularExpressions;
     using Hangman.Logic.Common;
+    using Hangman.Logic.Utils;
 
     internal sealed class Scoreboard
     {
@@ -51,26 +52,24 @@
         private List<KeyValuePair<int, string>> LoadRecords()
         {
             List<KeyValuePair<int, string>> records = new List<KeyValuePair<int, string>>();
-            if (!File.Exists("HighScores.txt"))
-            {
+
                 // Creating a hidden file for HighScore
-                FileStream fs = File.Create("HighScores.txt");
+                FileStream fs = File.Open("HighScores.txt", FileMode.OpenOrCreate);
                 fs.Close();
                 File.SetAttributes(
                    "HighScores.txt",
                    FileAttributes.Hidden
                    );
                 return records;
-            }
 
-            string encodedFile = this.Base64Decode(File.ReadAllText("HighScores.txt"));
+            string encodedFile = Decoder.Base64Decode(File.ReadAllText("HighScores.txt"));
             if (!string.IsNullOrEmpty(encodedFile))
             {
                 string[] encodedLines = encodedFile.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
                 string[] decodedLines = new string[encodedLines.Length];
                 for (int i = 0; i < encodedLines.Length; i++)
                 {
-                    decodedLines[i] = this.Base64Decode(encodedLines[i]);
+                    decodedLines[i] = Decoder.Base64Decode(encodedLines[i]);
                 }
 
                 records = decodedLines
@@ -80,27 +79,6 @@
             }
 
             return records;
-        }
-
-        private void DeleteHighScoreFile()
-        {
-            File.SetAttributes("HighScores.txt", File.GetAttributes("HighScores.txt") & ~FileAttributes.Hidden);
-            File.Delete("HighScores.txt");
-        }
-
-        private string Base64Decode(string base64EncodedData)
-        {
-            try
-            {
-                var base64EncodedBytes = Convert.FromBase64String(base64EncodedData);
-                return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
-            }
-            catch (System.FormatException)
-            {
-                DeleteHighScoreFile();
-                LoadRecords();
-            }
-            return null;
         }
 
         private bool CheckIfScoreIsQualifiedForTopFive(int mistakes)
@@ -186,10 +164,10 @@
             string[] encodedLines = new string[lines.Length];
             for (int i = 0; i < lines.Length; i++)
             {
-                encodedLines[i] = this.Base64Encode(lines[i]);
+                encodedLines[i] = Encoder.Base64Encode(lines[i]);
             }
 
-            string encodedFile = this.Base64Encode(string.Join(Environment.NewLine, encodedLines));
+            string encodedFile = Encoder.Base64Encode(string.Join(Environment.NewLine, encodedLines));
 
             // Display file so it can be written in and hide it again
             File.SetAttributes("HighScores.txt", File.GetAttributes("HighScores.txt") & ~FileAttributes.Hidden);
@@ -197,10 +175,6 @@
             File.SetAttributes("HighScores.txt", File.GetAttributes("HighScores.txt") | FileAttributes.Hidden);
         }
 
-        private string Base64Encode(string plainText)
-        {
-            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
-            return Convert.ToBase64String(plainTextBytes);
-        }
+
     }
 }
