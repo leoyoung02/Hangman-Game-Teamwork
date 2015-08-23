@@ -35,7 +35,7 @@ namespace Hangman.Logic
 
             private set 
             {
-                this.wordOfUnderscores = this.GenerateEmptyWordOfUnderscores(this.Word.Length);
+                this.wordOfUnderscores = this.GenerateWordOfUnderscores(this.Word.Length);
             }
         }
 
@@ -47,7 +47,7 @@ namespace Hangman.Logic
             return randomWord.ToString().ToLower();
         }
 
-        private char[] GenerateEmptyWordOfUnderscores(int wordLength)
+        private char[] GenerateWordOfUnderscores(int wordLength)
         {
             char[] wordOfUnderscores = new char[wordLength];
 

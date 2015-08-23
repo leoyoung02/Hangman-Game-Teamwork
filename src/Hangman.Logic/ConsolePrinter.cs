@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using Hangman.Logic.Common;
 
     internal class ConsolePrinter
     {
@@ -12,23 +13,16 @@
         internal void PrintWelcomeMessage()
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine(
-                "<< Welcome to “Hangman” game >>\n" +
-                "<< Please try to guess the secret word >>\n");
+            Console.WriteLine(GlobalMessages.Welcome);
             Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine(
-                "Commands:\n" +
-                "HELP \t\t Reveals a letter.\n" +
-                "TOP \t\t Displays high scores.\n" +
-                "RESTART \t Starts a new game.\n" +
-                "EXIT \t\t Quits the game.");
+            Console.WriteLine(GlobalMessages.CommandOptions);
             Console.ResetColor();
         }
 
         internal void PrintDisplayableWord(char[] displayableWord)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("\nThe secret word is: ");
+            Console.Write(GlobalMessages.SecretWord);
             foreach (var letter in displayableWord)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -41,50 +35,43 @@
 
         internal void PrintInvalidEntryMessage()
         {
-            Console.WriteLine("Incorrect guess or command!");
-        }
-
-        internal void PrintWinWithCheatMessage(int mistakesCount)
-        {
-            Console.WriteLine(
-                       "You won with {0} mistakes but you have cheated. " +
-                       "You are not allowed to enter into the scoreboard.",
-                       mistakesCount);
+            Console.WriteLine(GlobalMessages.IncorrectGuessOrCommand);
         }
 
         internal void PrintWinMessage(int mistakesCount, bool isHelpUsed, Scoreboard scoreboard)
         {
             if (isHelpUsed)
             {
-                Console.WriteLine(
-                        "You won with {0} mistakes but you have cheated. " +
-                        "You are not allowed to enter into the scoreboard.",
-                        mistakesCount);
+                Console.WriteLine(GlobalMessages.WinWithHelp, mistakesCount);
             }
             else
             {
-                Console.WriteLine("You won with {0} mistakes.", mistakesCount);
+                Console.WriteLine(GlobalMessages.Win, mistakesCount);
                 scoreboard.TryToSign(mistakesCount);
             }
         }
 
         internal void PrintNumberOfRevealedLetters(int numberOfRevealedLetters)
         {
-            Console.WriteLine(
-                numberOfRevealedLetters == 1
-                    ? "Good job! You revealed {0} letter."
-                    : "Good job! You revealed {0} letters.",
-                    numberOfRevealedLetters);            
+            if(numberOfRevealedLetters == 1)
+            {
+                Console.WriteLine(GlobalMessages.OneLetterRevealed, numberOfRevealedLetters);
+            }
+            else
+            {
+                Console.WriteLine(GlobalMessages.MultipleLettersRevealed, numberOfRevealedLetters);
+            }
         }
 
         internal void PrintNoRevealedLettersMessage(char suggestedLetter)
         {
-            Console.WriteLine("Sorry! There are no revealed letters \"{0}\".", suggestedLetter);        
+            var uppercaseSuggestedLetter = char.ToUpper(suggestedLetter);
+            Console.WriteLine(GlobalMessages.LetterNotRevealed, uppercaseSuggestedLetter);        
         }
 
         internal void PrintEnterLetterOrCommandMessage()
         {
-            Console.Write("\nEnter your guess letter or command: ");            
+            Console.Write(GlobalMessages.EnterLetterOrCommand);            
         }
 
         internal void PrintRevealLetterMessage(char letterToBeRevealed)

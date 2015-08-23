@@ -64,6 +64,7 @@
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\Restart.cs" />
     <Compile Include="Commands\Top.cs" />
+    <Compile Include="Common\GlobalMessages.cs" />
     <Compile Include="ConsolePrinter.cs" />
     <Compile Include="EntryPoint.cs" />
     <Compile Include="Engine.cs" />
