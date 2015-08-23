@@ -11,8 +11,8 @@
 
         public void Execute()
         {
-            this.engine.IsCurrentGameEnded = true;
-            this.engine.HasAllGamesEnded = true;
+            this.engine.HasCurrentGameEnded = true;
+            this.engine.HaveAllGamesEnded = true;
         }
     }
 }

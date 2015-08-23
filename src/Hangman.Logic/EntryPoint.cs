@@ -4,7 +4,7 @@ namespace Hangman.Logic
 
     internal static class EntryPoint
     {
-        internal static void Main(string[] args)
+        internal static void Main()
         {
             bool isExitTriggered = false;
             while (!isExitTriggered)

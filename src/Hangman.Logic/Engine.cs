@@ -10,8 +10,8 @@
         private readonly Scoreboard scoreboard;
 
         private int mistakes;
-        private bool hasAllGamesEnded;
-        private bool isCurrentGameEnded;
+        private bool haveAllGamesEnded;
+        private bool hasCurrentGameEnded;
         private bool isHelpUsed;
 
         private ConsolePrinter printer;
@@ -19,45 +19,76 @@
         internal Engine()
         {
             this.Mistakes = this.mistakes;
-            this.HasAllGamesEnded = this.hasAllGamesEnded;
-            this.IsCurrentGameEnded = this.isCurrentGameEnded;
+            this.HaveAllGamesEnded = this.haveAllGamesEnded;
+            this.HasCurrentGameEnded = this.hasCurrentGameEnded;
             this.IsHelpUsed = this.isHelpUsed;
             this.scoreboard = Scoreboard.Instance;
             this.printer = new ConsolePrinter();
         }
 
-        [DefaultValue(false)]
-        internal bool HasAllGamesEnded
+        internal bool HaveAllGamesEnded
         {
-            get { return this.hasAllGamesEnded; }
-            set { this.hasAllGamesEnded = value; }
+            get 
+            {
+                return this.haveAllGamesEnded;
+            }
+
+            set
+            {
+                this.haveAllGamesEnded = value; 
+            }
         }
 
-        [DefaultValue(false)]
-        internal bool IsCurrentGameEnded
+        internal bool HasCurrentGameEnded
         {
-            get { return this.isCurrentGameEnded; }
-            set { this.isCurrentGameEnded = value; }
+            get 
+            { 
+                return this.hasCurrentGameEnded;
+            }
+
+            set
+            { 
+                this.hasCurrentGameEnded = value; 
+            }
         }
 
-        [DefaultValue(false)]
         internal bool IsHelpUsed
         {
-            get { return this.isHelpUsed; }
-            set { this.isHelpUsed = value; }
+            get 
+            {
+                return this.isHelpUsed; 
+            }
+
+            set
+            {
+                this.isHelpUsed = value;
+            }
         }
 
-        [DefaultValue(0)]
         private int Mistakes
         {
-            get { return this.mistakes; }
-            set { this.mistakes = value; }
+            get 
+            {
+                return this.mistakes; 
+            }
+
+            set 
+            {
+                this.mistakes = value;
+            }
         }
 
         internal ConsolePrinter Printer
         {
-            get { return this.printer; }
-            private set { this.printer = value; }
+            get 
+            {
+                return this.printer; 
+            }
+
+            private set 
+            {
+                this.printer = value;
+            }
         }
 
         internal bool CheckIfGameIsWon()
@@ -66,7 +97,7 @@
             if (isWordRevealed)
             {
                 this.printer.PrintWinMessage(this.Mistakes, this.isHelpUsed, this.scoreboard);
-                this.printer.PrintDisplayableWord(this.WordOfUnderscores);
+                this.printer.PrintWordToGuess(this.WordOfUnderscores);
             }
 
             return isWordRevealed;
@@ -133,12 +164,12 @@
             }
         }
 
-        internal void RevealeLetter(string secretWord, char[] displayableWord)
+        internal void RevealLetter(string secretWord, char[] wordToGuess)
         {
             int nextUnrevealedLetterIndex = 0;
-            for (int i = 0; i < displayableWord.Length; i++)
+            for (int i = 0; i < wordToGuess.Length; i++)
             {
-                if (displayableWord[i] == '_')
+                if (wordToGuess[i] == '_')
                 {
                     nextUnrevealedLetterIndex = i;
                     break;
@@ -150,29 +181,29 @@
             {
                 if (letterToBeRevealed == secretWord[i])
                 {
-                    displayableWord[i] = letterToBeRevealed;
+                    wordToGuess[i] = letterToBeRevealed;
                 }
             }
 
             this.printer.PrintRevealLetterMessage(letterToBeRevealed);
         }
 
-        private bool CheckIfWordIsRevealed(char[] displayableWord)
+        private bool CheckIfWordIsRevealed(char[] wordToGuess)
         {
-            return displayableWord.All(ch => ch != '_');
+            return wordToGuess.All(ch => ch != '_');
         }
 
-        private int CheckUserGuess(char suggestedLetter, string secretWord, char[] displayableWord)
+        private int CheckUserGuess(char suggestedLetter, string secretWord, char[] wordToGuess)
         {
             int numberOfRevealedLetters = 0;
-            bool isLetterAlreadyRevealed = this.CheckIfLetterIsAlreadyRevealed(suggestedLetter, displayableWord);
+            bool isLetterAlreadyRevealed = this.CheckIfLetterIsAlreadyRevealed(suggestedLetter, wordToGuess);
             if (!isLetterAlreadyRevealed)
             {
                 for (int i = 0; i < secretWord.Length; i++)
                 {
                     if (suggestedLetter == secretWord[i])
                     {
-                        displayableWord[i] = suggestedLetter;
+                        wordToGuess[i] = suggestedLetter;
                         numberOfRevealedLetters++;
                     }
                 }
@@ -181,10 +212,10 @@
             return numberOfRevealedLetters;
         }
 
-        private bool CheckIfLetterIsAlreadyRevealed(char suggestedLetter, char[] displayableWord)
+        private bool CheckIfLetterIsAlreadyRevealed(char suggestedLetter, char[] wordToGuess)
         {
             bool isLetterRevealed = false;
-            foreach (char letter in displayableWord)
+            foreach (char letter in wordToGuess)
             {
                 if (letter == suggestedLetter)
                 {

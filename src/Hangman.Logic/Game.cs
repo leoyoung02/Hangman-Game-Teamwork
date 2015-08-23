@@ -11,19 +11,19 @@ namespace Hangman.Logic
             Engine engine = new Engine();
 
             engine.Printer.PrintWelcomeMessage();
-            while (!engine.IsCurrentGameEnded)
+            while (!engine.HasCurrentGameEnded)
             {
-                engine.Printer.PrintDisplayableWord(engine.WordOfUnderscores);
+                engine.Printer.PrintWordToGuess(engine.WordOfUnderscores);
                 engine.GetUserInput();
 
                 bool isGameWon = engine.CheckIfGameIsWon();
                 if (isGameWon)
                 {
-                    engine.IsCurrentGameEnded = true;
+                    engine.HasCurrentGameEnded = true;
                 }
             }
 
-            return engine.HasAllGamesEnded;
+            return engine.HaveAllGamesEnded;
         }
     }
 }

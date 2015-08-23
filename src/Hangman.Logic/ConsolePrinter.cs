@@ -19,11 +19,11 @@
             Console.ResetColor();
         }
 
-        internal void PrintDisplayableWord(char[] displayableWord)
+        internal void PrintWordToGuess(char[] wordToGuess)
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write(GlobalMessages.SecretWord);
-            foreach (var letter in displayableWord)
+            foreach (var letter in wordToGuess)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write("{0} ", letter);
@@ -76,25 +76,25 @@
 
         internal void PrintRevealLetterMessage(char letterToBeRevealed)
         {
-            Console.WriteLine("OK, let's reveal for you the next letter '{0}'.", letterToBeRevealed);        
+            Console.WriteLine(GlobalMessages.HelpRevealLetter, letterToBeRevealed);        
         }
 
         public void PrintAllRecords(List<KeyValuePair<int, string>> topFiveRecords)
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("\nHigh scores:");
+            Console.WriteLine(GlobalMessages.HighScores);
             if (topFiveRecords.Count != 0)
             {
                 for (int i = 0; i < topFiveRecords.Count; i++)
                 {
                     string name = topFiveRecords[i].Value;
                     int mistakes = topFiveRecords[i].Key;
-                    Console.WriteLine("({0}) {1} - {2} mistakes", i + 1, name, mistakes);
+                    Console.WriteLine(GlobalMessages.ScoreFormat, i + 1, name, mistakes);
                 }
             }
             else
             {
-                Console.WriteLine("There are no records in the scoreboard yet.");
+                Console.WriteLine(GlobalMessages.NoScoresYet);
             }
         }
 

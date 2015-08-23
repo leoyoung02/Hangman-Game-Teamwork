@@ -5,6 +5,7 @@
     using System.IO;
     using System.Linq;
     using System.Text.RegularExpressions;
+    using Hangman.Logic.Common;
 
     internal sealed class Scoreboard
     {
@@ -146,15 +147,15 @@
             bool isInputValid = false;
             while (!isInputValid)
             {
-                this.printer.Write("Please enter your name for the top scoreboard: ");
+                this.printer.Write(GlobalMessages.EnterNameForScoreBoard);
                 string line = Console.ReadLine();
                 if (line.Length == 0)
                 {
-                    this.printer.Write("You did not enter a name. Please, try again.");
+                    this.printer.Write(GlobalMessages.NoNameEntered);
                 }
-                else if (line.Length > 40)
+                else if (line.Length > 20)
                 {
-                    this.printer.Write("The name you entered is too long. Please, enter a name up to 40 characters");
+                    this.printer.Write(GlobalMessages.NameTooLong);
                 }
                 else
                 {
