@@ -20,6 +20,7 @@ namespace Hangman.Logic
                 if (isGameWon)
                 {
                     engine.HasCurrentGameEnded = true;
+                    
                 }
             }
 

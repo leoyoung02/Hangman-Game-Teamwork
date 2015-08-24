@@ -10,14 +10,14 @@
 
     internal sealed class Scoreboard
     {
-        private const int MaxRecords = 5;
+        internal const int MaxRecords = 5;
         private static Scoreboard instance;
-        private List<KeyValuePair<int, string>> topFiveRecords;
+        private List<Player> topFiveRecords;
         private ConsolePrinter printer;
 
         private Scoreboard()
         {
-            this.topFiveRecords = this.LoadRecords();
+            this.topFiveRecords = new List<Player>();
             this.printer = new ConsolePrinter();
         }
 
@@ -34,91 +34,22 @@
             }
         }
 
-        public void TryToSign(int mistakes)
+        public List<Player> TopFiveRecords
         {
-            bool isScoreQualifiedForTopFive = this.CheckIfScoreIsQualifiedForTopFive(mistakes);
-            if (isScoreQualifiedForTopFive)
+            get
             {
-                this.AddNewRecord(mistakes);
-                this.printer.PrintAllRecords(this.topFiveRecords);
+                return this.topFiveRecords;
             }
         }
 
-        public void PrintAllRecords()
+        public void AddNewRecord(string currentPlayerName, int mistakes)
         {
-            this.printer.PrintAllRecords(this.topFiveRecords);
-        }
-
-        private List<KeyValuePair<int, string>> LoadRecords()
-        {
-            List<KeyValuePair<int, string>> records = new List<KeyValuePair<int, string>>();
-
-                // Creating a hidden file for HighScore
-                FileStream fs = File.Open("HighScores.txt", FileMode.OpenOrCreate);
-                fs.Close();
-                File.SetAttributes(
-                   "HighScores.txt",
-                   FileAttributes.Hidden
-                   );
-
-            string encodedFile = Decoder.Base64Decode(File.ReadAllText("HighScores.txt"));
-            if (!string.IsNullOrEmpty(encodedFile))
-            {
-                string[] encodedLines = encodedFile.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
-                string[] decodedLines = new string[encodedLines.Length];
-                for (int i = 0; i < encodedLines.Length; i++)
-                {
-                    decodedLines[i] = Decoder.Base64Decode(encodedLines[i]);
-                }
-
-                records = decodedLines
-                    .Select(l => Regex.Split(l, @"=([0-9]+)", RegexOptions.RightToLeft))
-                    .Select(kvp => new KeyValuePair<int, string>(Convert.ToInt32(kvp[1]), kvp[0]))
-                    .ToList();
-            }
-
-            return records;
-        }
-
-        private bool CheckIfScoreIsQualifiedForTopFive(int mistakes)
-        {
-            bool isScoreQualified = false;
-            if (this.topFiveRecords.Count < MaxRecords)
-            {
-                isScoreQualified = true;
-            }
-            else
-            {
-                int worstScoreInTopFive = this.topFiveRecords[MaxRecords - 1].Key;
-                if (mistakes < worstScoreInTopFive)
-                {
-                    isScoreQualified = true;
-                }
-            }
-
-            return isScoreQualified;
-        }
-
-        private void AddNewRecord(int mistakes)
-        {
-            if (this.topFiveRecords.Count == MaxRecords)
-            {
-                this.DeleteWorstRecord();
-            }
-
-            string playerName = this.AskForPlayerName();
-            KeyValuePair<int, string> newRecord = new KeyValuePair<int, string>(mistakes, playerName);
+            var newRecord = new Player(currentPlayerName, mistakes);
             this.topFiveRecords.Add(newRecord);
-            this.SortRecordsAscendingByScore();
             this.SaveRecordsToFile();
         }
 
-        private void DeleteWorstRecord()
-        {
-            this.topFiveRecords.RemoveAt(this.topFiveRecords.Count - 1);
-        }
-
-        private string AskForPlayerName()
+        public string AskForPlayerName()
         {
             string name = "unknown";
             bool isInputValid = false;
@@ -143,21 +74,43 @@
 
             return name;
         }
-
-        private void SortRecordsAscendingByScore()
+        public void PrintAllRecords()
         {
-            this.topFiveRecords.Sort(this.CompareByKeys);
+            this.printer.PrintAllRecords(this.topFiveRecords);
         }
 
-        private int CompareByKeys(KeyValuePair<int, string> pairA, KeyValuePair<int, string> pairB)
+        private List<Player> LoadRecords()
         {
-            return pairA.Key.CompareTo(pairB.Key);
+            List<Player> records = new List<Player>();
+                //TODO move encoding logic to Encoder
+                //TODO move decoding logic to Decoder
+                // Creating a hidden file for HighScore
+                FileStream fs = File.Open("HighScores.txt", FileMode.OpenOrCreate);
+                fs.Close();
+                File.SetAttributes("HighScores.txt", FileAttributes.Hidden);
+
+            string encodedFile = Decoder.Base64Decode(File.ReadAllText("HighScores.txt"));
+            if (!string.IsNullOrEmpty(encodedFile))
+            {
+                string[] encodedLines = encodedFile.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+                string[] decodedLines = new string[encodedLines.Length];
+                for (int i = 0; i < encodedLines.Length; i++)
+                {
+                    decodedLines[i] = Decoder.Base64Decode(encodedLines[i]);
+                }
+
+                records = decodedLines
+                    .Select(l => Regex.Split(l, @"=([0-9]+)", RegexOptions.RightToLeft))
+                    .Select(p => new Player(p[0], Convert.ToInt32(p[1])))
+                    .ToList();
+            }
+            return records;
         }
 
         private void SaveRecordsToFile()
         {
             string[] lines = this.topFiveRecords
-                .Select(kvp => kvp.Value + "=" + kvp.Key)
+                .Select(p => p.PlayerName + "=" + p.Score)
                 .ToArray();
 
             string[] encodedLines = new string[lines.Length];
@@ -173,7 +126,5 @@
             File.WriteAllText("HighScores.txt", encodedFile);
             File.SetAttributes("HighScores.txt", File.GetAttributes("HighScores.txt") | FileAttributes.Hidden);
         }
-
-
     }
 }

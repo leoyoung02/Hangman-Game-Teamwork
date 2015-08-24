@@ -47,7 +47,6 @@
             else
             {
                 Console.WriteLine(GlobalMessages.Win, mistakesCount);
-                scoreboard.TryToSign(mistakesCount);
             }
         }
 
@@ -79,17 +78,31 @@
             Console.WriteLine(GlobalMessages.HelpRevealLetter, letterToBeRevealed);        
         }
 
-        public void PrintAllRecords(List<KeyValuePair<int, string>> topFiveRecords)
+        public void PrintAllRecords(List<Player> topFiveRecords)
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine(GlobalMessages.HighScores);
             if (topFiveRecords.Count != 0)
             {
+                //TODO move this method where it belongs
+                topFiveRecords.Sort(
+                    delegate(Player p1, Player p2)
+                    {
+                        return p1.Score.CompareTo(p2.Score);
+                    });
+
                 for (int i = 0; i < topFiveRecords.Count; i++)
                 {
-                    string name = topFiveRecords[i].Value;
-                    int mistakes = topFiveRecords[i].Key;
-                    Console.WriteLine(GlobalMessages.ScoreFormat, i + 1, name, mistakes);
+                    if (i <= Scoreboard.MaxRecords)
+                    {
+                        string name = topFiveRecords[i].PlayerName;
+                        int mistakes = topFiveRecords[i].Score;
+                        Console.WriteLine(GlobalMessages.ScoreFormat, i, name, mistakes);
+                    }
+                    else 
+                    {
+                         break;
+                    }
                 }
             }
             else

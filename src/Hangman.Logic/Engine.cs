@@ -97,6 +97,9 @@
             if (isWordRevealed)
             {
                 this.printer.PrintWinMessage(this.Mistakes, this.isHelpUsed, this.scoreboard);
+                string currentPlayerName = this.scoreboard.AskForPlayerName();
+                this.scoreboard.AddNewRecord(currentPlayerName, this.Mistakes);
+                this.scoreboard.PrintAllRecords();
                 this.printer.PrintWordToGuess(this.WordOfUnderscores);
             }
 
