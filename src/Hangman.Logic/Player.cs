@@ -38,7 +38,5 @@
                 this.score = value;
             }
         }
-        
     }
-}
-                                                         
+}                                                         
