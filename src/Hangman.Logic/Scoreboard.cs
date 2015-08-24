@@ -14,6 +14,7 @@
         private static Scoreboard instance;
         private List<Player> topFiveRecords;
         private ConsolePrinter printer;
+        private Validator validator = new Validator();
 
         private Scoreboard()
         {
@@ -56,18 +57,11 @@
             while (!isInputValid)
             {
                 this.printer.Write(GlobalMessages.EnterNameForScoreBoard);
-                string line = Console.ReadLine();
-                if (line.Length == 0)
+                string inputName = Console.ReadLine();
+               
+                if (validator.PlayerNameValidator(inputName))
                 {
-                    this.printer.Write(GlobalMessages.NoNameEntered);
-                }
-                else if (line.Length > 20)
-                {
-                    this.printer.Write(GlobalMessages.NameTooLong);
-                }
-                else
-                {
-                    name = line;
+                    name = inputName;
                     isInputValid = true;
                 }
             }

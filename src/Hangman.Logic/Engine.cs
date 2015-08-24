@@ -4,6 +4,7 @@
     using System.ComponentModel;
     using System.Linq;
     using Commands;
+    using Utils;
 
     internal class Engine : WordInitializer
     {
@@ -126,23 +127,19 @@
 
         internal void GetUserInput()
         {
+            var validator = new Validator();
             bool isInputValid = false;
             ICommand command;
             while (!isInputValid)
             {
                 this.printer.PrintEnterLetterOrCommandMessage();
-                string inputLine = Console.ReadLine();
-                inputLine = inputLine.ToLower();
+                string inputCommand = Console.ReadLine();
+                inputCommand = inputCommand.ToLower();
 
-                if (inputLine.Length == 1 && char.IsLetter(inputLine[0]))
-                {
-                    command = new LetterGuess(inputLine, this);
-                    isInputValid = true;
-                }
-                else
+                if(validator.InputCommantValidator(inputCommand))
                 {
                     isInputValid = true;
-                    switch (inputLine)
+                    switch (inputCommand)
                     {
                         case "help":
                             command = new Help(this);
@@ -157,13 +154,11 @@
                             command = new Exit(this);
                             break;
                         default:
-                            this.printer.PrintInvalidEntryMessage();
-                            isInputValid = false;
-                            continue;
+                            command = new LetterGuess(inputCommand, this);
+                            break;
                     }
+                    command.Execute();
                 }
-
-                command.Execute();
             }
         }
 
