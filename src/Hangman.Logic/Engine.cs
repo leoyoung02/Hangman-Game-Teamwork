@@ -136,7 +136,7 @@
                 string inputCommand = Console.ReadLine();
                 inputCommand = inputCommand.ToLower();
 
-                if(validator.InputCommantValidator(inputCommand))
+                if(validator.InputCommandValidator(inputCommand))
                 {
                     isInputValid = true;
                     switch (inputCommand)
@@ -190,6 +190,8 @@
         {
             return wordToGuess.All(ch => ch != '_');
         }
+
+        // TODO if user enter already revealed letter, don't count mistake and print proper message.
 
         private int CheckUserGuess(char suggestedLetter, string secretWord, char[] wordToGuess)
         {

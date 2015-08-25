@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangman.Logic", "Hangman.Logic\Hangman.Logic.csproj", "{55078FB1-590F-4683-9B7D-ABF5E02F81BF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangman.Tests", "Hangman.Tests\Hangman.Tests.csproj", "{7130C1B9-81AD-4A03-A9FE-05CB4CABC210}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangman.UI", "Hangman.UI\Hangman.UI.csproj", "{A2BA3D19-4EB9-4664-A3AF-A98C7BE45790}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangman.Test", "Hangman.Test\Hangman.Test.csproj", "{52A1425D-162B-4386-812E-1969F5C83722}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +51,18 @@ Global
 		{A2BA3D19-4EB9-4664-A3AF-A98C7BE45790}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{A2BA3D19-4EB9-4664-A3AF-A98C7BE45790}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{A2BA3D19-4EB9-4664-A3AF-A98C7BE45790}.Release|x86.ActiveCfg = Release|Any CPU
+		{52A1425D-162B-4386-812E-1969F5C83722}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52A1425D-162B-4386-812E-1969F5C83722}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52A1425D-162B-4386-812E-1969F5C83722}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{52A1425D-162B-4386-812E-1969F5C83722}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{52A1425D-162B-4386-812E-1969F5C83722}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{52A1425D-162B-4386-812E-1969F5C83722}.Debug|x86.Build.0 = Debug|Any CPU
+		{52A1425D-162B-4386-812E-1969F5C83722}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52A1425D-162B-4386-812E-1969F5C83722}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52A1425D-162B-4386-812E-1969F5C83722}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{52A1425D-162B-4386-812E-1969F5C83722}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{52A1425D-162B-4386-812E-1969F5C83722}.Release|x86.ActiveCfg = Release|Any CPU
+		{52A1425D-162B-4386-812E-1969F5C83722}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
