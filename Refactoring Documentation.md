@@ -11,8 +11,8 @@
   8.	Check player name method created. (replace validation in scoreboard).
   9.	Check input command method created. (replace validation in scoreboard).
   
- **26.08.2015**
-	10. Validator.Tests created.
-	11. Added [assembly: InternalsVisibleTo("Hangman.Test")] on Validator class to be visible for tests.
-	12. Tests for Validator implemented.
+**26.08.2015**
+  10. Validator.Tests created.
+  11. Added [assembly: InternalsVisibleTo("Hangman.Test")] on Validator class to be visible for tests.
+  12. Tests for Validator implemented.
 	
