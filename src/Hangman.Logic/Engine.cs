@@ -5,6 +5,7 @@
     using System.Linq;
     using Commands;
     using Utils;
+    using Common;
 
     internal class Engine : WordInitializer
     {
@@ -14,6 +15,7 @@
         private bool haveAllGamesEnded;
         private bool hasCurrentGameEnded;
         private bool isHelpUsed;
+        private Validator validator;
 
         private ConsolePrinter printer;
 
@@ -25,6 +27,7 @@
             this.IsHelpUsed = this.isHelpUsed;
             this.scoreboard = Scoreboard.Instance;
             this.printer = new ConsolePrinter();
+            this.validator = new Validator();
         }
 
         internal bool HaveAllGamesEnded
@@ -98,9 +101,9 @@
             if (isWordRevealed)
             {
                 this.printer.PrintWinMessage(this.Mistakes, this.isHelpUsed, this.scoreboard);
-                string currentPlayerName = this.scoreboard.AskForPlayerName();
+                string currentPlayerName = this.AskForPlayerName();
                 this.scoreboard.AddNewRecord(currentPlayerName, this.Mistakes);
-                this.scoreboard.PrintAllRecords();
+                this.printer.PrintAllRecords(this.scoreboard.GetAllRecords());
                 this.printer.PrintWordToGuess(this.WordOfUnderscores);
             }
 
@@ -127,7 +130,7 @@
 
         internal void GetUserInput()
         {
-            var validator = new Validator();
+            
             bool isInputValid = false;
             ICommand command;
             while (!isInputValid)
@@ -145,7 +148,7 @@
                             command = new Help(this);
                             break;
                         case "top":
-                            command = new Top(this.scoreboard);
+                            command = new Top(this.printer, this.scoreboard.GetAllRecords());
                             break;
                         case "restart":
                             command = new Restart(this);
@@ -224,6 +227,25 @@
             }
 
             return isLetterRevealed;
+        }
+
+        private string AskForPlayerName()
+        {
+            string name = null;
+            bool isInputValid = false;
+            this.printer.Write(GlobalMessages.EnterNameForScoreBoard);
+            while (!isInputValid)
+            {
+                string inputName = Console.ReadLine();
+
+                if (validator.PlayerNameValidator(inputName))
+                {
+                    name = inputName;
+                    isInputValid = true;
+                }
+            }
+
+            return name;
         }
     }
 }

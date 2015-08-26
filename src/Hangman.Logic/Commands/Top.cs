@@ -1,17 +1,21 @@
-﻿namespace Hangman.Logic.Commands
+﻿using System.Collections.Generic;
+
+namespace Hangman.Logic.Commands
 {
     internal class Top : ICommand
     {
-        private Scoreboard scoreboard;
+        private ConsolePrinter printer;
+        private List<Player> scores;
 
-        internal Top(Scoreboard scoreboard)
+        internal Top(ConsolePrinter printer, List<Player>scores)
         {
-            this.scoreboard = scoreboard;
+            this.printer = printer;
+            this.scores = scores;
         }
 
         public void Execute()
         {
-            this.scoreboard.PrintAllRecords();
+            this.printer.PrintAllRecords(scores);
         }
     }
 }

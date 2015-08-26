@@ -13,14 +13,11 @@
         internal const int MaxRecords = 5;
         private static Scoreboard instance;
         private List<Player> topFiveRecords;
-        private ConsolePrinter printer;
-        private Validator validator = new Validator();
         private const string FilePath = "HighScores.txt";
 
         private Scoreboard()
         {
             this.topFiveRecords = new List<Player>();
-            this.printer = new ConsolePrinter();
             this.topFiveRecords = this.LoadRecords();
         }
 
@@ -52,28 +49,9 @@
             this.SaveRecordsToFile();
         }
 
-        public string AskForPlayerName()
+        public List<Player> GetAllRecords()
         {
-            string name = null;
-            bool isInputValid = false;
-            this.printer.Write(GlobalMessages.EnterNameForScoreBoard);
-            while (!isInputValid)
-            {
-
-                string inputName = Console.ReadLine();
-
-                if (validator.PlayerNameValidator(inputName))
-                {
-                    name = inputName;
-                    isInputValid = true;
-                }
-            }
-
-            return name;
-        }
-        public void PrintAllRecords()
-        {
-            this.printer.PrintAllRecords(this.topFiveRecords);
+            return this.topFiveRecords;
         }
 
         private List<Player> LoadRecords()
