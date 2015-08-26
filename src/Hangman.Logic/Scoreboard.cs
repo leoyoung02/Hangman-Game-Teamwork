@@ -42,10 +42,9 @@
             }
         }
 
-        public void AddNewRecord(string currentPlayerName, int mistakes)
+        public void AddNewRecord(Player player)
         {
-            var newRecord = new Player(currentPlayerName, mistakes);
-            this.topFiveRecords.Add(newRecord);
+            this.topFiveRecords.Add(player);
             this.SaveRecordsToFile();
         }
 

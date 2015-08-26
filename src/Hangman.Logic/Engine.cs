@@ -104,7 +104,8 @@
             {
                 this.printer.PrintWinMessage(this.Mistakes, this.isHelpUsed, this.scoreboard);
                 string currentPlayerName = this.AskForPlayerName();
-                this.scoreboard.AddNewRecord(currentPlayerName, this.Mistakes);
+                var player = new Player(currentPlayerName, this.Mistakes);
+                this.scoreboard.AddNewRecord(player);
                 this.printer.PrintAllRecords(this.scoreboard.GetAllRecords());
                 this.printer.PrintWordToGuess(this.WordOfUnderscores);
             }
