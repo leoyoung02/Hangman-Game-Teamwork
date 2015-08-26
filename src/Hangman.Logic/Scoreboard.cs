@@ -116,9 +116,10 @@
             string encodedFile = Encoder.Base64Encode(string.Join(Environment.NewLine, encodedLines));
 
             // Display file so it can be written in and hide it again
-            File.SetAttributes("HighScores.txt", File.GetAttributes("HighScores.txt") & ~FileAttributes.Hidden);
-            File.WriteAllText("HighScores.txt", encodedFile);
-            File.SetAttributes("HighScores.txt", File.GetAttributes("HighScores.txt") | FileAttributes.Hidden);
+            string filePath = "HighScores.txt";
+            File.SetAttributes(filePath, File.GetAttributes(filePath) & ~FileAttributes.Hidden);
+            File.WriteAllText(filePath, encodedFile);
+            File.SetAttributes(filePath, File.GetAttributes(filePath) | FileAttributes.Hidden);
         }
     }
 }
