@@ -18,6 +18,7 @@
         private Validator validator;
 
         private ConsolePrinter printer;
+        private ConsoleReader inputReader;
 
         internal Engine()
         {
@@ -28,6 +29,7 @@
             this.scoreboard = Scoreboard.Instance;
             this.printer = new ConsolePrinter();
             this.validator = new Validator();
+            this.inputReader = new ConsoleReader();
         }
 
         internal bool HaveAllGamesEnded
@@ -136,7 +138,7 @@
             while (!isInputValid)
             {
                 this.printer.PrintEnterLetterOrCommandMessage();
-                string inputCommand = Console.ReadLine();
+                string inputCommand = inputReader.ReadLine();
                 inputCommand = inputCommand.ToLower();
 
                 if(validator.InputCommandValidator(inputCommand))
@@ -236,7 +238,7 @@
             this.printer.Write(GlobalMessages.EnterNameForScoreBoard);
             while (!isInputValid)
             {
-                string inputName = Console.ReadLine();
+                string inputName = inputReader.ReadLine();
 
                 if (validator.PlayerNameValidator(inputName))
                 {
