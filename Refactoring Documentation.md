@@ -1,3 +1,8 @@
+**17.08.2015**
+  1.    Implemented singleton pattern for scoreboard to prevent the possibility of whiping it clean during initialization.
+  2.    Implemented Implemented command pattern for all user commands.
+  3.    Deduplicated the calling of the PrintInvalidEntryMessage method.
+  4.    Decoupled GameEngine and Game
 **18.08.2015**
   1.	Moving properties before methods in Scoreboard class.
   2.	Removing empty lines in Scoreboard class.
