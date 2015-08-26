@@ -7,7 +7,6 @@
     using System.Text.RegularExpressions;
     using Hangman.Logic.Common;
     using Hangman.Logic.Utils;
-    using System.ComponentModel;
 
     internal sealed class Scoreboard
     {
@@ -16,11 +15,13 @@
         private List<Player> topFiveRecords;
         private ConsolePrinter printer;
         private Validator validator = new Validator();
+        private const string FilePath = "HighScores.txt";
 
         private Scoreboard()
         {
             this.topFiveRecords = new List<Player>();
             this.printer = new ConsolePrinter();
+            this.topFiveRecords = this.LoadRecords();
         }
 
         public static Scoreboard Instance
@@ -81,11 +82,11 @@
             //TODO move encoding logic to Encoder
             //TODO move decoding logic to Decoder
             // Creating a hidden file for HighScore
-            FileStream fs = File.Open("HighScores.txt", FileMode.OpenOrCreate);
+            FileStream fs = File.Open(FilePath, FileMode.OpenOrCreate);
             fs.Close();
-            File.SetAttributes("HighScores.txt", FileAttributes.Hidden);
+            File.SetAttributes(FilePath, FileAttributes.Hidden);
 
-            string encodedFile = Decoder.Base64Decode(File.ReadAllText("HighScores.txt"));
+            string encodedFile = Decoder.Base64Decode(File.ReadAllText(FilePath));
             if (!string.IsNullOrEmpty(encodedFile))
             {
                 string[] encodedLines = encodedFile.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
@@ -118,10 +119,10 @@
             string encodedFile = Encoder.Base64Encode(string.Join(Environment.NewLine, encodedLines));
 
             // Display file so it can be written in and hide it again
-            string filePath = "HighScores.txt";
-            File.SetAttributes(filePath, File.GetAttributes(filePath) & ~FileAttributes.Hidden);
-            File.WriteAllText(filePath, encodedFile);
-            File.SetAttributes(filePath, File.GetAttributes(filePath) | FileAttributes.Hidden);
+
+            File.SetAttributes(FilePath, File.GetAttributes(FilePath) & ~FileAttributes.Hidden);
+            File.WriteAllText(FilePath, encodedFile);
+            File.SetAttributes(FilePath, File.GetAttributes(FilePath) | FileAttributes.Hidden);
         }
     }
 }
