@@ -7,6 +7,7 @@
     using System.Text.RegularExpressions;
     using Hangman.Logic.Common;
     using Hangman.Logic.Utils;
+    using System.ComponentModel;
 
     internal sealed class Scoreboard
     {
@@ -52,13 +53,14 @@
 
         public string AskForPlayerName()
         {
-            string name = "unknown";
+            string name = null;
             bool isInputValid = false;
+            this.printer.Write(GlobalMessages.EnterNameForScoreBoard);
             while (!isInputValid)
             {
-                this.printer.Write(GlobalMessages.EnterNameForScoreBoard);
+
                 string inputName = Console.ReadLine();
-               
+
                 if (validator.PlayerNameValidator(inputName))
                 {
                     name = inputName;
@@ -76,12 +78,12 @@
         private List<Player> LoadRecords()
         {
             List<Player> records = new List<Player>();
-                //TODO move encoding logic to Encoder
-                //TODO move decoding logic to Decoder
-                // Creating a hidden file for HighScore
-                FileStream fs = File.Open("HighScores.txt", FileMode.OpenOrCreate);
-                fs.Close();
-                File.SetAttributes("HighScores.txt", FileAttributes.Hidden);
+            //TODO move encoding logic to Encoder
+            //TODO move decoding logic to Decoder
+            // Creating a hidden file for HighScore
+            FileStream fs = File.Open("HighScores.txt", FileMode.OpenOrCreate);
+            fs.Close();
+            File.SetAttributes("HighScores.txt", FileAttributes.Hidden);
 
             string encodedFile = Decoder.Base64Decode(File.ReadAllText("HighScores.txt"));
             if (!string.IsNullOrEmpty(encodedFile))
