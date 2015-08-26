@@ -7,12 +7,13 @@
     {
         private string playerName;
         private int score;
-        private Validator validator;
+        private readonly Validator validator;
 
         public Player(string playerName, int score)
         {
+            this.validator = new Validator();
             this.PlayerName = playerName;
-            this.Score = score; 
+            this.Score = score;
         }
 
         public string PlayerName
