@@ -6,12 +6,13 @@ namespace Hangman.Logic.Utils
 {
     using System;
     using Common;
-    
+    using System.Collections.Generic;
 
     internal class Validator
     {
-        internal const int playerNameMaxLenght = 20;
-        internal const int comandValidLenght = 1;
+        internal const int PlayerNameMaxLenght = 20;
+        internal const int ComandValidLenght = 1;
+        internal string[] comands = new string[] { "help", "top", "restart", "exit" };
         private ConsolePrinter printer = new ConsolePrinter();
 
         internal Validator()
@@ -25,7 +26,7 @@ namespace Hangman.Logic.Utils
                 this.printer.Write(GlobalMessages.NoNameEntered);
                 return false;
             }
-            else if (inputName.Length > playerNameMaxLenght)
+            else if (inputName.Length > PlayerNameMaxLenght)
             {
                 this.printer.Write(GlobalMessages.NameTooLong);
                 return false;
@@ -38,9 +39,10 @@ namespace Hangman.Logic.Utils
 
         internal bool InputCommandValidator(string inputCommand)
         {
-            if (String.IsNullOrWhiteSpace(inputCommand) || 
-                inputCommand.Length != comandValidLenght || 
-                !char.IsLetter(inputCommand[0]))
+            if (Array.IndexOf(comands, inputCommand) == -1 &&
+                (String.IsNullOrWhiteSpace(inputCommand) ||
+                inputCommand.Length != ComandValidLenght || 
+                !char.IsLetter(inputCommand[0])))
             {
                 this.printer.PrintInvalidEntryMessage();
                 return false;
