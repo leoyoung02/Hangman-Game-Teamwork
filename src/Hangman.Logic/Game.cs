@@ -1,29 +1,34 @@
+using Hangman.Logic.Contracts;
+
 namespace Hangman.Logic
 {
     internal class Game
     {
-        internal Game() 
+        private IEngine engine;
+
+        internal Game(IEngine engine) 
         {
+            this.engine = engine;
         }
 
         internal bool Play()
         {
-            Engine engine = new Engine();
+            //Engine engine = new Engine();
 
-            engine.Printer.PrintWelcomeMessage();
-            while (!engine.HasCurrentGameEnded)
+            this.engine.Printer.PrintWelcomeMessage();
+            while (!this.engine.HasCurrentGameEnded)
             {
-                engine.Printer.PrintWordToGuess(engine.WordOfUnderscores);
-                engine.GetUserInput();
+                this.engine.Printer.PrintWordToGuess(this.engine.WordOfUnderscores);
+                this.engine.GetUserInput();
 
-                bool isGameWon = engine.CheckIfGameIsWon();
+                bool isGameWon = this.engine.CheckIfGameIsWon();
                 if (isGameWon)
                 {
-                    engine.HasCurrentGameEnded = true;
+                    this.engine.HasCurrentGameEnded = true;
                 }
             }
 
-            return engine.HaveAllGamesEnded;
+            return this.engine.HaveAllGamesEnded;
         }
     }
 }

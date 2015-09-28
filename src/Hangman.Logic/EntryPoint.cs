@@ -9,7 +9,7 @@ namespace Hangman.Logic
             bool isExitTriggered = false;
             while (!isExitTriggered)
             {
-                var game = new Game();
+                var game = new Game(new Engine());
                 isExitTriggered = game.Play();
                 Console.WriteLine();
             }

@@ -26,14 +26,14 @@ namespace Hangman.Logic.Utils
             }
         }
 
-        internal char[] WordOfUnderscores
+        public char[] WordOfUnderscores
         {
             get 
             {
                 return this.wordOfUnderscores;
             }
 
-            private set 
+            set 
             {
                 this.wordOfUnderscores = this.GenerateWordOfUnderscores(this.Word.Length);
             }

@@ -6,8 +6,9 @@
     using Commands;
     using Utils;
     using Common;
+    using Contracts;
 
-    internal class Engine : WordInitializer
+    internal class Engine : WordInitializer, IEngine
     {
         private readonly Scoreboard scoreboard;
 
@@ -32,7 +33,7 @@
             this.inputReader = new ConsoleReader();
         }
 
-        internal bool HaveAllGamesEnded
+        public bool HaveAllGamesEnded
         {
             get 
             {
@@ -45,7 +46,7 @@
             }
         }
 
-        internal bool HasCurrentGameEnded
+        public bool HasCurrentGameEnded
         {
             get 
             { 
@@ -84,20 +85,20 @@
             }
         }
 
-        internal ConsolePrinter Printer
+        public ConsolePrinter Printer
         {
             get 
             {
                 return this.printer; 
             }
 
-            private set 
+            set 
             {
                 this.printer = value;
             }
         }
 
-        internal bool CheckIfGameIsWon()
+        public bool CheckIfGameIsWon()
         {
             bool isWordRevealed = this.CheckIfWordIsRevealed(this.WordOfUnderscores);
             if (isWordRevealed)
@@ -131,7 +132,7 @@
             }
         }
 
-        internal void GetUserInput()
+        public void GetUserInput()
         {
             
             bool isInputValid = false;
