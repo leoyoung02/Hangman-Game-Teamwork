@@ -2,7 +2,7 @@ using Hangman.Logic.Contracts;
 
 namespace Hangman.Logic
 {
-    internal class Game
+    internal class Game : IPlayable
     {
         private IEngine engine;
 
@@ -11,7 +11,7 @@ namespace Hangman.Logic
             this.engine = engine;
         }
 
-        internal bool Play()
+        public bool Play()
         {
             //Engine engine = new Engine();
 

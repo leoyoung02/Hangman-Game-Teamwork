@@ -7,9 +7,11 @@ namespace Hangman.Logic
         internal static void Main()
         {
             bool isExitTriggered = false;
+            var hangmanFactory = new HangmanFactory();
+
             while (!isExitTriggered)
             {
-                var game = new Game(new Engine());
+                var game = hangmanFactory.CreateGame();
                 isExitTriggered = game.Play();
                 Console.WriteLine();
             }
