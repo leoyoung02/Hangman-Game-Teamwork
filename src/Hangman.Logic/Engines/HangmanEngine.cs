@@ -7,8 +7,9 @@
     using Utils;
     using Common;
     using Contracts;
+    using Factories;
 
-    internal class Engine : WordInitializer, IEngine
+    internal class HangmanEngine : WordInitializer, IEngine
     {
         private readonly Scoreboard scoreboard;
 
@@ -21,13 +22,14 @@
         private ConsolePrinter printer;
         private ConsoleReader inputReader;
 
-        internal Engine()
+        internal HangmanEngine()
         {
             this.Mistakes = this.mistakes;
             this.HaveAllGamesEnded = this.haveAllGamesEnded;
             this.HasCurrentGameEnded = this.hasCurrentGameEnded;
             this.IsHelpUsed = this.isHelpUsed;
             this.scoreboard = Scoreboard.Instance;
+            this.CommandFactory = new CommandFactory();
             this.printer = new ConsolePrinter();
             this.validator = new Validator();
             this.inputReader = new ConsoleReader();
@@ -71,6 +73,8 @@
                 this.isHelpUsed = value;
             }
         }
+
+        private CommandFactory CommandFactory { get; set; }
 
         private int Mistakes
         {
@@ -134,9 +138,9 @@
 
         public void GetUserInput()
         {
-            
             bool isInputValid = false;
             ICommand command;
+
             while (!isInputValid)
             {
                 this.printer.PrintEnterLetterOrCommandMessage();
@@ -146,24 +150,7 @@
                 if(validator.InputCommandValidator(inputCommand))
                 {
                     isInputValid = true;
-                    switch (inputCommand)
-                    {
-                        case "help":
-                            command = new Help(this);
-                            break;
-                        case "top":
-                            command = new Top(this.printer, this.scoreboard.GetAllRecords());
-                            break;
-                        case "restart":
-                            command = new Restart(this);
-                            break;
-                        case "exit":
-                            command = new Exit(this);
-                            break;
-                        default:
-                            command = new LetterGuess(inputCommand, this);
-                            break;
-                    }
+                    command = CommandFactory.CreateCommand(inputCommand, this, this.scoreboard.TopFiveRecords);
                     command.Execute();
                 }
             }

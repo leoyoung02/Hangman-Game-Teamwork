@@ -3,9 +3,9 @@
     internal class LetterGuess : ICommand
     {
         private readonly char inputLetter;
-        private Engine engine;
+        private HangmanEngine engine;
 
-        internal LetterGuess(string inputCommand, Engine gameEngine)
+        internal LetterGuess(string inputCommand, HangmanEngine gameEngine)
         {
             this.inputLetter = inputCommand[0];
             this.engine = gameEngine;

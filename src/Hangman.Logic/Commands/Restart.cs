@@ -1,10 +1,12 @@
-﻿namespace Hangman.Logic.Commands
+﻿using Hangman.Logic.Contracts;
+
+namespace Hangman.Logic.Commands
 {
     internal class Restart : ICommand
     {
-        private Engine engine;
+        private HangmanEngine engine;
 
-        internal Restart(Engine gameEngine)
+        internal Restart(HangmanEngine gameEngine)
         {
             this.engine = gameEngine;
         }

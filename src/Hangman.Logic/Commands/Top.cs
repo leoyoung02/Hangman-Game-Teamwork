@@ -7,7 +7,7 @@ namespace Hangman.Logic.Commands
         private ConsolePrinter printer;
         private List<Player> scores;
 
-        internal Top(ConsolePrinter printer, List<Player>scores)
+        internal Top(ConsolePrinter printer, List<Player> scores)
         {
             this.printer = printer;
             this.scores = scores;

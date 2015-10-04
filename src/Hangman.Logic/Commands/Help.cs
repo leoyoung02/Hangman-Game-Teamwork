@@ -2,9 +2,9 @@
 {
     internal class Help : ICommand
     {
-        private Engine engine;
+        private HangmanEngine engine;
 
-        internal Help(Engine gameEngine)
+        internal Help(HangmanEngine gameEngine)
         {
             this.engine = gameEngine;
         }
