@@ -2,15 +2,16 @@
 {
     using System;
     using System.Collections.Generic;
-    using Hangman.Logic.Common;
+    using Common;
+    using Contracts;
 
-    internal class ConsolePrinter
+    internal class ConsolePrinter : IPrinter
     {
         internal ConsolePrinter()
         {
         }
 
-        internal void PrintWelcomeMessage()
+        public void PrintWelcomeMessage()
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(GlobalMessages.Welcome);
@@ -19,7 +20,7 @@
             Console.ResetColor();
         }
 
-        internal void PrintWordToGuess(char[] wordToGuess)
+        public void PrintWordToGuess(char[] wordToGuess)
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write(GlobalMessages.SecretWord);
@@ -33,12 +34,12 @@
             Console.WriteLine();
         }
 
-        internal void PrintInvalidEntryMessage()
+        public void PrintInvalidEntryMessage()
         {
             Console.WriteLine(GlobalMessages.IncorrectGuessOrCommand);
         }
 
-        internal void PrintWinMessage(int mistakesCount, bool isHelpUsed, Scoreboard scoreboard)
+        public void PrintWinMessage(int mistakesCount, bool isHelpUsed, Scoreboard scoreboard)
         {
             if (isHelpUsed)
             {
@@ -50,7 +51,7 @@
             }
         }
 
-        internal void PrintNumberOfRevealedLetters(int numberOfRevealedLetters)
+        public void PrintNumberOfRevealedLetters(int numberOfRevealedLetters)
         {
             if(numberOfRevealedLetters == 1)
             {
@@ -62,18 +63,18 @@
             }
         }
 
-        internal void PrintNoRevealedLettersMessage(char suggestedLetter)
+        public void PrintNoRevealedLettersMessage(char suggestedLetter)
         {
             var uppercaseSuggestedLetter = char.ToUpper(suggestedLetter);
             Console.WriteLine(GlobalMessages.LetterNotRevealed, uppercaseSuggestedLetter);        
         }
 
-        internal void PrintEnterLetterOrCommandMessage()
+        public void PrintEnterLetterOrCommandMessage()
         {
             Console.Write(GlobalMessages.EnterLetterOrCommand);            
         }
 
-        internal void PrintRevealLetterMessage(char letterToBeRevealed)
+        public void PrintRevealLetterMessage(char letterToBeRevealed)
         {
             Console.WriteLine(GlobalMessages.HelpRevealLetter, letterToBeRevealed);        
         }

@@ -6,17 +6,18 @@ namespace Hangman.Logic.Utils
 {
     using System;
     using Common;
-    using System.Collections.Generic;
+    using Contracts;
 
     internal class Validator
     {
         internal const int PlayerNameMaxLenght = 20;
         internal const int ComandValidLenght = 1;
         internal string[] comands = new string[] { "help", "top", "restart", "exit" };
-        private ConsolePrinter printer = new ConsolePrinter();
+        private readonly IPrinter printer = new ConsolePrinter();
 
         internal Validator()
         {
+            //this.printer = printer;
         }
 
         internal bool PlayerNameValidator(string inputName)
