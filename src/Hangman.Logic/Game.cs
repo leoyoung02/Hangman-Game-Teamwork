@@ -13,12 +13,10 @@ namespace Hangman.Logic
 
         public bool Play()
         {
-            //Engine engine = new Engine();
-
             this.engine.Printer.PrintWelcomeMessage();
             while (!this.engine.HasCurrentGameEnded)
             {
-                this.engine.Printer.PrintWordToGuess(this.engine.WordOfUnderscores);
+                this.engine.Printer.PrintWordToGuess(this.engine.GuessedWordLetters);
                 this.engine.GetUserInput();
 
                 bool isGameWon = this.engine.CheckIfGameIsWon();

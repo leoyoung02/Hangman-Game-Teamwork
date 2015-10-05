@@ -10,7 +10,7 @@ namespace Hangman.Logic.Utils
         internal WordInitializer()
         {
             this.Word = this.word;
-            this.WordOfUnderscores = this.wordOfUnderscores;
+            this.GuessedWordLetters = this.wordOfUnderscores;
         }
 
         internal string Word
@@ -26,7 +26,7 @@ namespace Hangman.Logic.Utils
             }
         }
 
-        public char[] WordOfUnderscores
+        public char[] GuessedWordLetters
         {
             get 
             {

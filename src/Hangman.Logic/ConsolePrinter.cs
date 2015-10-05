@@ -49,6 +49,8 @@
             {
                 Console.WriteLine(GlobalMessages.Win, mistakesCount);
             }
+
+            //PrintWordToGuess(wordToGuess);
         }
 
         public void PrintNumberOfRevealedLetters(int numberOfRevealedLetters)

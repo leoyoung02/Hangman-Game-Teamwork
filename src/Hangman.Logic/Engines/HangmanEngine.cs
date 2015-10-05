@@ -102,17 +102,19 @@
             }
         }
 
+        //TODO: Not single responsibility (condition check, print, handle victory)
         public bool CheckIfGameIsWon()
         {
-            bool isWordRevealed = this.CheckIfWordIsRevealed(this.WordOfUnderscores);
+            bool isWordRevealed = this.CheckIfWordIsRevealed(this.GuessedWordLetters);
             if (isWordRevealed)
             {
+                this.printer.PrintWordToGuess(this.GuessedWordLetters);
                 this.printer.PrintWinMessage(this.Mistakes, this.isHelpUsed, this.scoreboard);
                 string currentPlayerName = this.AskForPlayerName();
                 var player = new Player(currentPlayerName, this.Mistakes, this.printer);
                 this.scoreboard.AddNewRecord(player);
                 this.printer.PrintAllRecords(this.scoreboard.GetAllRecords());
-                this.printer.PrintWordToGuess(this.WordOfUnderscores);
+                this.printer.PrintWordToGuess(this.GuessedWordLetters);
             }
 
             return isWordRevealed;
@@ -120,10 +122,10 @@
 
         internal void ProcessUserGuess(char suggestedLetter)
         {
-            int numberOfRevealedLetters = this.CheckUserGuess(suggestedLetter, this.Word, this.WordOfUnderscores);
+            int numberOfRevealedLetters = this.CheckUserGuess(suggestedLetter, this.Word, this.GuessedWordLetters);
             if (numberOfRevealedLetters > 0)
             {
-                bool isWordRevealed = this.CheckIfWordIsRevealed(this.WordOfUnderscores);
+                bool isWordRevealed = this.CheckIfWordIsRevealed(this.GuessedWordLetters);
                 if (!isWordRevealed)
                 {
                     this.printer.PrintNumberOfRevealedLetters(numberOfRevealedLetters);

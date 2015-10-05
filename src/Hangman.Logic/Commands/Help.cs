@@ -11,7 +11,7 @@
 
         public void Execute()
         {
-            this.engine.RevealLetter(this.engine.Word, this.engine.WordOfUnderscores);
+            this.engine.RevealLetter(this.engine.Word, this.engine.GuessedWordLetters);
             this.engine.IsHelpUsed = true;
         }
     }
