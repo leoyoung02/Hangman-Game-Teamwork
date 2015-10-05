@@ -5,22 +5,26 @@
     using System.IO;
     using System.Linq;
     using System.Text.RegularExpressions;
-    using Hangman.Logic.Common;
-    using Hangman.Logic.Utils;
+    using Utils;
     using Contracts;
 
     internal sealed class Scoreboard
     {
         internal const int MaxRecords = 5;
         private static Scoreboard instance;
-        private readonly List<Player> topFiveRecords;
+        private List<Player> topFiveRecords;
         private const string FilePath = "HighScores.txt";
         private readonly IPrinter printer;
+        private readonly ProspectMemory memory;
 
         private Scoreboard()
         {
             this.topFiveRecords = new List<Player>();
-            this.topFiveRecords = this.LoadRecords();
+            memory = new ProspectMemory();
+            memory.ScoreboardMemento = new ScoreboardMemento(topFiveRecords);
+            memory.ScoreboardMemento = this.LoadRecords();
+            this.RestoreTopFive(memory.ScoreboardMemento);
+
             //TODO: dependency injection (printer from HangmanEngine)
             this.printer = new ConsolePrinter();
         }
@@ -49,7 +53,8 @@
         public void AddNewRecord(Player player)
         {
             this.topFiveRecords.Add(player);
-            this.SaveRecordsToFile();
+            memory.ScoreboardMemento = this.SaveTopFive();
+            this.SaveRecordsToFile(memory.ScoreboardMemento);
         }
 
         public List<Player> GetAllRecords()
@@ -57,7 +62,7 @@
             return this.topFiveRecords;
         }
 
-        private List<Player> LoadRecords()
+        private ScoreboardMemento LoadRecords()
         {
             List<Player> records = new List<Player>();
             //TODO move encoding logic to Encoder
@@ -83,12 +88,22 @@
                     .ToList();
             }
 
-            return records;
+            return new ScoreboardMemento(records);
         }
 
-        private void SaveRecordsToFile()
+        private void RestoreTopFive(ScoreboardMemento memento)
         {
-            string[] lines = this.topFiveRecords
+            this.topFiveRecords = memento.TopFiveRecords;
+        }
+
+        private ScoreboardMemento SaveTopFive()
+        {
+            return new ScoreboardMemento(this.TopFiveRecords);
+        }
+
+        private void SaveRecordsToFile(ScoreboardMemento memento)
+        {
+            string[] lines = memento.TopFiveRecords
                 .Select(p => p.PlayerName + "=" + p.Score)
                 .ToArray();
 

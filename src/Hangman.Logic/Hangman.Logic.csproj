@@ -80,6 +80,8 @@
     <Compile Include="Utils\Decoder.cs" />
     <Compile Include="Utils\Encoder.cs" />
     <Compile Include="Factories\GameFactory.cs" />
+    <Compile Include="Utils\ProspectMemory.cs" />
+    <Compile Include="Utils\ScoreboardMemento.cs" />
     <Compile Include="Utils\Validator.cs" />
     <Compile Include="Utils\WordInitializer.cs" />
     <Compile Include="Game.cs" />
