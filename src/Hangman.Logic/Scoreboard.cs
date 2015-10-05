@@ -7,18 +7,22 @@
     using System.Text.RegularExpressions;
     using Hangman.Logic.Common;
     using Hangman.Logic.Utils;
+    using Contracts;
 
     internal sealed class Scoreboard
     {
         internal const int MaxRecords = 5;
         private static Scoreboard instance;
-        private List<Player> topFiveRecords;
+        private readonly List<Player> topFiveRecords;
         private const string FilePath = "HighScores.txt";
+        private readonly IPrinter printer;
 
         private Scoreboard()
         {
             this.topFiveRecords = new List<Player>();
             this.topFiveRecords = this.LoadRecords();
+            //TODO: dependency injection (printer from HangmanEngine)
+            this.printer = new ConsolePrinter();
         }
 
         public static Scoreboard Instance
@@ -75,9 +79,10 @@
 
                 records = decodedLines
                     .Select(l => Regex.Split(l, @"=([0-9]+)", RegexOptions.RightToLeft))
-                    .Select(p => new Player(p[0], Convert.ToInt32(p[1])))
+                    .Select(p => new Player(p[0], Convert.ToInt32(p[1]), this.printer))
                     .ToList();
             }
+
             return records;
         }
 

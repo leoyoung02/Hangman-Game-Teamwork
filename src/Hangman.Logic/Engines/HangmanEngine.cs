@@ -17,10 +17,10 @@
         private bool haveAllGamesEnded;
         private bool hasCurrentGameEnded;
         private bool isHelpUsed;
-        private Validator validator;
+        private readonly Validator validator;
 
-        private ConsolePrinter printer;
-        private ConsoleReader inputReader;
+        private IPrinter printer;
+        private readonly IReader inputReader;
 
         internal HangmanEngine()
         {
@@ -31,7 +31,7 @@
             this.scoreboard = Scoreboard.Instance;
             this.CommandFactory = new CommandFactory();
             this.printer = new ConsolePrinter();
-            this.validator = new Validator();
+            this.validator = new Validator(this.printer);
             this.inputReader = new ConsoleReader();
         }
 
@@ -89,7 +89,7 @@
             }
         }
 
-        public ConsolePrinter Printer
+        public IPrinter Printer
         {
             get 
             {
@@ -109,7 +109,7 @@
             {
                 this.printer.PrintWinMessage(this.Mistakes, this.isHelpUsed, this.scoreboard);
                 string currentPlayerName = this.AskForPlayerName();
-                var player = new Player(currentPlayerName, this.Mistakes);
+                var player = new Player(currentPlayerName, this.Mistakes, this.printer);
                 this.scoreboard.AddNewRecord(player);
                 this.printer.PrintAllRecords(this.scoreboard.GetAllRecords());
                 this.printer.PrintWordToGuess(this.WordOfUnderscores);

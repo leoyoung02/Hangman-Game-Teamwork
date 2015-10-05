@@ -2,16 +2,17 @@
 {
     using Utils;
     using System;
+    using Contracts;
 
-    public class Player
+    internal class Player
     {
         private string playerName;
         private int score;
         private readonly Validator validator;
 
-        public Player(string playerName, int score)
+        public Player(string playerName, int score, IPrinter printer)
         {
-            this.validator = new Validator();
+            this.validator = new Validator(printer);
             this.PlayerName = playerName;
             this.Score = score;
         }

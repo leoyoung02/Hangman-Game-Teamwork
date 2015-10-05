@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hangman.Logic.Contracts
+﻿namespace Hangman.Logic.Contracts
 {
     interface IEngine
     {
-        ConsolePrinter Printer { get; set; }
+        IPrinter Printer { get; set; }
 
         bool HasCurrentGameEnded { get; set; }
 

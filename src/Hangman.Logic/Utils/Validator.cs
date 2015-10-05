@@ -13,11 +13,11 @@ namespace Hangman.Logic.Utils
         internal const int PlayerNameMaxLenght = 20;
         internal const int ComandValidLenght = 1;
         internal string[] comands = new string[] { "help", "top", "restart", "exit" };
-        private readonly IPrinter printer = new ConsolePrinter();
+        private readonly IPrinter printer;
 
-        internal Validator()
+        internal Validator(IPrinter printer)
         {
-            //this.printer = printer;
+            this.printer = printer;
         }
 
         internal bool PlayerNameValidator(string inputName)
