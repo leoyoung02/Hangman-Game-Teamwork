@@ -1,8 +1,8 @@
 ﻿namespace Hangman.Logic
 {
-    using Utils;
     using System;
     using Contracts;
+    using Utils;
 
     internal class Player
     {

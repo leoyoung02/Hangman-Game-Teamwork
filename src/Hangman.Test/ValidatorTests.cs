@@ -2,7 +2,7 @@
 {
     using NUnit.Framework;
     using Logic.Utils;
-    using Logic.Contracts;
+    using Logic;
 
     [TestFixture]
     public class ValidatorTests
@@ -13,7 +13,7 @@
 
         public void InvalidImputForPlayerNameShouldReturnFalse(string input)
         {
-            var validator = new Validator();
+            var validator = new Validator(new ConsolePrinter());
 
             bool result = validator.PlayerNameValidator(input);
 
@@ -27,7 +27,7 @@
 
         public void ValidImputForPlayerNameShouldReturnTrue(string input)
         {
-            var validator = new Validator();
+            var validator = new Validator(new ConsolePrinter());
 
             bool result = validator.PlayerNameValidator(input);
 
@@ -41,7 +41,7 @@
 
         public void InvalidImputForInputCommandShouldReturnFalse(string input)
         {
-            var validator = new Validator();
+            var validator = new Validator(new ConsolePrinter());
 
             bool result = validator.InputCommandValidator(input);
 
@@ -52,7 +52,7 @@
 
         public void ValidImputForInputCommandShouldReturnTrue(string input)
         {
-            var validator = new Validator();
+            var validator = new Validator(new ConsolePrinter());
 
             bool result = validator.InputCommandValidator(input);
 

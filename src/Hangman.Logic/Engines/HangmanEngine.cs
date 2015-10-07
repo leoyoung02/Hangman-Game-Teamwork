@@ -1,10 +1,10 @@
 ﻿namespace Hangman.Logic
 {
     using System.Linq;
-    using Utils;
     using Common;
     using Contracts;
     using Factories;
+    using Utils;
 
     internal class HangmanEngine : WordInitializer, IEngine
     {
