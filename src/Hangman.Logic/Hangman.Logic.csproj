@@ -61,7 +61,7 @@
     <Compile Include="Commands\Exit.cs" />
     <Compile Include="Commands\LetterGuess.cs" />
     <Compile Include="Commands\Help.cs" />
-    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Contracts\ICommand.cs" />
     <Compile Include="Commands\Restart.cs" />
     <Compile Include="Commands\Top.cs" />
     <Compile Include="Common\GlobalMessages.cs" />

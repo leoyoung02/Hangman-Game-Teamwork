@@ -1,7 +1,7 @@
 ﻿namespace Hangman.Logic
 {
-    using Utils;
     using Contracts;
+    using Utils;
 
     internal class HangmanFactory : GameFactory
     {

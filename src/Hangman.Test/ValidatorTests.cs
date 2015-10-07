@@ -2,6 +2,7 @@
 {
     using NUnit.Framework;
     using Logic.Utils;
+    using Logic.Contracts;
 
     [TestFixture]
     public class ValidatorTests

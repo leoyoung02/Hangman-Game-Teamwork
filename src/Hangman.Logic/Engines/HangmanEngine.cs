@@ -1,9 +1,6 @@
 ﻿namespace Hangman.Logic
 {
-    using System;
-    using System.ComponentModel;
     using System.Linq;
-    using Commands;
     using Utils;
     using Common;
     using Contracts;

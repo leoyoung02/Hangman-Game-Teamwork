@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-
-namespace Hangman.Logic.Utils
+﻿namespace Hangman.Logic.Utils
 {
+    using System.Collections.Generic;
     internal class ScoreboardMemento
     {
         public ScoreboardMemento(List<Player> topFiveRecords)

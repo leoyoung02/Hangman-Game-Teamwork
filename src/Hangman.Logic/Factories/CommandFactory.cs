@@ -1,6 +1,7 @@
 ﻿namespace Hangman.Logic.Factories
 {
     using Commands;
+    using Contracts;
     using System.Collections.Generic;
 
     internal class CommandFactory

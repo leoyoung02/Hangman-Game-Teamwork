@@ -1,7 +1,6 @@
-using Hangman.Logic.Contracts;
-
 namespace Hangman.Logic
 {
+    using Contracts;
     internal class Game : IPlayable
     {
         private IEngine engine;

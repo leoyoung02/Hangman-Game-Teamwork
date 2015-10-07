@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-
-namespace Hangman.Logic.Contracts
+﻿namespace Hangman.Logic.Contracts
 {
+    using System.Collections.Generic;
     internal interface IPrinter
     {
         void PrintAllRecords(List<Player> topFiveRecords);

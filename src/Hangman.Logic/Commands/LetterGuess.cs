@@ -1,5 +1,6 @@
 ﻿namespace Hangman.Logic.Commands
 {
+    using Contracts;
     internal class LetterGuess : ICommand
     {
         private readonly char inputLetter;

@@ -1,7 +1,6 @@
-﻿using System;
-
-namespace Hangman.Logic.Contracts
+﻿namespace Hangman.Logic.Contracts
 {
+    using System;
     internal interface IReader
     {
         string ReadLine();
