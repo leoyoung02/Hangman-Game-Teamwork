@@ -17,9 +17,9 @@
         private readonly Validator validator;
 
         private IPrinter printer;
-        private readonly IReader inputReader;
+        protected readonly IReader InputReader;
 
-        internal HangmanEngine()
+        internal HangmanEngine(IPrinter printer, IReader inputReader)
         {
             this.Mistakes = this.mistakes;
             this.HaveAllGamesEnded = this.haveAllGamesEnded;
@@ -27,9 +27,9 @@
             this.IsHelpUsed = this.isHelpUsed;
             this.scoreboard = Scoreboard.Instance;
             this.CommandFactory = new CommandFactory();
-            this.printer = new ConsolePrinter();
+            this.Printer = printer;
             this.validator = new Validator(this.printer);
-            this.inputReader = new ConsoleReader();
+            this.InputReader = inputReader;
         }
 
         public bool HaveAllGamesEnded
@@ -99,6 +99,8 @@
             }
         }
 
+        
+
         //TODO: Not single responsibility (condition check, print, handle victory)
         public bool CheckIfGameIsWon()
         {
@@ -143,7 +145,7 @@
             while (!isInputValid)
             {
                 this.printer.PrintEnterLetterOrCommandMessage();
-                string inputCommand = inputReader.ReadLine();
+                string inputCommand = InputReader.ReadLine();
                 inputCommand = inputCommand.ToLower();
 
                 if(validator.InputCommandValidator(inputCommand))
@@ -226,7 +228,7 @@
             this.printer.Write(GlobalMessages.EnterNameForScoreBoard);
             while (!isInputValid)
             {
-                string inputName = inputReader.ReadLine();
+                string inputName = InputReader.ReadLine();
 
                 if (validator.PlayerNameValidator(inputName))
                 {
