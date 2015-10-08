@@ -1,7 +1,6 @@
-﻿using Hangman.Logic.Contracts;
-
-namespace Hangman.Logic.Commands
+﻿namespace Hangman.Logic.Commands
 {
+    using Contracts;
     internal class Restart : ICommand
     {
         private HangmanEngine engine;

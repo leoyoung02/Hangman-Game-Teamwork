@@ -61,12 +61,12 @@
     <Compile Include="Commands\Exit.cs" />
     <Compile Include="Commands\LetterGuess.cs" />
     <Compile Include="Commands\Help.cs" />
-    <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\Restart.cs" />
     <Compile Include="Commands\Top.cs" />
     <Compile Include="Common\GlobalMessages.cs" />
     <Compile Include="ConsolePrinter.cs" />
     <Compile Include="ConsoleReader.cs" />
+    <Compile Include="Contracts\ICommand.cs" />
     <Compile Include="Contracts\IEngine.cs" />
     <Compile Include="Contracts\IPlayable.cs" />
     <Compile Include="Contracts\IReader.cs" />

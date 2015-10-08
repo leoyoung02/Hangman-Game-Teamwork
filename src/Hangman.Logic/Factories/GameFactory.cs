@@ -1,8 +1,7 @@
 ﻿namespace Hangman.Logic.Utils
 {
-    using Contracts;
-    using System;
     using System.Collections.Generic;
+    using Contracts;
 
     internal abstract class GameFactory
     {
@@ -24,7 +23,6 @@
                 this._games = value;
             }        
        }
-
         public abstract IPlayable CreateGame();     
     }
 }

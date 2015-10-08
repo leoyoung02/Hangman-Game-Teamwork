@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using Hangman.Logic.Contracts;
-
-namespace Hangman.Logic.Commands
+﻿namespace Hangman.Logic.Commands
 {
+    using System.Collections.Generic;
+    using Contracts;
     internal class Top : ICommand
     {
         private IPrinter printer;

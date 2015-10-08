@@ -5,8 +5,8 @@
     using System.IO;
     using System.Linq;
     using System.Text.RegularExpressions;
-    using Utils;
     using Contracts;
+    using Utils;
 
     internal sealed class Scoreboard
     {

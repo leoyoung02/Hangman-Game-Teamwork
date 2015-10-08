@@ -1,7 +1,7 @@
 ﻿namespace Hangman.Logic
 {
-    using Utils;
     using Contracts;
+    using Utils;
 
     internal class HangmanFactory : GameFactory
     {
@@ -12,7 +12,7 @@
 
         public override IPlayable CreateGame()
         {
-            Game game = new Game(new HangmanEngine());
+            Game game = new Game(new HangmanEngine(new ConsolePrinter(), new ConsoleReader()));
             this.Games.Add(game);
 
             return game;
