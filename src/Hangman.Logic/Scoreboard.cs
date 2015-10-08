@@ -89,6 +89,15 @@
             }
 
             return new ScoreboardMemento(records);
+
+            //var x = new XmlSerializer(this.TopFiveRecords.GetType());
+            //if (File.Exists(FilePath))
+            //{
+            //    var file = new StreamReader(FilePath);
+            //     memory.ScoreboardMemento = (ScoreboardMemento)x.Deserialize(file);
+            //}
+            
+            //return memory.ScoreboardMemento;
         }
 
         private void RestoreTopFive(ScoreboardMemento memento)
@@ -120,6 +129,11 @@
             File.SetAttributes(FilePath, File.GetAttributes(FilePath) & ~FileAttributes.Hidden);
             File.WriteAllText(FilePath, encodedFile);
             File.SetAttributes(FilePath, File.GetAttributes(FilePath) | FileAttributes.Hidden);
+
+            //var x = new XmlSerializer(memento.GetType());
+            //var file = new StreamWriter(FilePath);
+            //x.Serialize(file, memento);
+            //file.Close();
         }
     }
 }

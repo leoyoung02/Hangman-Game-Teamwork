@@ -9,6 +9,7 @@
     using Contracts;
     using Factories;
 
+    //TODO: just create WordInitializer instance.
     internal class HangmanEngine : WordInitializer, IEngine
     {
         private readonly Scoreboard scoreboard;
