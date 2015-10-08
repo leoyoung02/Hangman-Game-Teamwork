@@ -27,7 +27,7 @@
             this.IsHelpUsed = this.isHelpUsed;
             this.scoreboard = Scoreboard.Instance;
             this.CommandFactory = new CommandFactory();
-            this.Printer = printer;
+            this.printer = printer;
             this.validator = new Validator(this.printer);
             this.InputReader = inputReader;
         }

@@ -7,7 +7,7 @@
     public class ScoreboardTests
     {
         [Test]
-        public void AddingScoreToEmptyScoreboardShoudAddTheScore()
+        public void AddingScoreToEmptyScoreboardShouldAddTheScore()
         {
         }
     }

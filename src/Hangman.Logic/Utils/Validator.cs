@@ -1,8 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-[assembly: InternalsVisibleTo("Hangman.Test")]
-
-namespace Hangman.Logic.Utils
+﻿namespace Hangman.Logic.Utils
 {
     using System;
     using Common;
@@ -22,7 +18,7 @@ namespace Hangman.Logic.Utils
 
         internal bool PlayerNameValidator(string inputName)
         {
-            if (String.IsNullOrWhiteSpace(inputName))
+            if (string.IsNullOrWhiteSpace(inputName))
             {
                 this.printer.Write(GlobalMessages.NoNameEntered);
                 return false;
@@ -41,7 +37,7 @@ namespace Hangman.Logic.Utils
         internal bool InputCommandValidator(string inputCommand)
         {
             if (Array.IndexOf(comands, inputCommand) == -1 &&
-                (String.IsNullOrWhiteSpace(inputCommand) ||
+                (string.IsNullOrWhiteSpace(inputCommand) ||
                 inputCommand.Length != ComandValidLenght || 
                 !char.IsLetter(inputCommand[0])))
             {
