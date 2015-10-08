@@ -7,7 +7,7 @@
     using Utils;
 
     //TODO: just create WordInitializer instance.
-    internal class HangmanEngine : WordInitializer, IEngine
+    internal class HangmanEngine : IEngine
     {
         private readonly Scoreboard scoreboard;
 
@@ -16,6 +16,7 @@
         private bool hasCurrentGameEnded;
         private bool isHelpUsed;
         private readonly Validator validator;
+        private readonly WordInitializer wordInitializer;
 
         private IPrinter printer;
         protected readonly IReader InputReader;
@@ -31,6 +32,7 @@
             this.Printer = printer;
             this.validator = new Validator(this.printer);
             this.InputReader = inputReader;
+            this.wordInitializer = new WordInitializer();
         }
 
         public bool HaveAllGamesEnded
@@ -105,16 +107,16 @@
         //TODO: Not single responsibility (condition check, print, handle victory)
         public bool CheckIfGameIsWon()
         {
-            bool isWordRevealed = this.CheckIfWordIsRevealed(this.GuessedWordLetters);
+            bool isWordRevealed = this.CheckIfWordIsRevealed(this.wordInitializer.GuessedWordLetters);
             if (isWordRevealed)
             {
-                this.printer.PrintWordToGuess(this.GuessedWordLetters);
+                this.printer.PrintWordToGuess(this.wordInitializer.GuessedWordLetters);
                 this.printer.PrintWinMessage(this.Mistakes, this.isHelpUsed, this.scoreboard);
                 string currentPlayerName = this.AskForPlayerName();
                 var player = new Player(currentPlayerName, this.Mistakes, this.printer);
                 this.scoreboard.AddNewRecord(player);
                 this.printer.PrintAllRecords(this.scoreboard.GetAllRecords());
-                this.printer.PrintWordToGuess(this.GuessedWordLetters);
+                this.printer.PrintWordToGuess(this.wordInitializer.GuessedWordLetters);
             }
 
             return isWordRevealed;
@@ -122,10 +124,10 @@
 
         internal void ProcessUserGuess(char suggestedLetter)
         {
-            int numberOfRevealedLetters = this.CheckUserGuess(suggestedLetter, this.Word, this.GuessedWordLetters);
+            int numberOfRevealedLetters = this.CheckUserGuess(suggestedLetter, this.wordInitializer.Word, this.wordInitializer.GuessedWordLetters);
             if (numberOfRevealedLetters > 0)
             {
-                bool isWordRevealed = this.CheckIfWordIsRevealed(this.GuessedWordLetters);
+                bool isWordRevealed = this.CheckIfWordIsRevealed(this.wordInitializer.GuessedWordLetters);
                 if (!isWordRevealed)
                 {
                     this.printer.PrintNumberOfRevealedLetters(numberOfRevealedLetters);
@@ -186,6 +188,7 @@
         {
             return wordToGuess.All(ch => ch != '_');
         }
+
 
         // TODO if user enter already revealed letter, don't count mistake and print proper message.
 

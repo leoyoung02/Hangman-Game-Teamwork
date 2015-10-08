@@ -6,8 +6,6 @@
 
         bool HasCurrentGameEnded { get; set; }
 
-        char[] GuessedWordLetters { get; set; }
-
         void GetUserInput();
 
         bool CheckIfGameIsWon();
