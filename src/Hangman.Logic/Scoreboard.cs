@@ -24,9 +24,6 @@
             memory.ScoreboardMemento = new ScoreboardMemento(topFiveRecords);
             memory.ScoreboardMemento = this.LoadRecords();
             this.RestoreTopFive(memory.ScoreboardMemento);
-
-            //TODO: dependency injection (printer from HangmanEngine)
-            this.printer = new ConsolePrinter();
         }
 
         public static Scoreboard Instance
