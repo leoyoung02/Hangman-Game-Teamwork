@@ -15,7 +15,7 @@ namespace Hangman.Logic
             this.engine.Printer.PrintWelcomeMessage();
             while (!this.engine.HasCurrentGameEnded)
             {
-                this.engine.Printer.PrintWordToGuess(this.engine.GuessedWordLetters);
+                this.engine.Printer.PrintWordToGuess(this.engine.WordInitializer.GuessedWordLetters);
                 this.engine.GetUserInput();
 
                 bool isGameWon = this.engine.CheckIfGameIsWon();

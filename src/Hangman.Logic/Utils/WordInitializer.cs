@@ -2,18 +2,18 @@ namespace Hangman.Logic.Utils
 {
     using System;
 
-    internal class WordInitializer
+    public class WordInitializer
     {
         private string word;
         private char[] wordOfUnderscores;
 
-        internal WordInitializer()
+        public WordInitializer()
         {
             this.Word = this.word;
             this.GuessedWordLetters = this.wordOfUnderscores;
         }
 
-        internal string Word
+        public string Word
         {
             get
             {

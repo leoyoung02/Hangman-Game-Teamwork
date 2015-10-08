@@ -12,7 +12,7 @@
 
         public override IPlayable CreateGame()
         {
-            Game game = new Game(new HangmanEngine(new ConsolePrinter(), new ConsoleReader()));
+            Game game = new Game(new HangmanEngine(new ConsolePrinter(), new ConsoleReader(), new WordInitializer()));
             this.Games.Add(game);
 
             return game;

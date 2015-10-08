@@ -1,5 +1,6 @@
 ﻿namespace Hangman.Logic
 {
+    using System;
     using System.Linq;
     using Common;
     using Contracts;
@@ -16,12 +17,12 @@
         private bool hasCurrentGameEnded;
         private bool isHelpUsed;
         private readonly Validator validator;
-        private readonly WordInitializer wordInitializer;
+        private WordInitializer wordInitializer;
 
         private IPrinter printer;
         protected readonly IReader InputReader;
 
-        internal HangmanEngine(IPrinter printer, IReader inputReader)
+        internal HangmanEngine(IPrinter printer, IReader inputReader, WordInitializer wordInitializer)
         {
             this.Mistakes = this.mistakes;
             this.HaveAllGamesEnded = this.haveAllGamesEnded;
@@ -32,7 +33,7 @@
             this.printer = printer;
             this.validator = new Validator(this.printer);
             this.InputReader = inputReader;
-            this.wordInitializer = new WordInitializer();
+            this.WordInitializer = wordInitializer;
         }
 
         public bool HaveAllGamesEnded
@@ -102,7 +103,20 @@
             }
         }
 
-        
+        public WordInitializer WordInitializer
+        {
+            get
+            {
+                return this.wordInitializer;
+            }
+
+            set
+            {
+                this.wordInitializer = value;
+            }
+        }
+
+
 
         //TODO: Not single responsibility (condition check, print, handle victory)
         public bool CheckIfGameIsWon()

@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangman.Logic", "Hangman.Lo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangman.UI", "Hangman.UI\Hangman.UI.csproj", "{A2BA3D19-4EB9-4664-A3AF-A98C7BE45790}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangman.Tests", "Hangman.Test\Hangman.Tests.csproj", "{52A1425D-162B-4386-812E-1969F5C83722}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangman.Tests", "Hangman.Tests\Hangman.Tests.csproj", "{52A1425D-162B-4386-812E-1969F5C83722}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
