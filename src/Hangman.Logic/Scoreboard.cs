@@ -11,19 +11,23 @@
     internal sealed class Scoreboard
     {
         internal const int MaxRecords = 5;
-        private static Scoreboard instance;
-        private List<Player> topFiveRecords;
+
         private const string FilePath = "HighScores.txt";
+
+        private static Scoreboard instance;
+
         private readonly IPrinter printer;
         private readonly ProspectMemory memory;
+
+        private List<Player> topFiveRecords;
 
         private Scoreboard()
         {
             this.topFiveRecords = new List<Player>();
-            memory = new ProspectMemory();
-            memory.ScoreboardMemento = new ScoreboardMemento(topFiveRecords);
-            memory.ScoreboardMemento = this.LoadRecords();
-            this.RestoreTopFive(memory.ScoreboardMemento);
+            this.memory = new ProspectMemory();
+            this.memory.ScoreboardMemento = new ScoreboardMemento(this.topFiveRecords);
+            this.memory.ScoreboardMemento = this.LoadRecords();
+            this.RestoreTopFive(this.memory.ScoreboardMemento);
         }
 
         public static Scoreboard Instance
@@ -50,8 +54,8 @@
         public void AddNewRecord(Player player)
         {
             this.topFiveRecords.Add(player);
-            memory.ScoreboardMemento = this.SaveTopFive();
-            this.SaveRecordsToFile(memory.ScoreboardMemento);
+            this.memory.ScoreboardMemento = this.SaveTopFive();
+            this.SaveRecordsToFile(this.memory.ScoreboardMemento);
         }
 
         public List<Player> GetAllRecords()

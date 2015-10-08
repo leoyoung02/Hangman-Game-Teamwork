@@ -1,8 +1,8 @@
 ﻿namespace Hangman.Tests
 {
-    using NUnit.Framework;
-    using Logic.Utils;
     using Logic;
+    using Logic.Utils;
+    using NUnit.Framework;
 
     [TestFixture]
     public class ValidatorTests

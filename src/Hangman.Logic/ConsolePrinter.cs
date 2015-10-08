@@ -55,7 +55,7 @@
 
         public void PrintNumberOfRevealedLetters(int numberOfRevealedLetters)
         {
-            if(numberOfRevealedLetters == 1)
+            if (numberOfRevealedLetters == 1)
             {
                 Console.WriteLine(GlobalMessages.OneLetterRevealed, numberOfRevealedLetters);
             }

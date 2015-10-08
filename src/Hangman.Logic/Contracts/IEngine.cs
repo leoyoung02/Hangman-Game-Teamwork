@@ -1,7 +1,8 @@
 ﻿namespace Hangman.Logic.Contracts
 {
     using Utils;
-    interface IEngine
+
+    internal interface IEngine
     {
         IPrinter Printer { get; set; }
 
@@ -9,10 +10,10 @@
 
         bool HasCurrentGameEnded { get; set; }
 
+        bool HaveAllGamesEnded { get; set; }
+
         void GetUserInput();
 
         bool CheckIfGameIsWon();
-
-        bool HaveAllGamesEnded { get; set; }
     }
 }

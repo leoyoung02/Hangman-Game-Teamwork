@@ -1,6 +1,5 @@
 ﻿namespace Hangman.Logic
 {
-    using System;
     using System.Linq;
     using Common;
     using Contracts;
@@ -10,17 +9,19 @@
     //TODO: just create WordInitializer instance.
     internal class HangmanEngine : IEngine
     {
+        protected readonly IReader InputReader;
+
         private readonly Scoreboard scoreboard;
+        private readonly Validator validator;
 
         private int mistakes;
         private bool haveAllGamesEnded;
         private bool hasCurrentGameEnded;
         private bool isHelpUsed;
-        private readonly Validator validator;
+
         private WordInitializer wordInitializer;
 
         private IPrinter printer;
-        protected readonly IReader InputReader;
 
         internal HangmanEngine(IPrinter printer, IReader inputReader, WordInitializer wordInitializer)
         {
@@ -62,34 +63,6 @@
             }
         }
 
-        internal bool IsHelpUsed
-        {
-            get 
-            {
-                return this.isHelpUsed; 
-            }
-
-            set
-            {
-                this.isHelpUsed = value;
-            }
-        }
-
-        private CommandFactory CommandFactory { get; set; }
-
-        private int Mistakes
-        {
-            get 
-            {
-                return this.mistakes; 
-            }
-
-            set 
-            {
-                this.mistakes = value;
-            }
-        }
-
         public IPrinter Printer
         {
             get 
@@ -116,7 +89,33 @@
             }
         }
 
+        internal bool IsHelpUsed
+        {
+            get
+            {
+                return this.isHelpUsed;
+            }
 
+            set
+            {
+                this.isHelpUsed = value;
+            }
+        }
+
+        private int Mistakes
+        {
+            get
+            {
+                return this.mistakes;
+            }
+
+            set
+            {
+                this.mistakes = value;
+            }
+        }
+
+        private CommandFactory CommandFactory { get; set; }
 
         //TODO: Not single responsibility (condition check, print, handle victory)
         public bool CheckIfGameIsWon()
@@ -136,6 +135,26 @@
             return isWordRevealed;
         }
 
+        public void GetUserInput()
+        {
+            bool isInputValid = false;
+            ICommand command;
+
+            while (!isInputValid)
+            {
+                this.printer.PrintEnterLetterOrCommandMessage();
+                string inputCommand = this.InputReader.ReadLine();
+                inputCommand = inputCommand.ToLower();
+
+                if (this.validator.InputCommandValidator(inputCommand))
+                {
+                    isInputValid = true;
+                    command = CommandFactory.CreateCommand(inputCommand, this, this.scoreboard.TopFiveRecords);
+                    command.Execute();
+                }
+            }
+        }
+
         internal void ProcessUserGuess(char suggestedLetter)
         {
             int numberOfRevealedLetters = this.CheckUserGuess(suggestedLetter, this.wordInitializer.Word, this.wordInitializer.GuessedWordLetters);
@@ -151,26 +170,6 @@
             {
                 this.printer.PrintNoRevealedLettersMessage(suggestedLetter);
                 this.Mistakes++;
-            }
-        }
-
-        public void GetUserInput()
-        {
-            bool isInputValid = false;
-            ICommand command;
-
-            while (!isInputValid)
-            {
-                this.printer.PrintEnterLetterOrCommandMessage();
-                string inputCommand = InputReader.ReadLine();
-                inputCommand = inputCommand.ToLower();
-
-                if(validator.InputCommandValidator(inputCommand))
-                {
-                    isInputValid = true;
-                    command = CommandFactory.CreateCommand(inputCommand, this, this.scoreboard.TopFiveRecords);
-                    command.Execute();
-                }
             }
         }
 
@@ -203,9 +202,7 @@
             return wordToGuess.All(ch => ch != '_');
         }
 
-
         // TODO if user enter already revealed letter, don't count mistake and print proper message.
-
         private int CheckUserGuess(char suggestedLetter, string secretWord, char[] wordToGuess)
         {
             int numberOfRevealedLetters = 0;
@@ -246,9 +243,9 @@
             this.printer.Write(GlobalMessages.EnterNameForScoreBoard);
             while (!isInputValid)
             {
-                string inputName = InputReader.ReadLine();
+                string inputName = this.InputReader.ReadLine();
 
-                if (validator.PlayerNameValidator(inputName))
+                if (this.validator.PlayerNameValidator(inputName))
                 {
                     name = inputName;
                     isInputValid = true;

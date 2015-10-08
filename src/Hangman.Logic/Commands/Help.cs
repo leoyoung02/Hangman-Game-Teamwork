@@ -1,9 +1,10 @@
 ﻿namespace Hangman.Logic.Commands
 {
     using Contracts;
+
     internal class Help : ICommand
     {
-        protected HangmanEngine engine;
+        private HangmanEngine engine;
 
         internal Help(HangmanEngine gameEngine)
         {

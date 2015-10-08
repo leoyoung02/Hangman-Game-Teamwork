@@ -1,6 +1,6 @@
 ﻿namespace Hangman.Logic.Contracts
 {
-    interface IPlayable
+    internal interface IPlayable
     {
         bool Play(); 
     }

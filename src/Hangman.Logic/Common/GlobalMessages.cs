@@ -2,8 +2,9 @@
 {
     public class GlobalMessages
     {
-        public const string  Welcome = "<< Welcome to “Hangman” game >>\n" +
+        public const string Welcome = "<< Welcome to “Hangman” game >>\n" +
                                        "<< Please try to guess the secret word >>\n";
+
         public const string CommandOptions = "Commands:\n" +
                                              "HELP \t\t Reveals a letter.\n" +
                                              "TOP \t\t Displays high scores.\n" +

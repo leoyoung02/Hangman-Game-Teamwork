@@ -1,6 +1,7 @@
 ﻿namespace Hangman.Logic.Commands
 {
     using Contracts;
+
     internal class Exit : ICommand
     {
         private HangmanEngine engine;

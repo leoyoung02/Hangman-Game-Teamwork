@@ -6,9 +6,9 @@
 
     internal class Player
     {
+        private readonly Validator validator;
         private string playerName;
         private int score;
-        private readonly Validator validator;
 
         public Player(string playerName, int score, IPrinter printer)
         {
@@ -21,12 +21,12 @@
         {
             get 
             {
-                return playerName; 
+                return this.playerName; 
             }
 
             set 
             {
-                if (!validator.PlayerNameValidator(value))
+                if (!this.validator.PlayerNameValidator(value))
                 {
                     throw new ArgumentException("Invalid name!");
                 }
@@ -39,7 +39,7 @@
         {
             get 
             {
-                return score;
+                return this.score;
             }
 
             set 

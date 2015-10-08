@@ -11,8 +11,9 @@
         {
             this._games = new List<IPlayable>();
         }
-        
-        public List<IPlayable> Games {
+
+        public List<IPlayable> Games
+        {
             get
             {
                 return this._games;
@@ -21,8 +22,9 @@
             private set
             {
                 this._games = value;
-            }        
-       }
-        public abstract IPlayable CreateGame();     
+            }
+        }
+
+        public abstract IPlayable CreateGame();
     }
 }
