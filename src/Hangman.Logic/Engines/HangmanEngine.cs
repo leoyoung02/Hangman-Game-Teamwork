@@ -1,174 +1,101 @@
-﻿namespace Hangman.Logic
+﻿namespace Hangman.Logic.Engines
 {
-    using System;
     using System.Linq;
-    using Common;
     using Contracts;
     using Factories;
+    using Games;
     using Utils;
 
-    //TODO: just create WordInitializer instance.
-    internal class HangmanEngine : IEngine
+
+    public class HangmanEngine : GameEngine, IGameEngine
     {
-        private readonly Scoreboard scoreboard;
+        private HangmanGame hangmanGame;
 
         private int mistakes;
-        private bool haveAllGamesEnded;
-        private bool hasCurrentGameEnded;
-        private bool isHelpUsed;
-        private readonly Validator validator;
-        private WordInitializer wordInitializer;
-
-        private IPrinter printer;
-        protected readonly IReader InputReader;
-
-        internal HangmanEngine(IPrinter printer, IReader inputReader, WordInitializer wordInitializer)
+        public HangmanEngine(IPrinter printer, IReader inputReader, CommandFactory commandFactory, Validator validator, HangmanGame hangmanGame)
+            : base(printer, inputReader, commandFactory, validator, hangmanGame)
         {
-            this.Mistakes = this.mistakes;
-            this.HaveAllGamesEnded = this.haveAllGamesEnded;
-            this.HasCurrentGameEnded = this.hasCurrentGameEnded;
-            this.IsHelpUsed = this.isHelpUsed;
-            this.scoreboard = Scoreboard.Instance;
-            this.CommandFactory = new CommandFactory();
-            this.printer = printer;
-            this.validator = new Validator(this.printer);
-            this.InputReader = inputReader;
-            this.WordInitializer = wordInitializer;
         }
 
-        public bool HaveAllGamesEnded
+        public int Mistakes
         {
-            get 
+            get
             {
-                return this.haveAllGamesEnded;
+                return this.mistakes;
             }
-
             set
-            {
-                this.haveAllGamesEnded = value; 
-            }
-        }
-
-        public bool HasCurrentGameEnded
-        {
-            get 
-            { 
-                return this.hasCurrentGameEnded;
-            }
-
-            set
-            { 
-                this.hasCurrentGameEnded = value; 
-            }
-        }
-
-        internal bool IsHelpUsed
-        {
-            get 
-            {
-                return this.isHelpUsed; 
-            }
-
-            set
-            {
-                this.isHelpUsed = value;
-            }
-        }
-
-        private CommandFactory CommandFactory { get; set; }
-
-        private int Mistakes
-        {
-            get 
-            {
-                return this.mistakes; 
-            }
-
-            set 
             {
                 this.mistakes = value;
             }
         }
 
-        public IPrinter Printer
-        {
-            get 
-            {
-                return this.printer; 
-            }
-
-            set 
-            {
-                this.printer = value;
-            }
-        }
-
-        public WordInitializer WordInitializer
+        public HangmanGame HangmanGame
         {
             get
             {
-                return this.wordInitializer;
+                return this.hangmanGame;
             }
-
             set
             {
-                this.wordInitializer = value;
+                this.hangmanGame = value;
             }
         }
 
-
-
-        //TODO: Not single responsibility (condition check, print, handle victory)
-        public bool CheckIfGameIsWon()
+        public override bool CheckIfGameIsWon()
         {
-            bool isWordRevealed = this.CheckIfWordIsRevealed(this.wordInitializer.GuessedWordLetters);
+            bool isWordRevealed = this.CheckIfWordIsRevealed(this.HangmanGame.WordInitializer.GuessedWordLetters);
             if (isWordRevealed)
             {
-                this.printer.PrintWordToGuess(this.wordInitializer.GuessedWordLetters);
-                this.printer.PrintWinMessage(this.Mistakes, this.isHelpUsed, this.scoreboard);
-                string currentPlayerName = this.AskForPlayerName();
-                var player = new Player(currentPlayerName, this.Mistakes, this.printer);
-                this.scoreboard.AddNewRecord(player);
-                this.printer.PrintAllRecords(this.scoreboard.GetAllRecords());
-                this.printer.PrintWordToGuess(this.wordInitializer.GuessedWordLetters);
+                isWordRevealed = false;
+                this.HandleVictory();
             }
 
             return isWordRevealed;
         }
-
+        //TODO: Not single responsibility (print, handle victory)
+        public void HandleVictory()
+        {
+            this.Printer.PrintWordToGuess(this.HangmanGame.WordInitializer.GuessedWordLetters);
+            this.Printer.PrintWinMessage(this.Mistakes, IsHelpUsed, this.Scoreboard);
+            string currentPlayerName = this.AskForPlayerName();
+            var player = new Player(currentPlayerName, this.Mistakes);
+            this.Scoreboard.AddNewRecord(player);
+            this.Printer.PrintAllRecords(this.Scoreboard.GetAllRecords());
+            this.Initialize().StartGame();
+        }
         internal void ProcessUserGuess(char suggestedLetter)
         {
-            int numberOfRevealedLetters = this.CheckUserGuess(suggestedLetter, this.wordInitializer.Word, this.wordInitializer.GuessedWordLetters);
+            int numberOfRevealedLetters = this.CheckUserGuess(suggestedLetter, this.HangmanGame.WordInitializer.Word, this.HangmanGame.WordInitializer.GuessedWordLetters);
             if (numberOfRevealedLetters > 0)
             {
-                bool isWordRevealed = this.CheckIfWordIsRevealed(this.wordInitializer.GuessedWordLetters);
+                bool isWordRevealed = this.CheckIfWordIsRevealed(this.HangmanGame.WordInitializer.GuessedWordLetters);
                 if (!isWordRevealed)
                 {
-                    this.printer.PrintNumberOfRevealedLetters(numberOfRevealedLetters);
+                    this.Printer.PrintNumberOfRevealedLetters(numberOfRevealedLetters);
                 }
             }
             else
             {
-                this.printer.PrintNoRevealedLettersMessage(suggestedLetter);
+                this.Printer.PrintNoRevealedLettersMessage(suggestedLetter);
                 this.Mistakes++;
             }
         }
 
-        public void GetUserInput()
+        public override void GetUserInput()
         {
             bool isInputValid = false;
             ICommand command;
 
             while (!isInputValid)
             {
-                this.printer.PrintEnterLetterOrCommandMessage();
+                this.Printer.PrintEnterLetterOrCommandMessage();
                 string inputCommand = InputReader.ReadLine();
                 inputCommand = inputCommand.ToLower();
 
-                if(validator.InputCommandValidator(inputCommand))
+                if (Validator.InputCommandValidator(inputCommand))
                 {
                     isInputValid = true;
-                    command = CommandFactory.CreateCommand(inputCommand, this, this.scoreboard.TopFiveRecords);
+                    command = CommandFactory.CreateCommand(inputCommand, this, this.HangmanGame, this.Scoreboard.TopFiveRecords);
                     command.Execute();
                 }
             }
@@ -195,7 +122,7 @@
                 }
             }
 
-            this.printer.PrintRevealLetterMessage(letterToBeRevealed);
+            this.Printer.PrintRevealLetterMessage(letterToBeRevealed);
         }
 
         private bool CheckIfWordIsRevealed(char[] wordToGuess)
@@ -203,9 +130,7 @@
             return wordToGuess.All(ch => ch != '_');
         }
 
-
         // TODO if user enter already revealed letter, don't count mistake and print proper message.
-
         private int CheckUserGuess(char suggestedLetter, string secretWord, char[] wordToGuess)
         {
             int numberOfRevealedLetters = 0;
@@ -239,23 +164,34 @@
             return isLetterRevealed;
         }
 
-        private string AskForPlayerName()
+        public override IGameEngine Initialize()
         {
-            string name = null;
-            bool isInputValid = false;
-            this.printer.Write(GlobalMessages.EnterNameForScoreBoard);
-            while (!isInputValid)
-            {
-                string inputName = InputReader.ReadLine();
+            this.Printer = Printer;
+            this.InputReader = InputReader;
+            this.CommandFactory = CommandFactory;
+            this.Validator = Validator;
+            this.HangmanGame = new HangmanGame(new WordInitializer());
+            this.Scoreboard = Scoreboard;
 
-                if (validator.PlayerNameValidator(inputName))
+
+            return this;
+        }
+        public override bool StartGame()
+        {
+            this.Printer.PrintWelcomeMessage();
+            while (!this.HasCurrentGameEnded)
+            {
+                this.Printer.PrintWordToGuess(this.HangmanGame.WordInitializer.GuessedWordLetters);
+                this.GetUserInput();
+
+                bool isGameWon = this.CheckIfGameIsWon();
+                if (isGameWon)
                 {
-                    name = inputName;
-                    isInputValid = true;
+                    this.HasCurrentGameEnded = true;
                 }
             }
 
-            return name;
+            return this.HaveAllGamesEnded;
         }
     }
 }

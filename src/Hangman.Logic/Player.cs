@@ -1,18 +1,16 @@
 ﻿namespace Hangman.Logic
 {
     using System;
-    using Contracts;
     using Utils;
 
-    internal class Player
+    public class Player
     {
         private string playerName;
         private int score;
-        private readonly Validator validator;
+        private readonly Validator validator = new Validator(new ConsolePrinter());
 
-        public Player(string playerName, int score, IPrinter printer)
+        public Player(string playerName, int score)
         {
-            this.validator = new Validator(printer);
             this.PlayerName = playerName;
             this.Score = score;
         }

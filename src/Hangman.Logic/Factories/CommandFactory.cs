@@ -3,17 +3,19 @@
     using System.Collections.Generic;
     using Commands;
     using Contracts;
+    using Engines;
+    using Games;
 
-    internal class CommandFactory
+    public class CommandFactory
     {
-        public ICommand CreateCommand(string inputCommand, HangmanEngine gameEngine, List<Player> scores)
+        public ICommand CreateCommand(string inputCommand, HangmanEngine gameEngine, HangmanGame game, List<Player> scores)
         {
             ICommand command;
 
             switch (inputCommand)
             {
                 case "help":
-                    command = new Help(gameEngine);
+                    command = new Help(gameEngine, game);
                     break;
                 case "top":
                     command = new Top(gameEngine.Printer, scores);

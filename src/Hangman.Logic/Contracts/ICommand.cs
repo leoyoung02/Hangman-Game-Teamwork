@@ -1,6 +1,6 @@
 ﻿namespace Hangman.Logic.Contracts
 {
-    internal interface ICommand
+    public interface ICommand
     {
         void Execute();
     }

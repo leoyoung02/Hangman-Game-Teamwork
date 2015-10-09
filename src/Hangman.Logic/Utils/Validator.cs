@@ -4,7 +4,7 @@
     using Common;
     using Contracts;
 
-    internal class Validator
+    public class Validator
     {
         internal const int PlayerNameMaxLenght = 20;
         internal const int ComandValidLenght = 1;
@@ -30,7 +30,7 @@
             }
             else
             {
-               return true;
+                return true;
             }
         }
 
@@ -38,7 +38,7 @@
         {
             if (Array.IndexOf(comands, inputCommand) == -1 &&
                 (string.IsNullOrWhiteSpace(inputCommand) ||
-                inputCommand.Length != ComandValidLenght || 
+                inputCommand.Length != ComandValidLenght ||
                 !char.IsLetter(inputCommand[0])))
             {
                 this.printer.PrintInvalidEntryMessage();

@@ -5,16 +5,14 @@
     using System.IO;
     using System.Linq;
     using System.Text.RegularExpressions;
-    using Contracts;
     using Utils;
 
-    internal sealed class Scoreboard
+    public sealed class Scoreboard
     {
         internal const int MaxRecords = 5;
         private static Scoreboard instance;
         private List<Player> topFiveRecords;
         private const string FilePath = "HighScores.txt";
-        private readonly IPrinter printer;
         private readonly ProspectMemory memory;
 
         private Scoreboard()
@@ -49,21 +47,21 @@
 
         public void AddNewRecord(Player player)
         {
-            this.topFiveRecords.Add(player);
+            this.TopFiveRecords.Add(player);
             memory.ScoreboardMemento = this.SaveTopFive();
             this.SaveRecordsToFile(memory.ScoreboardMemento);
         }
 
         public List<Player> GetAllRecords()
         {
-            return this.topFiveRecords;
+            return this.TopFiveRecords;
         }
 
         private ScoreboardMemento LoadRecords()
         {
             List<Player> records = new List<Player>();
-            //TODO move encoding logic to Encoder
-            //TODO move decoding logic to Decoder
+            // TODO move encoding logic to Encoder
+            // TODO move decoding logic to Decoder
             // Creating a hidden file for HighScore
             FileStream fs = File.Open(FilePath, FileMode.OpenOrCreate);
             fs.Close();
@@ -81,7 +79,7 @@
 
                 records = decodedLines
                     .Select(l => Regex.Split(l, @"=([0-9]+)", RegexOptions.RightToLeft))
-                    .Select(p => new Player(p[0], Convert.ToInt32(p[1]), this.printer))
+                    .Select(p => new Player(p[0], Convert.ToInt32(p[1])))
                     .ToList();
             }
 

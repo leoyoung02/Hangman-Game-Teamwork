@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using Common;
     using Contracts;
+    using Utils;
 
     internal class ConsolePrinter : IPrinter
     {
@@ -49,13 +50,11 @@
             {
                 Console.WriteLine(GlobalMessages.Win, mistakesCount);
             }
-
-            //PrintWordToGuess(wordToGuess);
         }
 
         public void PrintNumberOfRevealedLetters(int numberOfRevealedLetters)
         {
-            if(numberOfRevealedLetters == 1)
+            if (numberOfRevealedLetters == 1)
             {
                 Console.WriteLine(GlobalMessages.OneLetterRevealed, numberOfRevealedLetters);
             }
@@ -68,17 +67,17 @@
         public void PrintNoRevealedLettersMessage(char suggestedLetter)
         {
             var uppercaseSuggestedLetter = char.ToUpper(suggestedLetter);
-            Console.WriteLine(GlobalMessages.LetterNotRevealed, uppercaseSuggestedLetter);        
+            Console.WriteLine(GlobalMessages.LetterNotRevealed, uppercaseSuggestedLetter);
         }
 
         public void PrintEnterLetterOrCommandMessage()
         {
-            Console.Write(GlobalMessages.EnterLetterOrCommand);            
+            Console.Write(GlobalMessages.EnterLetterOrCommand);
         }
 
         public void PrintRevealLetterMessage(char letterToBeRevealed)
         {
-            Console.WriteLine(GlobalMessages.HelpRevealLetter, letterToBeRevealed);        
+            Console.WriteLine(GlobalMessages.HelpRevealLetter, letterToBeRevealed);
         }
 
         public void PrintAllRecords(List<Player> topFiveRecords)
@@ -87,9 +86,9 @@
             Console.WriteLine(GlobalMessages.HighScores);
             if (topFiveRecords.Count != 0)
             {
-                //TODO move this method where it belongs
+                // TODO move this method where it belongs
                 topFiveRecords.Sort(
-                    delegate(Player p1, Player p2)
+                    delegate (Player p1, Player p2)
                     {
                         return p1.Score.CompareTo(p2.Score);
                     });
@@ -102,9 +101,9 @@
                         int mistakes = topFiveRecords[i].Score;
                         Console.WriteLine(GlobalMessages.ScoreFormat, i, name, mistakes);
                     }
-                    else 
+                    else
                     {
-                         break;
+                        break;
                     }
                 }
             }
@@ -117,6 +116,11 @@
         public void Write(string message)
         {
             Console.WriteLine(message);
+        }
+
+        public void PrintWordToGuess(WordInitializer wordInitializer)
+        {
+            throw new NotImplementedException();
         }
     }
 }
