@@ -2,7 +2,7 @@
 {
     using System;
 
-    internal interface IReader
+    public interface IReader
     {
         string ReadLine();
 
