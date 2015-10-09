@@ -1,7 +1,7 @@
 ﻿namespace Hangman.Tests
 {
-    using NUnit.Framework;
     using Logic;
+    using NUnit.Framework;
 
     [TestFixture]
     public class ScoreboardTests

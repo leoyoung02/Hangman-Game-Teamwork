@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using Contracts;
+
     internal class Top : ICommand
     {
         private IPrinter printer;
@@ -15,7 +16,7 @@
 
         public void Execute()
         {
-            this.printer.PrintAllRecords(scores);
+            this.printer.PrintAllRecords(this.scores);
         }
     }
 }

@@ -6,10 +6,11 @@
 
     public class Validator
     {
-        internal const int PlayerNameMaxLenght = 20;
-        internal const int ComandValidLenght = 1;
-        internal string[] comands = new string[] { "help", "top", "restart", "exit" };
+        private const int PlayerNameMaxLenght = 20;
+        private const int ComandValidLenght = 1;
         private readonly IPrinter printer;
+
+        private string[] comands = new string[] { "help", "top", "restart", "exit" };
 
         internal Validator(IPrinter printer)
         {
@@ -36,7 +37,7 @@
 
         internal bool InputCommandValidator(string inputCommand)
         {
-            if (Array.IndexOf(comands, inputCommand) == -1 &&
+            if (Array.IndexOf(this.comands, inputCommand) == -1 &&
                 (string.IsNullOrWhiteSpace(inputCommand) ||
                 inputCommand.Length != ComandValidLenght ||
                 !char.IsLetter(inputCommand[0])))

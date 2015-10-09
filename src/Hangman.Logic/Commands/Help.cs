@@ -6,7 +6,6 @@
 
     internal class Help : ICommand
     {
-        protected HangmanEngine engine;
         private HangmanGame game;
 
         internal Help(HangmanEngine gameEngine, HangmanGame game)
