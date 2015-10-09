@@ -16,24 +16,17 @@
 
         public List<Player> LoadRecords()
         {
-            // TODO move encoding logic to Encoder
-            // TODO move decoding logic to Decoder
             List<Player> records = new List<Player>();
 
             this.CreateHiddenFileForRecords();
 
-            string textToEncode = File.ReadAllText(FilePath);
+            string textToDecode = File.ReadAllText(FilePath);
 
-            string encodedFile = Decoder.Base64Decode(textToEncode);
+            string decodedText = Decoder.Base64Decode(textToDecode);
 
-            if (!string.IsNullOrEmpty(encodedFile))
+            if (!string.IsNullOrEmpty(decodedText))
             {
-                string[] encodedLines = encodedFile.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
-                string[] decodedLines = new string[encodedLines.Length];
-                for (int i = 0; i < encodedLines.Length; i++)
-                {
-                    decodedLines[i] = Decoder.Base64Decode(encodedLines[i]);
-                }
+                string[] decodedLines = Decoder.DecodeEveryLine(decodedText);
 
                 records = decodedLines
                     .Select(l => Regex.Split(l, @"=([0-9]+)", RegexOptions.RightToLeft))
@@ -55,17 +48,7 @@
 
         public void SaveRecordsToFile(ScoreboardMemento memento)
         {
-            string[] lines = memento.TopFiveRecords
-                     .Select(p => p.PlayerName + "=" + p.Score)
-                     .ToArray();
-
-            string[] encodedLines = new string[lines.Length];
-            for (int i = 0; i < lines.Length; i++)
-            {
-                encodedLines[i] = Encoder.Base64Encode(lines[i]);
-            }
-
-            string encodedFile = Encoder.Base64Encode(string.Join(Environment.NewLine, encodedLines));
+            string encodedFile = Encoder.GetEncodedFile(memento);
 
             // Display file so it can be written in and hide it again
 
