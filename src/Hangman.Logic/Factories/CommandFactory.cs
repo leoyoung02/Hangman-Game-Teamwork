@@ -8,26 +8,26 @@
 
     public class CommandFactory
     {
-        public ICommand CreateCommand(string inputCommand, HangmanEngine gameEngine, HangmanGame game, List<Player> scores)
+        public ICommand CreateCommand(string inputCommand, HangmanEngine gameEngine)
         {
             ICommand command;
 
             switch (inputCommand)
             {
                 case "help":
-                    command = new Help(gameEngine, game);
+                    command = new Help();
                     break;
                 case "top":
-                    command = new Top(gameEngine.Printer, scores);
+                    command = new Top();
                     break;
                 case "restart":
-                    command = new Restart(gameEngine);
+                    command = new Restart();
                     break;
                 case "exit":
-                    command = new Exit(gameEngine);
+                    command = new Exit();
                     break;
                 default:
-                    command = new LetterGuess(inputCommand, gameEngine);
+                    command = new LetterGuess(inputCommand);
                     break;
             }
 

@@ -74,6 +74,7 @@
                 this.Printer.PrintWinMessage(this.Mistakes, IsHelpUsed, this.Scoreboard, this.HangmanGame.WordInitializer.GuessedWordLetters);
                 this.HandleVictory();
                 this.Printer.PrintAllRecords(this.Scoreboard.GetAllRecords());
+                this.Initialize().StartGame();
             }
 
             return isWordRevealed;
@@ -84,7 +85,6 @@
             string currentPlayerName = this.AskForPlayerName();
             var player = new Player(currentPlayerName, this.Mistakes);
             this.Scoreboard.AddNewRecord(player);
-            this.Initialize().StartGame();
         }
 
         internal void ProcessUserGuess(char suggestedLetter)
@@ -123,8 +123,8 @@
                 if (Validator.InputCommandIsValid(inputCommand))
                 {
                     isInputValid = true;
-                    command = CommandFactory.CreateCommand(inputCommand, this, this.HangmanGame, this.Scoreboard.TopFiveRecords);
-                    command.Execute();
+                    command = CommandFactory.CreateCommand(inputCommand, this);
+                    command.Execute(this);
                 }
             }
         }

@@ -5,17 +5,10 @@
 
     internal class Exit : ICommand
     {
-        private HangmanEngine engine;
-
-        internal Exit(HangmanEngine gameEngine)
+        public void Execute(HangmanEngine engine)
         {
-            this.engine = gameEngine;
-        }
-
-        public void Execute()
-        {
-            this.engine.HasCurrentGameEnded = true;
-            this.engine.HaveAllGamesEnded = true;
+            engine.HasCurrentGameEnded = true;
+            engine.HaveAllGamesEnded = true;
         }
     }
 }
