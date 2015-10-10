@@ -1,149 +1,126 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Hangman.Logic.Commands.Exit" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="8.5" Y="1.5" Width="1.5" />
+    <Position X="6.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
       <FileName>Commands\Exit.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Hangman.Logic.Commands.Help" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="13.75" Y="1.5" Width="1.5" />
+    <Position X="6.75" Y="6.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAgAAAAIAAIAAAAAAAAAAA=</HashCode>
       <FileName>Commands\Help.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Hangman.Logic.Commands.LetterGuess" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="6.75" Y="2.5" Width="1.5" />
+    <Position X="6.75" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAQAAABAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
       <FileName>Commands\LetterGuess.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Hangman.Logic.Commands.Restart" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="12" Y="2.5" Width="1.5" />
+    <Position X="6.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAABAAAAAQAAAA=</HashCode>
       <FileName>Commands\Restart.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Hangman.Logic.Commands.Top" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="8.5" Y="3.5" Width="1.5" />
+    <Position X="6.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAQAAAAIAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
       <FileName>Commands\Top.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Hangman.Logic.Common.GlobalMessages" Collapsed="true">
-    <Position X="12" Y="1.5" Width="1.5" />
+    <Position X="0.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAIogAgAAAAAgAAAAEAgAAgAQAAAAgAAEBAAAABAAAQ=</HashCode>
       <FileName>Common\GlobalMessages.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Hangman.Logic.HangmanEngine" Collapsed="true">
-    <Position X="1.25" Y="1.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AQAAAQAAQAgAhCAAAIAAAIAIAAgAgIRAAABAAIACAAk=</HashCode>
-      <FileName>Engines\HangmanEngine.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="Hangman.Logic.HangmanFactory" Collapsed="true">
-    <Position X="4.25" Y="1.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Factories\HangmanFactory.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Hangman.Logic.ConsolePrinter" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="8.5" Y="0.5" Width="1.5" />
+    <Position X="8.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAEMQAAAAAAAAAAACAAAAAAAAAEgAAAAAAAAAAEACAA=</HashCode>
       <FileName>ConsolePrinter.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Hangman.Logic.ConsoleReader" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="10.25" Y="0.5" Width="1.5" />
+    <Position X="8.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
       <FileName>ConsoleReader.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Hangman.Logic.EntryPoint" Collapsed="true">
-    <Position X="6.75" Y="1.5" Width="1.5" />
+    <Position X="0.5" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>EntryPoint.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Hangman.Logic.Game" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="10.25" Y="1.5" Width="1.5" />
+    <Position X="10.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAQAAAA=</HashCode>
-      <FileName>Game.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Games\Game.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Hangman.Logic.Player" Collapsed="true">
-    <Position X="8.5" Y="2.5" Width="1.5" />
+    <Position X="2.25" Y="0.5" Width="1.25" />
     <TypeIdentifier>
       <HashCode>AAEAAAAAAAAAAAgAAAEIAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
       <FileName>Player.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Hangman.Logic.Scoreboard" Collapsed="true">
-    <Position X="13.75" Y="2.5" Width="1.5" />
+    <Position X="2.25" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAABAAEAAEAAAAIBQAAAAAAABAAAABQARAAAIAAAE=</HashCode>
+      <HashCode>AAQAABAAEAAEEAAAIBQAAAAAAABAAAABQAQAAAIAAAA=</HashCode>
       <FileName>Scoreboard.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Hangman.Logic.Factories.CommandFactory" Collapsed="true">
-    <Position X="6.75" Y="0.5" Width="1.5" />
+    <Position X="6.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Factories\CommandFactory.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Hangman.Logic.Utils.GameFactory" Collapsed="true">
-    <Position X="4.25" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>QAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
-      <FileName>Factories\GameFactory.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Hangman.Logic.Utils.Decoder" Collapsed="true">
-    <Position X="12" Y="0.5" Width="1.5" />
+    <Position X="4.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIABAAAAAAAAAAA=</HashCode>
       <FileName>Utils\Decoder.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Hangman.Logic.Utils.Encoder" Collapsed="true">
-    <Position X="13.75" Y="0.5" Width="1.5" />
+    <Position X="4.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AQAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Utils\Encoder.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Hangman.Logic.Utils.ProspectMemory" Collapsed="true">
-    <Position X="10.25" Y="2.5" Width="1.5" />
+    <Position X="2.25" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
       <FileName>Utils\ProspectMemory.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Hangman.Logic.Utils.ScoreboardMemento" Collapsed="true">
-    <Position X="6.75" Y="3.5" Width="1.5" />
+    <Position X="2.25" Y="4" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Utils\ScoreboardMemento.cs</FileName>
@@ -157,49 +134,72 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Hangman.Logic.Utils.WordInitializer" Collapsed="true">
-    <Position X="1.25" Y="0.5" Width="1.5" />
+    <Position X="2.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAEAAgABAAABCAAAAAAAAAAAAAAAAAAAAIAAAAAAAAA=</HashCode>
       <FileName>Utils\WordInitializer.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="Hangman.Logic.Commands.ICommand" Collapsed="true">
-    <Position X="6.75" Y="4.75" Width="1.5" />
+  <Class Name="Hangman.Logic.Engines.HangmanEngine" Collapsed="true">
+    <Position X="0.5" Y="2.75" Width="1.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Commands\ICommand.cs</FileName>
+      <HashCode>AQAAAAEAQAABgQABAIAAAAAgAAgAgAQAAABAAAAAAAg=</HashCode>
+      <FileName>Engines\HangmanEngine.cs</FileName>
     </TypeIdentifier>
-  </Interface>
-  <Interface Name="Hangman.Logic.Contracts.IEngine" Collapsed="true">
-    <Position X="8.5" Y="4.75" Width="1.5" />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Hangman.Logic.Engines.GameEngine" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.25" />
     <TypeIdentifier>
-      <HashCode>AQAAAQAAAAAADAAAAAAAAAAAAAAAAIQAAAAAAAAAAAA=</HashCode>
-      <FileName>Contracts\IEngine.cs</FileName>
+      <HashCode>AQAAAQAAAAgABSAAAAAAAIAoAEiACIRIgABAAIACAAE=</HashCode>
+      <FileName>Engines\GameEngine.cs</FileName>
     </TypeIdentifier>
-  </Interface>
-  <Interface Name="Hangman.Logic.Contracts.IPlayable" Collapsed="true">
-    <Position X="10.25" Y="4.75" Width="1.5" />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Hangman.Logic.Games.HangmanGame" Collapsed="true">
+    <Position X="10.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
-      <FileName>Contracts\IPlayable.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Games\HangmanGame.cs</FileName>
     </TypeIdentifier>
-  </Interface>
+  </Class>
+  <Class Name="Hangman.Logic.Utils.FileManagerFacade" Collapsed="true">
+    <Position X="4.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAEAAAAAAAAAAAAAAAIAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Utils\FileManagerFacade.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Interface Name="Hangman.Logic.Contracts.IPrinter" Collapsed="true">
-    <Position X="12" Y="4.75" Width="1.5" />
+    <Position X="8.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAEMQAAAAAAAAAAACAAAAAAAAAEgAAAAAAAAAAEACAA=</HashCode>
       <FileName>Contracts\IPrinter.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Hangman.Logic.Contracts.IReader" Collapsed="true">
-    <Position X="13.75" Y="4.75" Width="1.5" />
+    <Position X="8.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
       <FileName>Contracts\IReader.cs</FileName>
     </TypeIdentifier>
   </Interface>
+  <Interface Name="Hangman.Logic.Contracts.ICommand" Collapsed="true">
+    <Position X="6.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Contracts\ICommand.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Hangman.Logic.Contracts.IGameEngine" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AQAAAQAAAAAABQAAAAAAAAAgAAgAAIQAAAAAAAAAAAA=</HashCode>
+      <FileName>Contracts\IGameEngine.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
   <Enum Name="Hangman.Logic.Words" Collapsed="true">
-    <Position X="6.75" Y="5.75" Width="1.5" />
+    <Position X="0.5" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAEACAAAAAAgAAAIAIAAABAAQAQAAAQAAAA=</HashCode>
       <FileName>Words.cs</FileName>
