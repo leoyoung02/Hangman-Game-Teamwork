@@ -1,9 +1,9 @@
 ﻿namespace Hangman.Logic.Games
 {
     using System.Reflection;
+    using Contracts;
     using Ninject;
-
-    using Hangman.Logic.Contracts;
+    
     public class HangmanGameStarter
     {
     /// <summary>
@@ -17,7 +17,7 @@
         }
 
         /// <summary>
-        /// Gets a instance of the game <see cref="GameFifteenStarter"/> class.
+        /// Gets a instance of the game <see cref="HangmanGameStarter"/> class.
         /// </summary>
         /// <value>Instance of a game starter.</value>
         public static HangmanGameStarter Instance
