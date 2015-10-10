@@ -1,6 +1,5 @@
 ﻿namespace Hangman.Tests
 {
-    using Logic;
     using Logic.Utils;
     using NUnit.Framework;
 
