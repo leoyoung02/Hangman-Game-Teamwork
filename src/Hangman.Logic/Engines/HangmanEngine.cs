@@ -40,6 +40,29 @@
                 this.hangmanGame = value;
             }
         }
+        public override IGameEngine Initialize()
+        {
+            this.HangmanGame = new HangmanGame(new WordInitializer());
+
+            return this;
+        }
+        public override bool StartGame()
+        {
+            this.Printer.PrintWelcomeMessage();
+            while (!this.HasCurrentGameEnded)
+            {
+                this.Printer.PrintWordToGuess(this.HangmanGame.WordInitializer.GuessedWordLetters);
+                this.GetUserInput();
+
+                bool isGameWon = this.CheckIfGameIsWon();
+                if (isGameWon)
+                {
+                    this.HasCurrentGameEnded = true;
+                }
+            }
+
+            return this.HaveAllGamesEnded;
+        }
 
         public override bool CheckIfGameIsWon()
         {
@@ -162,36 +185,6 @@
             }
 
             return isLetterRevealed;
-        }
-
-        public override IGameEngine Initialize()
-        {
-            this.Printer = Printer;
-            this.InputReader = InputReader;
-            this.CommandFactory = CommandFactory;
-            this.Validator = Validator;
-            this.HangmanGame = new HangmanGame(new WordInitializer());
-            this.Scoreboard = Scoreboard;
-
-
-            return this;
-        }
-        public override bool StartGame()
-        {
-            this.Printer.PrintWelcomeMessage();
-            while (!this.HasCurrentGameEnded)
-            {
-                this.Printer.PrintWordToGuess(this.HangmanGame.WordInitializer.GuessedWordLetters);
-                this.GetUserInput();
-
-                bool isGameWon = this.CheckIfGameIsWon();
-                if (isGameWon)
-                {
-                    this.HasCurrentGameEnded = true;
-                }
-            }
-
-            return this.HaveAllGamesEnded;
         }
     }
 }

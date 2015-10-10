@@ -6,9 +6,9 @@
     using Contracts;
     using Utils;
 
-    internal class ConsolePrinter : IPrinter
+    public class ConsolePrinter : IPrinter
     {
-        internal ConsolePrinter()
+        public ConsolePrinter()
         {
         }
 

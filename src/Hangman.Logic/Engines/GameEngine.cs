@@ -1,4 +1,4 @@
-namespace Hangman.Logic.Engines
+﻿namespace Hangman.Logic.Engines
 {
     using Common;
     using Contracts;

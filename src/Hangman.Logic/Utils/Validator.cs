@@ -12,7 +12,7 @@
 
         private string[] comands = new string[] { "help", "top", "restart", "exit" };
 
-        internal Validator(IPrinter printer)
+        public Validator(IPrinter printer)
         {
             this.printer = printer;
         }
