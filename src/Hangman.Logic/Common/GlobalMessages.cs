@@ -14,9 +14,9 @@
         public const string SecretWord = "\nThe secret word is: ";
         public const string EnterLetterOrCommand = "\nEnter your guess letter or command: ";
         public const string IncorrectGuessOrCommand = "Incorrect guess or command!";
-        public const string EnterNameForScoreBoard = "Please enter your name for the top scoreboard: ";
-        public const string NoNameEntered = "You did not enter a name. Please, try again.";
-        public const string NameTooLong = "The name you entered is too long. Please, enter a name up to 20 characters.";
+        public const string PlayerNameForScoreBoard = "Please enter your name for the top scoreboard: ";
+        public const string PlayerNoNameEntered = "You did not enter a name. Please, try again.";
+        public const string PlayerNameTooLong = "The name you entered is too long. Please, enter a name up to 20 characters.";
 
         public const string OneLetterRevealed = "Good job! You revealed {0} letter.";
         public const string MultipleLettersRevealed = "Good job! You revealed {0} letters.";

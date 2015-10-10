@@ -3,6 +3,7 @@
     using Common;
     using Contracts;
     using Factories;
+    using System;
     using Utils;
 
     public abstract class GameEngine : IGameEngine
@@ -147,21 +148,30 @@
 
         protected string AskForPlayerName()
         {
-            string name = null;
-            bool isInputValid = false;
-            this.printer.Write(GlobalMessages.EnterNameForScoreBoard);
-            while (!isInputValid)
-            {
-                string inputName = InputReader.ReadLine();
+            bool isValid = false;
+            string playerName = string.Empty;
 
-                if (validator.PlayerNameValidator(inputName))
+            this.Printer.Write(GlobalMessages.PlayerNameForScoreBoard);
+
+            while (!isValid)
+            {
+                playerName = InputReader.ReadLine();
+
+                if (validator.PlayerNameIsNullOrWhiteSpace(playerName))
                 {
-                    name = inputName;
-                    isInputValid = true;
+                    this.Printer.Write(GlobalMessages.PlayerNoNameEntered);
+                }
+                else if (validator.PlayerNameIsTooLong(playerName))
+                {
+                    this.Printer.Write(GlobalMessages.PlayerNameTooLong);
+                }
+                else
+                {
+                    isValid = true;
                 }
             }
 
-            return name;
+            return playerName;
         }
         public abstract bool CheckIfGameIsWon();
 

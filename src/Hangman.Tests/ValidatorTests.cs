@@ -9,29 +9,39 @@
     {        
         [TestCase("")]
         [TestCase(" ")]
-        [TestCase("012345678901234567891")] //trying to enter name with length more than maximum
 
-        public void InvalidPlayerNameShouldReturnFalse(string input)
+        public void PlayerNameNullOrWhitespaceShouldReturnFalse(string playerName)
         {
-            var validator = new Validator(new ConsolePrinter());
+            var validator = new Validator();
 
-            bool result = validator.PlayerNameValidator(input);
+            bool result = validator.PlayerNameIsNullOrWhiteSpace(playerName);
 
-            Assert.False(result, "PlayerNameValidator method should return \"false\"");
+            Assert.True(result, "PlayerNameNullOrWhitespaceShouldReturnFalse method should return \"true\"");
+        }
+
+        [TestCase("01234567890123456789000001")]
+
+        public void PlayerNameTooLongShouldReturnTrue(string playerName)
+        {
+            var validator = new Validator();
+
+            bool result = validator.PlayerNameIsTooLong(playerName);
+
+            Assert.True(result, "PlayerNameTooLongShouldReturnTrue method should return \"true\"");
         }
 
         [TestCase("M")]
         [TestCase("Mike")]
         [TestCase("Mike Mike")]
-        [TestCase("01234567890123456789")] //trying to enter name with length equal to maximum
+        [TestCase("01234567890123456789")]
 
-        public void ValidPlayerNameShouldReturnTrue(string input)
+        public void PlayerNameTooLongShouldReturnFalse(string playerName)
         {
-            var validator = new Validator(new ConsolePrinter());
+            var validator = new Validator();
 
-            bool result = validator.PlayerNameValidator(input);
+            bool result = validator.PlayerNameIsTooLong(playerName);
 
-            Assert.True(result, "PlayerNameValidator method should return \"true\"");
+            Assert.False(result, "PlayerNameTooLongShouldReturnFalse method should return \"false\"");
         }
 
         [TestCase("")]
@@ -39,22 +49,22 @@
         [TestCase("0")]
         [TestCase("ab")]
 
-        public void InvalidCommandShouldReturnFalse(string input)
+        public void InvalidCommandShouldReturnFalse(string command)
         {
-            var validator = new Validator(new ConsolePrinter());
+            var validator = new Validator();
 
-            bool result = validator.InputCommandValidator(input);
+            bool result = validator.InputCommandIsValid(command);
 
             Assert.False(result, "InputCommandValidator method should return \"false\"");
         }
 
         [TestCase("a")]
 
-        public void ValidCommandShouldReturnTrue(string input)
+        public void ValidCommandShouldReturnTrue(string command)
         {
-            var validator = new Validator(new ConsolePrinter());
+            var validator = new Validator();
 
-            bool result = validator.InputCommandValidator(input);
+            bool result = validator.InputCommandIsValid(command);
 
             Assert.True(result, "InputCommandValidator method should return \"true\"");
         }

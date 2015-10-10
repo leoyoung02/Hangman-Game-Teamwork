@@ -120,7 +120,7 @@
                 string inputCommand = InputReader.ReadLine();
                 inputCommand = inputCommand.ToLower();
 
-                if (Validator.InputCommandValidator(inputCommand))
+                if (Validator.InputCommandIsValid(inputCommand))
                 {
                     isInputValid = true;
                     command = CommandFactory.CreateCommand(inputCommand, this, this.HangmanGame, this.Scoreboard.TopFiveRecords);

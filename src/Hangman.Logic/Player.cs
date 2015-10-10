@@ -1,13 +1,10 @@
 ﻿namespace Hangman.Logic
 {
-    using System;
-    using Utils;
 
     public class Player
     {
         private string playerName;
         private int score;
-        private readonly Validator validator = new Validator(new ConsolePrinter());
 
         public Player(string playerName, int score)
         {
@@ -24,11 +21,6 @@
 
             set 
             {
-                if (!validator.PlayerNameValidator(value))
-                {
-                    throw new ArgumentException("Invalid name!");
-                }
-
                 this.playerName = value; 
             }
         }
@@ -40,13 +32,8 @@
                 return score;
             }
 
-            set 
+            private set 
             {
-                if (value < 0)
-                {
-                    throw new ArgumentOutOfRangeException("Score must be non negative!");
-                }
-
                 this.score = value;
             }
         }
