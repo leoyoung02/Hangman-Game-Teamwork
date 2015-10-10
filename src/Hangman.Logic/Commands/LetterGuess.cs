@@ -6,17 +6,15 @@
     internal class LetterGuess : ICommand
     {
         private readonly char inputLetter;
-        private HangmanEngine engine;
 
-        internal LetterGuess(string inputCommand, HangmanEngine gameEngine)
+        internal LetterGuess(string inputCommand)
         {
             this.inputLetter = inputCommand[0];
-            this.engine = gameEngine;
         }
 
-        public void Execute()
+        public void Execute(HangmanEngine engine)
         {
-            this.engine.ProcessUserGuess(this.inputLetter);
+            engine.ProcessUserGuess(this.inputLetter);
         }
     }
 }

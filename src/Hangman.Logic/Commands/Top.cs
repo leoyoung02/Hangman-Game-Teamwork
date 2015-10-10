@@ -2,21 +2,13 @@
 {
     using System.Collections.Generic;
     using Contracts;
+    using Engines;
 
     internal class Top : ICommand
     {
-        private IPrinter printer;
-        private List<Player> scores;
-
-        internal Top(IPrinter printer, List<Player> scores)
+        public void Execute(HangmanEngine engine)
         {
-            this.printer = printer;
-            this.scores = scores;
-        }
-
-        public void Execute()
-        {
-            this.printer.PrintAllRecords(this.scores);
+            engine.Printer.PrintAllRecords(engine.Scoreboard.TopFiveRecords);
         }
     }
 }

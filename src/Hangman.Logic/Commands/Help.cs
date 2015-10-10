@@ -6,31 +6,10 @@
 
     internal class Help : ICommand
     {
-        private HangmanGame game;
-        private HangmanEngine gameEngine;
-        internal Help(HangmanEngine gameEngine, HangmanGame game)
+        public void Execute(HangmanEngine gameEngine)
         {
-            this.GameEngine = gameEngine;
-            this.game = game;
-        }
-
-        public HangmanEngine GameEngine
-        {
-            get
-            {
-                return this.gameEngine;
-            }
-
-            private set
-            {
-                this.gameEngine = value;
-            }
-        }
-
-        public void Execute()
-        {
-            this.GameEngine.RevealLetter(this.game.WordInitializer.Word, this.game.WordInitializer.GuessedWordLetters);
-            this.GameEngine.IsHelpUsed = true;
+            gameEngine.RevealLetter(gameEngine.HangmanGame.WordInitializer.Word, gameEngine.HangmanGame.WordInitializer.GuessedWordLetters);
+            gameEngine.IsHelpUsed = true;
         }
     }
 }

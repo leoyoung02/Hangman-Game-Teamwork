@@ -5,28 +5,9 @@
 
     internal class Restart : ICommand
     {
-        private HangmanEngine engine;
-
-        internal Restart(HangmanEngine engine)
+        public void Execute(HangmanEngine engine)
         {
-            this.Engine = engine;
-            this.engine.Initialize().StartGame();
-        }
-
-        public HangmanEngine Engine
-        {
-            get
-            {
-                return this.engine;
-            }
-            set
-            {
-                this.engine = value;
-            }
-        }
-        public void Execute()
-        {
-            this.engine.HasCurrentGameEnded = true;
+            engine.HasCurrentGameEnded = true;
         }
     }
 }
