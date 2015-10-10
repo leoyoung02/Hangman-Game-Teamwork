@@ -40,8 +40,10 @@
             Console.WriteLine(GlobalMessages.IncorrectGuessOrCommand);
         }
 
-        public void PrintWinMessage(int mistakesCount, bool isHelpUsed, Scoreboard scoreboard)
+        public void PrintWinMessage(int mistakesCount, bool isHelpUsed, Scoreboard scoreboard, char[] wordToGuess)
         {
+            this.PrintWordToGuess(wordToGuess);
+
             if (isHelpUsed)
             {
                 Console.WriteLine(GlobalMessages.WinWithHelp, mistakesCount);
@@ -116,6 +118,11 @@
         public void Write(string message)
         {
             Console.WriteLine(message);
+        }
+
+        public void PrintLetterAlreadyRevealedMessage()
+        {
+            Console.WriteLine("The letter you have entered is already revealed!");
         }
 
         public void PrintWordToGuess(WordInitializer wordInitializer)

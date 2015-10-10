@@ -19,9 +19,11 @@
 
         void PrintWelcomeMessage();
 
-        void PrintWinMessage(int mistakesCount, bool isHelpUsed, Scoreboard scoreboard);
+        void PrintWinMessage(int mistakesCount, bool isHelpUsed, Scoreboard scoreboard, char[] wordToGuess);
 
         void PrintWordToGuess(char[] wordToGuess);
+
+        void PrintLetterAlreadyRevealedMessage();
 
         void Write(string message);
         void PrintWordToGuess(WordInitializer wordInitializer);

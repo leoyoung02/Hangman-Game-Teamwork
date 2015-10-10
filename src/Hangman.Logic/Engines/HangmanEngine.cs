@@ -9,6 +9,7 @@
 
     public class HangmanEngine : GameEngine, IGameEngine
     {
+        private const int LETTER_ALREADY_REVEALED_VALUE = -1;
         private HangmanGame hangmanGame;
 
         private int mistakes;
@@ -70,22 +71,22 @@
             if (isWordRevealed)
             {
                 isWordRevealed = false;
+                this.Printer.PrintWinMessage(this.Mistakes, IsHelpUsed, this.Scoreboard, this.HangmanGame.WordInitializer.GuessedWordLetters);
                 this.HandleVictory();
+                this.Printer.PrintAllRecords(this.Scoreboard.GetAllRecords());
             }
 
             return isWordRevealed;
         }
-        //TODO: Not single responsibility (print, handle victory)
+
         public void HandleVictory()
         {
-            this.Printer.PrintWordToGuess(this.HangmanGame.WordInitializer.GuessedWordLetters);
-            this.Printer.PrintWinMessage(this.Mistakes, IsHelpUsed, this.Scoreboard);
             string currentPlayerName = this.AskForPlayerName();
             var player = new Player(currentPlayerName, this.Mistakes);
             this.Scoreboard.AddNewRecord(player);
-            this.Printer.PrintAllRecords(this.Scoreboard.GetAllRecords());
             this.Initialize().StartGame();
         }
+
         internal void ProcessUserGuess(char suggestedLetter)
         {
             int numberOfRevealedLetters = this.CheckUserGuess(suggestedLetter, this.HangmanGame.WordInitializer.Word, this.HangmanGame.WordInitializer.GuessedWordLetters);
@@ -96,6 +97,10 @@
                 {
                     this.Printer.PrintNumberOfRevealedLetters(numberOfRevealedLetters);
                 }
+            }
+            else if (numberOfRevealedLetters == LETTER_ALREADY_REVEALED_VALUE)
+            {
+                this.Printer.PrintLetterAlreadyRevealedMessage();
             }
             else
             {
@@ -153,7 +158,6 @@
             return wordToGuess.All(ch => ch != '_');
         }
 
-        // TODO if user enter already revealed letter, don't count mistake and print proper message.
         private int CheckUserGuess(char suggestedLetter, string secretWord, char[] wordToGuess)
         {
             int numberOfRevealedLetters = 0;
@@ -168,6 +172,10 @@
                         numberOfRevealedLetters++;
                     }
                 }
+            }
+            else
+            {
+                numberOfRevealedLetters = LETTER_ALREADY_REVEALED_VALUE;
             }
 
             return numberOfRevealedLetters;
