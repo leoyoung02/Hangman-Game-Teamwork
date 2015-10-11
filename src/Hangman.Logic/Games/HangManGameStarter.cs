@@ -9,7 +9,6 @@
     /// <summary>
     /// A normal game starter object implementing Facade design pattern.
     /// </summary>
-    
         private static HangmanGameStarter instance;
 
         private HangmanGameStarter()

@@ -5,12 +5,6 @@
 
     public static class Encoder
     {
-        private static string Base64Encode(string plainText)
-        {
-            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
-            return Convert.ToBase64String(plainTextBytes);
-        }
-
         internal static string GetEncodedFile(ScoreboardMemento memento)
         {
             string[] lines = memento.TopFiveRecords
@@ -26,6 +20,12 @@
             string encodedFile = Base64Encode(string.Join(Environment.NewLine, encodedLines));
 
             return encodedFile;
+        }
+
+        private static string Base64Encode(string plainText)
+        {
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return Convert.ToBase64String(plainTextBytes);
         }
     }
 }

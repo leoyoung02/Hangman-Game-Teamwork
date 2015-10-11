@@ -33,6 +33,7 @@
 
         public const string WinWithHelp = "You won with {0} mistakes but you have used help.\n" + 
                                           "Your result will not be entered into the scoreboard.";
+
         public const string Win = "You won with {0} mistakes.";
     }
 }

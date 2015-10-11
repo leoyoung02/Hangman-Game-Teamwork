@@ -45,6 +45,14 @@
 
         public Game Game { get; set; }
 
+        public abstract bool CheckIfGameIsWon();
+
+        public abstract void GetUserInput();
+
+        public abstract bool StartGame();
+
+        public abstract IGameEngine Initialize();
+
         protected string AskForPlayerName()
         {
             bool isValid = false;
@@ -54,7 +62,7 @@
 
             while (!isValid)
             {
-                playerName = InputReader.ReadLine();
+                playerName = this.InputReader.ReadLine();
 
                 if (Validator.PlayerNameIsNullOrWhiteSpace(playerName))
                 {
@@ -72,12 +80,5 @@
 
             return playerName;
         }
-        public abstract bool CheckIfGameIsWon();
-
-        public abstract void GetUserInput();
-
-        public abstract bool StartGame();
-
-        public abstract IGameEngine Initialize();
     }
 }

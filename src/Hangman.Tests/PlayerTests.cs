@@ -6,7 +6,6 @@
     [TestClass]
     public class PlayerTests
     {
-
         [TestMethod]
 
         public void PlayerIsCreatedWithCorrectFirstName()

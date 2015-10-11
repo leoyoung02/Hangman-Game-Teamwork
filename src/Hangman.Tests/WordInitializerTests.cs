@@ -1,7 +1,7 @@
 ﻿namespace Hangman.Tests
 {
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Logic.Utils;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
     public class WordInitializerTests
@@ -18,8 +18,8 @@
         [TestMethod]
         public void WordInitializerGenerateWordOfUnderscoresEqualsWordLengthInUndersores()
         {
-            //var word = new WordInitializer();
-            //var result = word.Word;
+            // var word = new WordInitializer();
+            // var result = word.Word;
         }
     }
 }

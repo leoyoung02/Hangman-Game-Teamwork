@@ -9,20 +9,20 @@
     /// </summary>
     public sealed class Scoreboard
     {
-        public static int MaxRecords = 5;
+        public const int MaxRecords = 5;
         private static Scoreboard instance;
-        private List<Player> topFiveRecords;
         private readonly FileManagerFacade fileManagerFacade;
         private readonly ProspectMemory memory;
+        private List<Player> topFiveRecords;
 
         private Scoreboard()
         {
             this.topFiveRecords = new List<Player>();
             this.fileManagerFacade = new FileManagerFacade();
-            memory = new ProspectMemory();
-            memory.ScoreboardMemento = new ScoreboardMemento(topFiveRecords);
-            memory.ScoreboardMemento = this.LoadRecords();
-            this.RestoreTopFive(memory.ScoreboardMemento);
+            this.memory = new ProspectMemory();
+            this.memory.ScoreboardMemento = new ScoreboardMemento(this.topFiveRecords);
+            this.memory.ScoreboardMemento = this.LoadRecords();
+            this.RestoreTopFive(this.memory.ScoreboardMemento);
         }
 
         /// <summary>
@@ -44,8 +44,7 @@
         /// <summary>
         /// List of top 5 players
         /// </summary>
-        // TODO: should be sorted
-        public List<Player> TopFiveRecords
+        public List<Player> TopFiveRecords // TODO: should be sorted
         {
             get
             {
@@ -57,21 +56,20 @@
         /// Adds a new player to TopFiveRecords
         /// </summary>
         /// <param name="player">The Player instance to be added</param>
-        // TODO: should check player count before adding
-        public void AddNewRecord(Player player)
+        public void AddNewRecord(Player player) // TODO: should check player count before adding
         {
             this.TopFiveRecords.Add(player);
 
-            topFiveRecords.Sort(
-                    delegate (Player p1, Player p2)
-                    {
-                        return p1.Score.CompareTo(p2.Score);
-                    });
+            this.topFiveRecords.Sort(
+                                delegate(Player p1, Player p2)
+                                {
+                                 return p1.Score.CompareTo(p2.Score);
+                                });
 
-            topFiveRecords = topFiveRecords.Take(5).ToList();
+            this.topFiveRecords = this.topFiveRecords.Take(5).ToList();
 
-            memory.ScoreboardMemento = this.SaveTopFive();
-            this.SaveRecordsToFile(memory.ScoreboardMemento);
+            this.memory.ScoreboardMemento = this.SaveTopFive();
+            this.SaveRecordsToFile(this.memory.ScoreboardMemento);
         }
 
         private ScoreboardMemento LoadRecords()

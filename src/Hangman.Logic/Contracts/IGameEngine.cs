@@ -8,11 +8,11 @@
 
         bool HasCurrentGameEnded { get; set; }
 
+        bool HaveAllGamesEnded { get; set; }
+
         void GetUserInput();
 
         bool CheckIfGameIsWon();
-
-        bool HaveAllGamesEnded { get; set; }
 
         bool StartGame();
 

@@ -1,8 +1,8 @@
 ﻿namespace Hangman.Logic
 {
-    using Ninject.Modules;
     using Contracts;
     using Engines;
+    using Ninject.Modules;
 
     public class Ninjector : NinjectModule
     {

@@ -16,14 +16,14 @@
         public ICommand CreateCommand(string inputCommand)
         {
             inputCommand = inputCommand.ToLower();
-            if(this.commandDictionary.ContainsKey(inputCommand))
+            if (this.commandDictionary.ContainsKey(inputCommand))
             {
                 return this.commandDictionary[inputCommand];
             }
             else
             {
                 ICommand command;
-                
+
                 switch (inputCommand)
                 {
                     case "help":

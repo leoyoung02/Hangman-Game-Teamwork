@@ -35,15 +35,15 @@
             }
 
             return records;
+
             // TODO: Remove unnecessary comments
-            //var x = new XmlSerializer(this.TopFiveRecords.GetType());
-            //if (File.Exists(FilePath))
-            //{
+            // var x = new XmlSerializer(this.TopFiveRecords.GetType());
+            // if (File.Exists(FilePath))
+            // {
             //    var file = new StreamReader(FilePath);
             //     memory.ScoreboardMemento = (ScoreboardMemento)x.Deserialize(file);
-            //}
-
-            //return memory.ScoreboardMemento;
+            // }
+            // return memory.ScoreboardMemento;
         }
 
         public void SaveRecordsToFile(ScoreboardMemento memento)
@@ -51,15 +51,14 @@
             string encodedFile = Encoder.GetEncodedFile(memento);
 
             // Display file so it can be written in and hide it again
-
             File.SetAttributes(FilePath, File.GetAttributes(FilePath) & ~FileAttributes.Hidden);
             File.WriteAllText(FilePath, encodedFile);
             File.SetAttributes(FilePath, File.GetAttributes(FilePath) | FileAttributes.Hidden);
 
-            //var x = new XmlSerializer(memento.GetType());
-            //var file = new StreamWriter(FilePath);
-            //x.Serialize(file, memento);
-            //file.Close();
+            // var x = new XmlSerializer(memento.GetType());
+            // var file = new StreamWriter(FilePath);
+            // x.Serialize(file, memento);
+            // file.Close();
         }
 
         private void CreateHiddenFileForRecords()

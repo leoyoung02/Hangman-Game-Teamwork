@@ -4,7 +4,6 @@
 
     public class HangmanGame : Game
     {
-        private WordInitializer wordInitializer;
         public HangmanGame(WordInitializer wordInitializer)
         {
             this.WordInitializer = wordInitializer;

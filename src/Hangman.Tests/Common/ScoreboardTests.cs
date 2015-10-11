@@ -1,14 +1,8 @@
-﻿using NUnit.Framework;
-using Hangman.Logic;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hangman.Logic.Tests
+﻿namespace Hangman.Logic.Tests
 {
-    [TestFixture()]
+    using NUnit.Framework;
+
+    [TestFixture]
     public class ScoreboardTests
     {
         [TestCase(6)]
@@ -18,7 +12,7 @@ namespace Hangman.Logic.Tests
             var scoreboard = Scoreboard.Instance;
             var player = new Player("Chuck Noris", 0);
 
-            for(int i = 0; i < entriesCount; i++)
+            for (int i = 0; i < entriesCount; i++)
             {
                 scoreboard.AddNewRecord(player);
             }

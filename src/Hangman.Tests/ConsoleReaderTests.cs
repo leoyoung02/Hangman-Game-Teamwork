@@ -1,8 +1,8 @@
 ﻿namespace Hangman.Tests
 {
     using Logic.Contracts;
-    using Moq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Moq;
 
     [TestClass]
     public class ConsoleReaderTests

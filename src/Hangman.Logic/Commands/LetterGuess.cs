@@ -14,8 +14,7 @@
         /// Command constructor
         /// </summary>
         /// <param name="inputCommand">The command string</param>
-        // TODO: should only axxept letters
-        internal LetterGuess(string inputCommand)
+        internal LetterGuess(string inputCommand) // TODO: should only axxept letters
         {
             this.inputLetter = inputCommand[0];
         }

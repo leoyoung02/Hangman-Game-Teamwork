@@ -6,10 +6,9 @@
     using Games;
     using Utils;
 
-
     public class HangmanEngine : GameEngine, IGameEngine
     {
-        private const int LETTER_ALREADY_REVEALED_VALUE = -1;
+        private const int NumberOfAlreadyRevealedLetters = -1;
  
         public HangmanEngine(IPrinter printer, IReader inputReader, CommandFactory commandFactory, Validator validator, HangmanGame hangmanGame)
             : base(printer, inputReader, commandFactory, validator, hangmanGame)
@@ -26,6 +25,7 @@
 
             return this;
         }
+
         public override bool StartGame()
         {
             this.Printer.PrintWelcomeMessage();
@@ -50,7 +50,7 @@
             if (isWordRevealed)
             {
                 isWordRevealed = false;
-                this.Printer.PrintWinMessage(this.Mistakes, IsHelpUsed, this.Scoreboard, this.HangmanGame.WordInitializer.GuessedWordLetters);
+                this.Printer.PrintWinMessage(this.Mistakes, this.IsHelpUsed, this.Scoreboard, this.HangmanGame.WordInitializer.GuessedWordLetters);
                 this.HandleVictory();
                 this.Printer.PrintAllRecords(this.Scoreboard.TopFiveRecords);
                 this.Initialize().StartGame();
@@ -69,28 +69,6 @@
             }
         }
 
-        internal void ProcessUserGuess(char suggestedLetter)
-        {
-            int numberOfRevealedLetters = this.CheckUserGuess(suggestedLetter, this.HangmanGame.WordInitializer.Word, this.HangmanGame.WordInitializer.GuessedWordLetters);
-            if (numberOfRevealedLetters > 0)
-            {
-                bool isWordRevealed = this.CheckIfWordIsRevealed(this.HangmanGame.WordInitializer.GuessedWordLetters);
-                if (!isWordRevealed)
-                {
-                    this.Printer.PrintNumberOfRevealedLetters(numberOfRevealedLetters);
-                }
-            }
-            else if (numberOfRevealedLetters == LETTER_ALREADY_REVEALED_VALUE)
-            {
-                this.Printer.PrintLetterAlreadyRevealedMessage();
-            }
-            else
-            {
-                this.Printer.PrintNoRevealedLettersMessage(suggestedLetter);
-                this.Mistakes++;
-            }
-        }
-
         public override void GetUserInput()
         {
             bool isInputValid = false;
@@ -105,8 +83,29 @@
                     isInputValid = true;
                     ICommand command = CommandFactory.CreateCommand(inputCommand);
                     command.Execute(this);
-                    
                 }
+            }
+        }
+
+        internal void ProcessUserGuess(char suggestedLetter)
+        {
+            int numberOfRevealedLetters = this.CheckUserGuess(suggestedLetter, this.HangmanGame.WordInitializer.Word, this.HangmanGame.WordInitializer.GuessedWordLetters);
+            if (numberOfRevealedLetters > 0)
+            {
+                bool isWordRevealed = this.CheckIfWordIsRevealed(this.HangmanGame.WordInitializer.GuessedWordLetters);
+                if (!isWordRevealed)
+                {
+                    this.Printer.PrintNumberOfRevealedLetters(numberOfRevealedLetters);
+                }
+            }
+            else if (numberOfRevealedLetters == NumberOfAlreadyRevealedLetters)
+            {
+                this.Printer.PrintLetterAlreadyRevealedMessage();
+            }
+            else
+            {
+                this.Printer.PrintNoRevealedLettersMessage(suggestedLetter);
+                this.Mistakes++;
             }
         }
 
@@ -156,7 +155,7 @@
             }
             else
             {
-                numberOfRevealedLetters = LETTER_ALREADY_REVEALED_VALUE;
+                numberOfRevealedLetters = NumberOfAlreadyRevealedLetters;
             }
 
             return numberOfRevealedLetters;
