@@ -43,6 +43,7 @@
         /// <summary>
         /// List of top 5 players
         /// </summary>
+        // TODO: should be sorted
         public List<Player> TopFiveRecords
         {
             get
