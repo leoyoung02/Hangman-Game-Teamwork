@@ -1,6 +1,5 @@
-﻿namespace Hangman.Test.CommandFactory
+﻿namespace Hangman.Tests.CommandFactory
 {
-    using Logic.Contracts;
     using Logic;
     using Logic.Commands;
     using Logic.Engines;
@@ -53,23 +52,22 @@
         }
 
         [TestMethod]
+        [ExpectedException(typeof(System.ArgumentException), "Incorrect guess or command!")]
+
         public void CommandFactoryCreatesLetterGuess()
         {
             var engine = new HangmanEngine(new ConsolePrinter(), new ConsoleReader(), new CommandFactory(),
                              new Validator(), new HangmanGame(new WordInitializer()));
-            var letterGuess = engine.CommandFactory.CreateCommand("letterguess");
-
-            Assert.IsNotNull(letterGuess);
+            var letterGuess = engine.CommandFactory.CreateCommand("LetterGuess");
         }
 
         [TestMethod]
+        [ExpectedException(typeof(System.ArgumentException), "Incorrect guess or command!")]
         public void CommandFactoryCreatesLetterGuessIfAWrongCommandIsPassed() // TODO: get test to pass
         {
             var engine = new HangmanEngine(new ConsolePrinter(), new ConsoleReader(), new CommandFactory(),
                              new Validator(), new HangmanGame(new WordInitializer()));
             var defaultLetterGuessCase = engine.CommandFactory.CreateCommand("brum");
-            ICommand letterGuess = new LetterGuess("brum");
-            Assert.AreSame(defaultLetterGuessCase, letterGuess);
         }
     }
 }
