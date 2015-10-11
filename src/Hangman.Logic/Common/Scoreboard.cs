@@ -1,5 +1,6 @@
 ﻿namespace Hangman.Logic
 {
+    using Contracts;
     using System.Collections.Generic;
     using System.Linq;
     using Utils;
@@ -7,7 +8,7 @@
     /// <summary>
     /// Stores the top 5 players and their scores
     /// </summary>
-    public sealed class Scoreboard
+    public sealed class Scoreboard : IScoreboard
     {
         public const int MaxRecords = 5;
         private static Scoreboard instance;
@@ -44,7 +45,7 @@
         /// <summary>
         /// List of top 5 players
         /// </summary>
-        public List<Player> TopFiveRecords // TODO: should be sorted
+        public List<Player> TopFiveRecords
         {
             get
             {
@@ -56,7 +57,7 @@
         /// Adds a new player to TopFiveRecords
         /// </summary>
         /// <param name="player">The Player instance to be added</param>
-        public void AddNewRecord(Player player) // TODO: should check player count before adding
+        public void AddNewRecord(Player player)
         {
             this.TopFiveRecords.Add(player);
 
@@ -74,6 +75,7 @@
 
         private ScoreboardMemento LoadRecords()
         {
+
             var records = this.fileManagerFacade.LoadRecords();
 
             return new ScoreboardMemento(records);

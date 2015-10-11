@@ -39,7 +39,7 @@
             Console.WriteLine(GlobalMessages.IncorrectGuessOrCommand);
         }
 
-        public void PrintWinMessage(int mistakesCount, bool isHelpUsed, Scoreboard scoreboard, char[] wordToGuess)
+        public void PrintWinMessage(uint mistakesCount, bool isHelpUsed, Scoreboard scoreboard, char[] wordToGuess)
         {
             this.PrintWordToGuess(wordToGuess);
 
@@ -87,11 +87,10 @@
             Console.WriteLine(GlobalMessages.HighScores);
             if (topFiveRecords.Count != 0)
             {
-                // TODO move this method where it belongs
                 for (int i = 0; i < topFiveRecords.Count; i++)
                 {
                     string name = topFiveRecords[i].PlayerName;
-                    int mistakes = topFiveRecords[i].Score;
+                    uint mistakes = topFiveRecords[i].Score;
                     Console.WriteLine(GlobalMessages.ScoreFormat, i + 1, name, mistakes);
                 }
             }

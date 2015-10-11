@@ -68,14 +68,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\PlayerTests.cs" />
     <Compile Include="CommandFactory\CommandFactory.cs" />
     <Compile Include="Common\ScoreboardTests.cs" />
+    <Compile Include="ConsoleReaderTests.cs" />
+    <Compile Include="PlayerTests.cs" />
+    <Compile Include="ValidatorTests.cs" />
+    <Compile Include="ConsoleReaderTests.cs" />
+    <Compile Include="Factories\CommandFactoryTests.cs" />
+    <Compile Include="ValidatorTests.cs" />
     <Compile Include="Games\HangmanGameTest.cs" />
     <Compile Include="Renderers\ConsolePrinterTests.cs" />
     <Compile Include="Renderers\ConsoleReaderTests.cs" />
     <Compile Include="Common\PlayerTests.cs" />
     <Compile Include="Utils\ValidatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WordInitializerTests.cs" />
+    <Compile Include="WordInitializerTests.cs" />
     <Compile Include="Utils\WordInitializerTests.cs" />
   </ItemGroup>
   <ItemGroup>

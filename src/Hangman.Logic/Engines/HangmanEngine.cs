@@ -15,7 +15,7 @@
         {
         }
 
-        public int Mistakes { get; set; }
+        public uint Mistakes { get; set; }
 
         public HangmanGame HangmanGame { get; set; }
 

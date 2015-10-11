@@ -30,7 +30,7 @@
 
                 records = decodedLines
                     .Select(l => Regex.Split(l, @"=([0-9]+)", RegexOptions.RightToLeft))
-                    .Select(p => new Player(p[0], Convert.ToInt32(p[1])))
+                    .Select(p => new Player(p[0], uint.Parse(p[1])))
                     .ToList();
             }
 
