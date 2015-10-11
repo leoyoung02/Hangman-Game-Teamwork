@@ -73,7 +73,7 @@
                 isWordRevealed = false;
                 this.Printer.PrintWinMessage(this.Mistakes, IsHelpUsed, this.Scoreboard, this.HangmanGame.WordInitializer.GuessedWordLetters);
                 this.HandleVictory();
-                this.Printer.PrintAllRecords(this.Scoreboard.GetAllRecords());
+                this.Printer.PrintAllRecords(this.Scoreboard.TopFiveRecords);
                 this.Initialize().StartGame();
             }
 

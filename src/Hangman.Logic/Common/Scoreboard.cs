@@ -62,12 +62,6 @@
             memory.ScoreboardMemento = this.SaveTopFive();
             this.SaveRecordsToFile(memory.ScoreboardMemento);
         }
-
-        //TODO: redundant
-        public List<Player> GetAllRecords()
-        {
-            return this.TopFiveRecords;
-        }
         
         private ScoreboardMemento LoadRecords()
         {
