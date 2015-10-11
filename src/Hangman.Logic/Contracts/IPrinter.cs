@@ -3,6 +3,9 @@
     using System.Collections.Generic;
     using Utils;
 
+    /// <summary>
+    /// Abstraction for printing messages on the UI
+    /// </summary>
     public interface IPrinter
     {
         void PrintAllRecords(List<Player> topFiveRecords);

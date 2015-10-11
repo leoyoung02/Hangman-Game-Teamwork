@@ -1,5 +1,8 @@
 namespace Hangman.Logic
 {
+    /// <summary>
+    /// List of possible words to be chosen for the game
+    /// </summary>
     internal enum Words
     {
         Computer,

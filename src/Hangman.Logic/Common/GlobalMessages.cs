@@ -1,5 +1,8 @@
 ﻿namespace Hangman.Logic.Common
 {
+    /// <summary>
+    /// Class to store all messages to be printed on the UI in global constants
+    /// </summary>
     public class GlobalMessages
     {
         public const string Welcome = "<< Welcome to “Hangman” game >>\n" +

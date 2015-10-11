@@ -8,10 +8,15 @@
 
     public class CommandFactory
     {
-        public ICommand CreateCommand(string inputCommand, HangmanEngine gameEngine)
+        /// <summary>
+        /// Factory method for creating commands
+        /// </summary>
+        /// <param name="inputCommand">User input string</param>
+        /// <returns>ICommand object</returns>
+        public ICommand CreateCommand(string inputCommand)
         {
             ICommand command;
-
+            // TODO: throw invalid command exception if not a valid command or length > 1
             switch (inputCommand)
             {
                 case "help":

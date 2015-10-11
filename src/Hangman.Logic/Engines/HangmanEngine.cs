@@ -112,7 +112,6 @@
         public override void GetUserInput()
         {
             bool isInputValid = false;
-            ICommand command;
 
             while (!isInputValid)
             {
@@ -123,7 +122,7 @@
                 if (Validator.InputCommandIsValid(inputCommand))
                 {
                     isInputValid = true;
-                    command = CommandFactory.CreateCommand(inputCommand, this);
+                    ICommand command = CommandFactory.CreateCommand(inputCommand);
                     command.Execute(this);
                 }
             }
