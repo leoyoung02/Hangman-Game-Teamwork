@@ -6,12 +6,11 @@
     using Contracts;
     using Utils;
 
+    /// <summary>
+    /// Class for rendering on the console
+    /// </summary>
     public class ConsolePrinter : IPrinter
     {
-        public ConsolePrinter()
-        {
-        }
-
         public void PrintWelcomeMessage()
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
