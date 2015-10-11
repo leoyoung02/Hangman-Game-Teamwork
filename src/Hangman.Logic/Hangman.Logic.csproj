@@ -68,9 +68,10 @@
     <Compile Include="Commands\Restart.cs" />
     <Compile Include="Commands\Top.cs" />
     <Compile Include="Common\GlobalMessages.cs" />
-    <Compile Include="ConsolePrinter.cs" />
-    <Compile Include="ConsoleReader.cs" />
+    <Compile Include="Renderers\ConsolePrinter.cs" />
+    <Compile Include="Renderers\ConsoleReader.cs" />
     <Compile Include="Contracts\ICommand.cs" />
+    <Compile Include="Contracts\ICommandContext.cs" />
     <Compile Include="Contracts\IGameEngine.cs" />
     <Compile Include="Contracts\IReader.cs" />
     <Compile Include="Engines\GameEngine.cs" />
@@ -81,18 +82,18 @@
     <Compile Include="Games\Game.cs" />
     <Compile Include="Games\HangmanGame.cs" />
     <Compile Include="Games\HangmanGameStarter.cs" />
-    <Compile Include="Ninjector.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="Utils\Ninjector.cs" />
+    <Compile Include="Common\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\Decoder.cs" />
     <Compile Include="Utils\Encoder.cs" />
     <Compile Include="Utils\FileManagerFacade.cs" />
-    <Compile Include="Utils\ProspectMemory.cs" />
-    <Compile Include="Utils\ScoreboardMemento.cs" />
+    <Compile Include="Common\ProspectMemory.cs" />
+    <Compile Include="Common\ScoreboardMemento.cs" />
     <Compile Include="Utils\Validator.cs" />
     <Compile Include="Utils\WordInitializer.cs" />
-    <Compile Include="Scoreboard.cs" />
-    <Compile Include="Words.cs" />
+    <Compile Include="Common\Scoreboard.cs" />
+    <Compile Include="Common\Words.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
