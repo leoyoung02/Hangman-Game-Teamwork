@@ -18,8 +18,11 @@
         [TestMethod]
         public void WordInitializerGenerateWordOfUnderscoresEqualsWordLengthInUndersores()
         {
-            // var word = new WordInitializer();
-            // var result = word.Word;
+            var wordInitializer = new WordInitializer();
+            var word = wordInitializer.Word;
+            var wordOfUnderscores = wordInitializer.GuessedWordLetters;
+
+            Assert.AreEqual(word.Length, wordOfUnderscores.Length);
         }
     }
 }

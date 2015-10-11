@@ -74,8 +74,7 @@
 
         private ScoreboardMemento LoadRecords()
         {
-
-            records = this.fileManagerFacade.LoadRecords();
+            var records = this.fileManagerFacade.LoadRecords();
 
             return new ScoreboardMemento(records);
         }

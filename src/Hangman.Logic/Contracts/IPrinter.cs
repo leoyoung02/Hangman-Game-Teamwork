@@ -29,7 +29,5 @@
         void PrintLetterAlreadyRevealedMessage();
 
         void Write(string message);
-
-        void PrintWordToGuess(WordInitializer wordInitializer);
     }
 }

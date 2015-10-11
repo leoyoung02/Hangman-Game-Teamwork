@@ -110,10 +110,5 @@
         {
             Console.WriteLine("The letter you have entered is already revealed!");
         }
-
-        public void PrintWordToGuess(WordInitializer wordInitializer)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
