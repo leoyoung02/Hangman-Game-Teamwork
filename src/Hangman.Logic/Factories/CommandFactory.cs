@@ -3,8 +3,6 @@
     using System.Collections.Generic;
     using Commands;
     using Contracts;
-    using Engines;
-    using Games;
 
     public class CommandFactory
     {
@@ -13,30 +11,40 @@
         /// </summary>
         /// <param name="inputCommand">User input string</param>
         /// <returns>ICommand object</returns>
+        private readonly Dictionary<string, ICommand> commandDictionary = new Dictionary<string, ICommand>();
+
         public ICommand CreateCommand(string inputCommand)
         {
-            ICommand command;
-            // TODO: throw invalid command exception if not a valid command or length > 1
-            switch (inputCommand)
+            inputCommand = inputCommand.ToLower();
+            if(this.commandDictionary.ContainsKey(inputCommand))
             {
-                case "help":
-                    command = new Help();
-                    break;
-                case "top":
-                    command = new Top();
-                    break;
-                case "restart":
-                    command = new Restart();
-                    break;
-                case "exit":
-                    command = new Exit();
-                    break;
-                default:
-                    command = new LetterGuess(inputCommand);
-                    break;
+                return this.commandDictionary[inputCommand];
             }
+            else
+            {
+                ICommand command;
+                
+                switch (inputCommand)
+                {
+                    case "help":
+                        command = new Help();
+                        break;
+                    case "top":
+                        command = new Top();
+                        break;
+                    case "restart":
+                        command = new Restart();
+                        break;
+                    case "exit":
+                        command = new Exit();
+                        break;
+                    default:
+                        command = new LetterGuess(inputCommand);
+                        break;
+                }
 
-            return command;
+                return command;
+            }
         }
     }
 }

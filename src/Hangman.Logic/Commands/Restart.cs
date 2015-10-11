@@ -14,7 +14,7 @@
         /// <param name="engine"></param>
         public void Execute(HangmanEngine engine)
         {
-            engine.HasCurrentGameEnded = true;
+            engine.Initialize().StartGame();
         }
     }
 }

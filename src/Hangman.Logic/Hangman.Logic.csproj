@@ -68,10 +68,10 @@
     <Compile Include="Commands\Restart.cs" />
     <Compile Include="Commands\Top.cs" />
     <Compile Include="Common\GlobalMessages.cs" />
+    <Compile Include="Games\Game.cs" />
     <Compile Include="Renderers\ConsolePrinter.cs" />
     <Compile Include="Renderers\ConsoleReader.cs" />
     <Compile Include="Contracts\ICommand.cs" />
-    <Compile Include="Contracts\ICommandContext.cs" />
     <Compile Include="Contracts\IGameEngine.cs" />
     <Compile Include="Contracts\IReader.cs" />
     <Compile Include="Engines\GameEngine.cs" />
@@ -79,7 +79,6 @@
     <Compile Include="Engines\HangmanEngine.cs" />
     <Compile Include="Factories\CommandFactory.cs" />
     <Compile Include="Contracts\IPrinter.cs" />
-    <Compile Include="Games\Game.cs" />
     <Compile Include="Games\HangmanGame.cs" />
     <Compile Include="Games\HangmanGameStarter.cs" />
     <Compile Include="Utils\Ninjector.cs" />

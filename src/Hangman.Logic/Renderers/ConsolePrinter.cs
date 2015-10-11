@@ -87,6 +87,7 @@
             Console.WriteLine(GlobalMessages.HighScores);
             if (topFiveRecords.Count != 0)
             {
+                // TODO move this method where it belongs
                 for (int i = 0; i < topFiveRecords.Count; i++)
                 {
                     string name = topFiveRecords[i].PlayerName;

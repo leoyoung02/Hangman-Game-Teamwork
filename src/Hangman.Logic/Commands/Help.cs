@@ -2,7 +2,6 @@
 {
     using Contracts;
     using Engines;
-    using Games;
 
     /// <summary>
     /// Help command class
