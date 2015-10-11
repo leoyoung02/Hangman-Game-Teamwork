@@ -84,6 +84,10 @@
                     ICommand command = CommandFactory.CreateCommand(inputCommand);
                     command.Execute(this);
                 }
+                else
+                {
+                    this.Printer.PrintInvalidEntryMessage();
+                }
             }
         }
 
