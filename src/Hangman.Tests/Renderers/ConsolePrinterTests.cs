@@ -1,9 +1,11 @@
 ﻿namespace Hangman.Tests
 {
+    using Logic.Common;
     using Logic;
     using Logic.Contracts;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
+    using System;
     using System.Collections.Generic;
 
     [TestClass]
@@ -12,11 +14,17 @@
         [TestMethod]
         public void PrintWelcomeMessageIsCalledAtLeastTwice()
         {
-            var fakerPrinter = new Mock<IPrinter>();
-            fakerPrinter.Setup(p => p.PrintWelcomeMessage());
-            fakerPrinter.Object.PrintWelcomeMessage();
-            fakerPrinter.Object.PrintWelcomeMessage();
-            fakerPrinter.Verify(p => p.PrintWelcomeMessage(), Times.AtLeast(2));
+            var printer = new ConsolePrinter();
+            var expected = GlobalMessages.Welcome + "\r\n" + GlobalMessages.CommandOptions + "\r\n";
+
+            var consoleOutput = new ConsoleOutput();
+            printer.PrintWelcomeMessage();
+            Assert.AreEqual(expected, consoleOutput.GetOuput());
+
+            //var fakerPrinter = new Mock<IPrinter>();
+            //fakerPrinter.Setup(p => p.PrintWelcomeMessage());
+            //fakerPrinter.Object.PrintWelcomeMessage();
+            //fakerPrinter.Verify(p => p.PrintWelcomeMessage(), Times.AtLeast(2));
         }
 
         [TestMethod]
@@ -46,7 +54,7 @@
             var fakerPrinter = new Mock<IPrinter>();
             var scoreboard = Scoreboard.Instance;
             char[] wordToGuess = "tralala".ToCharArray();
-            fakerPrinter.Setup(p => p.PrintWinMessage(0,true, scoreboard, wordToGuess));
+            fakerPrinter.Setup(p => p.PrintWinMessage(0, true, scoreboard, wordToGuess));
             fakerPrinter.Object.PrintWinMessage(0, true, scoreboard, wordToGuess);
             fakerPrinter.Object.PrintWinMessage(0, true, scoreboard, wordToGuess);
             fakerPrinter.Verify(p => p.PrintWinMessage(0, true, scoreboard, wordToGuess), Times.AtLeast(2));

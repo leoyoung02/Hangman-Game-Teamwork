@@ -73,6 +73,7 @@
     <Compile Include="Common\ScoreboardTests.cs" />
     <Compile Include="CommandFactory\CommandFactoryTestsWithNUnit.cs" />
     <Compile Include="Games\HangmanGameTest.cs" />
+    <Compile Include="Renderers\ConsoleOutput.cs" />
     <Compile Include="Renderers\ConsolePrinterTests.cs" />
     <Compile Include="Renderers\ConsoleReaderTests.cs" />
     <Compile Include="Utils\ValidatorTests.cs" />
