@@ -20,6 +20,7 @@
         public void AddNewRecordMoreThanFIvePlayersTest(int entriesCount)
         {
             var scoreboard = Scoreboard.Instance;
+            // TODO: mock Chusk Noris
             var player = new Player("Chuck Noris", 0);
 
             for (int i = 0; i < entriesCount; i++)
@@ -31,6 +32,24 @@
             int actualEntriesCount = scoreboard.TopFiveRecords.Count;
             Assert.AreEqual(maxEntriesCount, actualEntriesCount, string.Format("Expected entries count: {0}. Actual: {1}", maxEntriesCount, actualEntriesCount));
         }
+
+        // TODO: save and load called externaly
+        /*[TestCase(1)]
+        [TestCase(3)]
+        [TestCase(5)]
+        public void AddNewRecordShouldAddNewReccords(int entriesCount)
+        {
+            var scoreboard = Scoreboard.Instance;
+
+            var player = new Player("Chuck Noris", 0);
+
+            for (int i = 0; i < entriesCount; i++)
+            {
+                scoreboard.AddNewRecord(player);
+            }
+
+            Assert.AreEqual(scoreboard.TopFiveRecords.Count, entriesCount);
+        }*/
 
         [Test]
         public void MethodAddNewRecordShouldSuccessfullyAddNewRecord()
