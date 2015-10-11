@@ -72,6 +72,8 @@
     <Compile Include="Common\PlayerTests.cs" />
     <Compile Include="Common\ScoreboardTests.cs" />
     <Compile Include="CommandFactory\CommandFactoryTestsWithNUnit.cs" />
+    <Compile Include="Engines\GameEngineTests.cs" />
+    <Compile Include="Engines\HangmanEngineTests.cs" />
     <Compile Include="Games\HangmanGameTest.cs" />
     <Compile Include="Renderers\ConsolePrinterTests.cs" />
     <Compile Include="Renderers\ConsoleReaderTests.cs" />
@@ -80,7 +82,6 @@
     <Compile Include="Utils\WordInitializerTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Fakes Include="Fakes\nunit.core.fakes" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -92,7 +93,9 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Fakes\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
