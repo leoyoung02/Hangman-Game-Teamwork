@@ -74,7 +74,6 @@
 
         private ScoreboardMemento LoadRecords()
         {
-            List<Player> records = new List<Player>();
 
             records = this.fileManagerFacade.LoadRecords();
 
