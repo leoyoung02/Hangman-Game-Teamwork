@@ -5,9 +5,6 @@
     /// </summary>
     public class Player
     {
-        private string playerName;
-        private int score;
-
         /// <summary>
         /// Player constructor
         /// </summary>
@@ -22,33 +19,11 @@
         /// <summary>
         /// Public property for player name
         /// </summary>
-        public string PlayerName
-        {
-            get 
-            {
-                return playerName; 
-            }
-
-            set 
-            {
-                this.playerName = value; 
-            }
-        }
+        public string PlayerName { get; set; }
 
         /// <summary>
         /// Public property for player score
         /// </summary>
-        public int Score
-        {
-            get 
-            {
-                return score;
-            }
-
-            private set 
-            {
-                this.score = value;
-            }
-        }
+        public int Score { get; set; }
     }
-}                                                         
+}

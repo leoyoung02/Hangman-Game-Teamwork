@@ -6,23 +6,10 @@
     {
         private WordInitializer wordInitializer;
         public HangmanGame(WordInitializer wordInitializer)
-            :base()
         {
             this.WordInitializer = wordInitializer;
         }
 
-        public WordInitializer WordInitializer
-        {
-            get
-            {
-                return this.wordInitializer;
-            }
-
-            set
-            {
-                this.wordInitializer = value;
-            }
-        }
-    
+        public WordInitializer WordInitializer { get; set; }    
     }
 }

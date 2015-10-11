@@ -1,6 +1,6 @@
 ﻿namespace Hangman.Logic.Contracts
 {
-    using Hangman.Logic.Engines;
+    using Engines;
 
     /// <summary>
     /// Command interface

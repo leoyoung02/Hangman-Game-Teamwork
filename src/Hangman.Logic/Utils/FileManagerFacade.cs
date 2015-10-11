@@ -35,7 +35,7 @@
             }
 
             return records;
-
+            // TODO: Remove unnecessary comments
             //var x = new XmlSerializer(this.TopFiveRecords.GetType());
             //if (File.Exists(FilePath))
             //{

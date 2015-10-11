@@ -3,7 +3,6 @@
     using Common;
     using Contracts;
     using Factories;
-    using System;
     using Utils;
 
     public abstract class GameEngine : IGameEngine
@@ -28,123 +27,23 @@
             this.Game = game;
         }
 
-        public bool HaveAllGamesEnded
-        {
-            get
-            {
-                return this.haveAllGamesEnded;
-            }
+        public Scoreboard Scoreboard { get; set; }
 
-            set
-            {
-                this.haveAllGamesEnded = value;
-            }
-        }
+        public IPrinter Printer { get; set; }
 
-        public bool HasCurrentGameEnded
-        {
-            get
-            {
-                return this.hasCurrentGameEnded;
-            }
+        public IReader InputReader { get; set; }
 
-            set
-            {
-                this.hasCurrentGameEnded = value;
-            }
-        }
+        public CommandFactory CommandFactory { get; set; }
 
-        public Scoreboard Scoreboard
-        {
-            get
-            {
-                return this.scoreboard;
-            }
+        public Validator Validator { get; set; }
 
-            set
-            {
-                scoreboard = value;
-            }
-        }
+        public bool HaveAllGamesEnded { get; set; }
 
-        internal bool IsHelpUsed
-        {
-            get
-            {
-                return this.isHelpUsed;
-            }
+        public bool HasCurrentGameEnded { get; set; }
 
-            set
-            {
-                this.isHelpUsed = value;
-            }
+        public bool IsHelpUsed { get; set; }    
 
-        }
-
-        public CommandFactory CommandFactory
-        {
-            get
-            {
-                return this.commandFactory;
-            }
-
-            set
-            {
-                this.commandFactory = value;
-            }
-        }
-
-        public IPrinter Printer
-        {
-            get
-            {
-                return this.printer;
-            }
-
-            set
-            {
-                this.printer = value;
-            }
-        }
-
-        public Validator Validator
-        {
-            get
-            {
-                return this.validator;
-            }
-
-            set
-            {
-                this.validator = value;
-            }
-        }
-
-        public IReader InputReader
-        {
-            get
-            {
-                return this.inputReader;
-            }
-
-            set
-            {
-                this.inputReader = value;
-            }
-        }
-
-        public Game Game
-        {
-            get
-            {
-                return this.game;
-            }
-
-            set
-            {
-                this.game = value;
-            }
-        }
+        public Game Game { get; set; }
 
         protected string AskForPlayerName()
         {
@@ -157,11 +56,11 @@
             {
                 playerName = InputReader.ReadLine();
 
-                if (validator.PlayerNameIsNullOrWhiteSpace(playerName))
+                if (Validator.PlayerNameIsNullOrWhiteSpace(playerName))
                 {
                     this.Printer.Write(GlobalMessages.PlayerNoNameEntered);
                 }
-                else if (validator.PlayerNameIsTooLong(playerName))
+                else if (Validator.PlayerNameIsTooLong(playerName))
                 {
                     this.Printer.Write(GlobalMessages.PlayerNameTooLong);
                 }

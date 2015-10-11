@@ -10,37 +10,16 @@
     public class HangmanEngine : GameEngine, IGameEngine
     {
         private const int LETTER_ALREADY_REVEALED_VALUE = -1;
-        private HangmanGame hangmanGame;
-
-        private int mistakes;
+ 
         public HangmanEngine(IPrinter printer, IReader inputReader, CommandFactory commandFactory, Validator validator, HangmanGame hangmanGame)
             : base(printer, inputReader, commandFactory, validator, hangmanGame)
         {
         }
 
-        public int Mistakes
-        {
-            get
-            {
-                return this.mistakes;
-            }
-            set
-            {
-                this.mistakes = value;
-            }
-        }
+        public int Mistakes { get; set; }
 
-        public HangmanGame HangmanGame
-        {
-            get
-            {
-                return this.hangmanGame;
-            }
-            set
-            {
-                this.hangmanGame = value;
-            }
-        }
+        public HangmanGame HangmanGame { get; set; }
+
         public override IGameEngine Initialize()
         {
             this.HangmanGame = new HangmanGame(new WordInitializer());
@@ -82,9 +61,12 @@
 
         public void HandleVictory()
         {
-            string currentPlayerName = this.AskForPlayerName();
-            var player = new Player(currentPlayerName, this.Mistakes);
-            this.Scoreboard.AddNewRecord(player);
+            if (!this.IsHelpUsed)
+            {
+                string currentPlayerName = this.AskForPlayerName();
+                var player = new Player(currentPlayerName, this.Mistakes);
+                this.Scoreboard.AddNewRecord(player);
+            }
         }
 
         internal void ProcessUserGuess(char suggestedLetter)
@@ -117,13 +99,13 @@
             {
                 this.Printer.PrintEnterLetterOrCommandMessage();
                 string inputCommand = InputReader.ReadLine();
-                inputCommand = inputCommand.ToLower();
 
                 if (Validator.InputCommandIsValid(inputCommand))
                 {
                     isInputValid = true;
                     ICommand command = CommandFactory.CreateCommand(inputCommand);
                     command.Execute(this);
+                    
                 }
             }
         }
