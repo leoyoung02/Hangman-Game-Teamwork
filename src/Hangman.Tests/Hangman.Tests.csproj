@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="Common\ScoreboardTests.cs" />
     <Compile Include="ConsoleReaderTests.cs" />
+    <Compile Include="Factories\CommandFactoryTests.cs" />
     <Compile Include="PlayerTests.cs" />
     <Compile Include="ValidatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

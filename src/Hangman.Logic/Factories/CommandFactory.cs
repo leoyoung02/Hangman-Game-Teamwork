@@ -3,6 +3,8 @@
     using System.Collections.Generic;
     using Commands;
     using Contracts;
+    using System;
+    using Common;
 
     public class CommandFactory
     {
@@ -39,6 +41,11 @@
                         command = new Exit();
                         break;
                     default:
+                        if (inputCommand.Length != 1 || string.IsNullOrWhiteSpace(inputCommand))
+                        {
+                            throw new ArgumentException(GlobalMessages.IncorrectGuessOrCommand);
+                        }
+
                         command = new LetterGuess(inputCommand);
                         break;
                 }
