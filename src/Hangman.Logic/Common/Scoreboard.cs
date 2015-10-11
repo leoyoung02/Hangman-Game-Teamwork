@@ -45,7 +45,6 @@
         /// <summary>
         /// List of top 5 players
         /// </summary>
-        // TODO: should be sorted
         public List<Player> TopFiveRecords
         {
             get
@@ -58,7 +57,6 @@
         /// Adds a new player to TopFiveRecords
         /// </summary>
         /// <param name="player">The Player instance to be added</param>
-        // TODO: should check player count before adding
         public void AddNewRecord(Player player)
         {
             this.TopFiveRecords.Add(player);
@@ -77,7 +75,7 @@
 
         private ScoreboardMemento LoadRecords()
         {
-            List<Player> records = new List<Player>();
+            var records = new List<Player>();
 
             records = this.fileManagerFacade.LoadRecords();
 
