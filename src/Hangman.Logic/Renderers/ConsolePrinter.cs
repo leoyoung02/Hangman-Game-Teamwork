@@ -88,24 +88,13 @@
             if (topFiveRecords.Count != 0)
             {
                 // TODO move this method where it belongs
-                topFiveRecords.Sort(
-                    delegate (Player p1, Player p2)
-                    {
-                        return p1.Score.CompareTo(p2.Score);
-                    });
+
 
                 for (int i = 0; i < topFiveRecords.Count; i++)
                 {
-                    if (i <= Scoreboard.MaxRecords)
-                    {
-                        string name = topFiveRecords[i].PlayerName;
-                        int mistakes = topFiveRecords[i].Score;
-                        Console.WriteLine(GlobalMessages.ScoreFormat, i, name, mistakes);
-                    }
-                    else
-                    {
-                        break;
-                    }
+                    string name = topFiveRecords[i].PlayerName;
+                    int mistakes = topFiveRecords[i].Score;
+                    Console.WriteLine(GlobalMessages.ScoreFormat, i + 1, name, mistakes);
                 }
             }
             else

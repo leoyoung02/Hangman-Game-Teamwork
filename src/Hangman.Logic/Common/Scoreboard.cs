@@ -1,6 +1,8 @@
 ﻿namespace Hangman.Logic
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Utils;
 
     /// <summary>
@@ -8,7 +10,7 @@
     /// </summary>
     public sealed class Scoreboard
     {
-        internal const int MaxRecords = 5;
+        public static int MaxRecords = 5;
         private static Scoreboard instance;
         private List<Player> topFiveRecords;
         private readonly FileManagerFacade fileManagerFacade;
@@ -60,14 +62,23 @@
         public void AddNewRecord(Player player)
         {
             this.TopFiveRecords.Add(player);
+
+            topFiveRecords.Sort(
+                    delegate (Player p1, Player p2)
+                    {
+                        return p1.Score.CompareTo(p2.Score);
+                    });
+
+            topFiveRecords = topFiveRecords.Take(5).ToList();
+
             memory.ScoreboardMemento = this.SaveTopFive();
             this.SaveRecordsToFile(memory.ScoreboardMemento);
         }
-        
+
         private ScoreboardMemento LoadRecords()
         {
             List<Player> records = new List<Player>();
-            
+
             records = this.fileManagerFacade.LoadRecords();
 
             return new ScoreboardMemento(records);

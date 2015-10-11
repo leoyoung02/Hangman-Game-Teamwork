@@ -23,9 +23,9 @@ namespace Hangman.Logic.Tests
                 scoreboard.AddNewRecord(player);
             }
 
-            int maxEntriesCount = 5;
+            int maxEntriesCount = Scoreboard.MaxRecords;
             int actualEntriesCount = scoreboard.TopFiveRecords.Count;
-            Assert.AreEqual(actualEntriesCount, string.Format("Expected entries count: {0}. Actual: {1}", maxEntriesCount, actualEntriesCount));
+            Assert.AreEqual(maxEntriesCount, actualEntriesCount, string.Format("Expected entries count: {0}. Actual: {1}", maxEntriesCount, actualEntriesCount));
         }
     }
 }
