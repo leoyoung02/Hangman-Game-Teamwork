@@ -1,5 +1,6 @@
 ﻿namespace Hangman.Logic
 {
+    using Contracts;
     using System.Collections.Generic;
     using System.Linq;
     using Utils;
@@ -7,7 +8,7 @@
     /// <summary>
     /// Stores the top 5 players and their scores
     /// </summary>
-    public sealed class Scoreboard
+    public sealed class Scoreboard : IScoreboard
     {
         public const int MaxRecords = 5;
         private static Scoreboard instance;
