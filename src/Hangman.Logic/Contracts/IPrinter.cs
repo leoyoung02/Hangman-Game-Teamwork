@@ -22,7 +22,7 @@
 
         void PrintWelcomeMessage();
 
-        void PrintWinMessage(uint mistakesCount, bool isHelpUsed, Scoreboard scoreboard, char[] wordToGuess);
+        void PrintWinMessage(uint mistakesCount, bool isHelpUsed, IScoreboard scoreboard, char[] wordToGuess);
 
         void PrintWordToGuess(char[] wordToGuess);
 

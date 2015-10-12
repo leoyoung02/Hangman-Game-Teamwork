@@ -11,11 +11,19 @@
     [TestClass]
     public class ConsolePrinterTests
     {
+        public List<Player> fakeTopFiveRecords = new List<Player>()
+        {
+            new Player("Pesho", 2),
+            new Player("Gosho", 3),
+            new Player("John", 21),
+        };
+
         [TestMethod]
-        public void PrintWelcomeMessageIsCalledAtLeastTwice()
+        public void PrintWelcomeMessagePtintsCorrectMessage()
         {
             var printer = new ConsolePrinter();
-            var expected = GlobalMessages.Welcome + "\r\n" + GlobalMessages.CommandOptions + "\r\n";
+            var expected = GlobalMessages.Welcome + Environment.NewLine +
+                GlobalMessages.CommandOptions + Environment.NewLine;
 
             var consoleOutput = new ConsoleOutput();
             printer.PrintWelcomeMessage();
@@ -28,36 +36,51 @@
         }
 
         [TestMethod]
-        public void PrintWordToGuessIsCalledAtLeastTwice()
+        public void PrintWordToGuessPrintsCorrectMessage()
         {
+            var printer = new ConsolePrinter();
+            var consoleOutput = new ConsoleOutput();
             char[] wordToGuess = "tralala".ToCharArray();
-            var fakerPrinter = new Mock<IPrinter>();
-            fakerPrinter.Setup(p => p.PrintWordToGuess(wordToGuess));
-            fakerPrinter.Object.PrintWordToGuess(wordToGuess);
-            fakerPrinter.Object.PrintWordToGuess(wordToGuess);
-            fakerPrinter.Verify(p => p.PrintWordToGuess(wordToGuess), Times.AtLeast(2));
+
+            var expected = GlobalMessages.SecretWord + string.Join(" ", wordToGuess) + " " + Environment.NewLine;
+            printer.PrintWordToGuess(wordToGuess);
+
+            Assert.AreEqual(expected, consoleOutput.GetOuput());
         }
 
         [TestMethod]
-        public void PrintInvalidEntryMessageIsCalledAtLeastTwice()
+        public void PrintInvalidEntryMessagePrintsCorrectMessage()
         {
-            var fakerPrinter = new Mock<IPrinter>();
-            fakerPrinter.Setup(p => p.PrintInvalidEntryMessage());
-            fakerPrinter.Object.PrintInvalidEntryMessage();
-            fakerPrinter.Object.PrintInvalidEntryMessage();
-            fakerPrinter.Verify(p => p.PrintInvalidEntryMessage(), Times.AtLeast(2));
+            var printer = new ConsolePrinter();
+            var consoleOutput = new ConsoleOutput();
+
+            var expected = GlobalMessages.IncorrectGuessOrCommand + Environment.NewLine;
+            printer.PrintInvalidEntryMessage();
+
+            Assert.AreEqual(expected, consoleOutput.GetOuput());
         }
 
         [TestMethod]
-        public void PrintWinMessageIsCalledAtLeastTwice()
+        public void PrintWinMessageIsCorrectWhenHelpNotUsed()
         {
-            var fakerPrinter = new Mock<IPrinter>();
-            var scoreboard = Scoreboard.Instance;
+            var printer = new ConsolePrinter();
+            var consoleOutput = new ConsoleOutput();
+
+            var mockScoreboard = new Mock<IScoreboard>();
+            mockScoreboard.Setup(m => m.TopFiveRecords).Returns(this.fakeTopFiveRecords);
             char[] wordToGuess = "tralala".ToCharArray();
-            fakerPrinter.Setup(p => p.PrintWinMessage(0, true, scoreboard, wordToGuess));
-            fakerPrinter.Object.PrintWinMessage(0, true, scoreboard, wordToGuess);
-            fakerPrinter.Object.PrintWinMessage(0, true, scoreboard, wordToGuess);
-            fakerPrinter.Verify(p => p.PrintWinMessage(0, true, scoreboard, wordToGuess), Times.AtLeast(2));
+
+            var expected = GlobalMessages.SecretWord + string.Join(" ", wordToGuess) + " " + Environment.NewLine;
+            printer.PrintWinMessage(3, false, mockScoreboard.Object, wordToGuess);
+
+            Assert.AreEqual(expected, consoleOutput.GetOuput());
+            //var fakerPrinter = new Mock<IPrinter>();
+            //var scoreboard = Scoreboard.Instance;
+            //
+            //fakerPrinter.Setup(p => p.PrintWinMessage(0, true, scoreboard, wordToGuess));
+            //fakerPrinter.Object.PrintWinMessage(0, true, scoreboard, wordToGuess);
+            //fakerPrinter.Object.PrintWinMessage(0, true, scoreboard, wordToGuess);
+            //fakerPrinter.Verify(p => p.PrintWinMessage(0, true, scoreboard, wordToGuess), Times.AtLeast(2));
         }
 
         [TestMethod]

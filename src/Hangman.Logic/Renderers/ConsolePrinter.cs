@@ -39,7 +39,7 @@
             Console.WriteLine(GlobalMessages.IncorrectGuessOrCommand);
         }
 
-        public void PrintWinMessage(uint mistakesCount, bool isHelpUsed, Scoreboard scoreboard, char[] wordToGuess)
+        public void PrintWinMessage(uint mistakesCount, bool isHelpUsed, IScoreboard scoreboard, char[] wordToGuess)
         {
             this.PrintWordToGuess(wordToGuess);
 
