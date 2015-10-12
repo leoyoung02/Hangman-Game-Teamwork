@@ -65,22 +65,17 @@
         {
             var printer = new ConsolePrinter();
             var consoleOutput = new ConsoleOutput();
+            uint mistakesCount = 3;
 
             var mockScoreboard = new Mock<IScoreboard>();
             mockScoreboard.Setup(m => m.TopFiveRecords).Returns(this.fakeTopFiveRecords);
             char[] wordToGuess = "tralala".ToCharArray();
 
-            var expected = GlobalMessages.SecretWord + string.Join(" ", wordToGuess) + " " + Environment.NewLine;
-            printer.PrintWinMessage(3, false, mockScoreboard.Object, wordToGuess);
+            var expected = GlobalMessages.SecretWord + string.Join(" ", wordToGuess) + " "
+                + Environment.NewLine + string.Format(GlobalMessages.Win, mistakesCount) + Environment.NewLine;
+            printer.PrintWinMessage(mistakesCount, false, mockScoreboard.Object, wordToGuess);
 
             Assert.AreEqual(expected, consoleOutput.GetOuput());
-            //var fakerPrinter = new Mock<IPrinter>();
-            //var scoreboard = Scoreboard.Instance;
-            //
-            //fakerPrinter.Setup(p => p.PrintWinMessage(0, true, scoreboard, wordToGuess));
-            //fakerPrinter.Object.PrintWinMessage(0, true, scoreboard, wordToGuess);
-            //fakerPrinter.Object.PrintWinMessage(0, true, scoreboard, wordToGuess);
-            //fakerPrinter.Verify(p => p.PrintWinMessage(0, true, scoreboard, wordToGuess), Times.AtLeast(2));
         }
 
         [TestMethod]
