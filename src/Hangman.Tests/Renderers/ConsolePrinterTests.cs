@@ -79,48 +79,96 @@
         }
 
         [TestMethod]
-        public void PrintNumberOfRevealedLettersIsCalledAtLeastTwice()
+        public void PrintWinMessageIsCorrectWhenHelpIsUsed()
         {
-            var fakerPrinter = new Mock<IPrinter>();
-            fakerPrinter.Setup(p => p.PrintNumberOfRevealedLetters(10));
-            fakerPrinter.Object.PrintNumberOfRevealedLetters(10);
-            fakerPrinter.Object.PrintNumberOfRevealedLetters(10);
-            fakerPrinter.Verify(p => p.PrintNumberOfRevealedLetters(10), Times.AtLeast(2));
+            var printer = new ConsolePrinter();
+            var consoleOutput = new ConsoleOutput();
+            uint mistakesCount = 3;
+
+            var mockScoreboard = new Mock<IScoreboard>();
+            mockScoreboard.Setup(m => m.TopFiveRecords).Returns(this.fakeTopFiveRecords);
+            char[] wordToGuess = "tralala".ToCharArray();
+
+            var expected = GlobalMessages.SecretWord + string.Join(" ", wordToGuess) + " "
+                + Environment.NewLine + string.Format(GlobalMessages.WinWithHelp, mistakesCount) + Environment.NewLine;
+            printer.PrintWinMessage(mistakesCount, true, mockScoreboard.Object, wordToGuess);
+
+            Assert.AreEqual(expected, consoleOutput.GetOuput());
         }
 
         [TestMethod]
-        public void PrintNoRevealedLettersMessageIsCalledAtLeastTwice()
+        public void PrintNumberOfRevealedLettersIsCorrectForOneLetter()
         {
-            var fakerPrinter = new Mock<IPrinter>();
-            fakerPrinter.Setup(p => p.PrintNumberOfRevealedLetters('a'));
-            fakerPrinter.Object.PrintNumberOfRevealedLetters('a');
-            fakerPrinter.Object.PrintNumberOfRevealedLetters('a');
-            fakerPrinter.Verify(p => p.PrintNumberOfRevealedLetters('a'), Times.AtLeast(2));
+            var printer = new ConsolePrinter();
+            var consoleOutput = new ConsoleOutput();
+            int revealedLettersCount = 1;
+
+            var expected = string.Format(GlobalMessages.OneLetterRevealed, revealedLettersCount) + Environment.NewLine;
+            printer.PrintNumberOfRevealedLetters(revealedLettersCount);
+
+            Assert.AreEqual(expected, consoleOutput.GetOuput());
         }
 
         [TestMethod]
-        public void PrintEnterLetterOrCommandMessageIsCalledAtLeastTwice()
+        public void PrintNumberOfRevealedLettersIsCorrectForManyLetters()
         {
-            var fakerPrinter = new Mock<IPrinter>();
-            fakerPrinter.Setup(p => p.PrintEnterLetterOrCommandMessage());
-            fakerPrinter.Object.PrintEnterLetterOrCommandMessage();
-            fakerPrinter.Object.PrintEnterLetterOrCommandMessage();
-            fakerPrinter.Verify(p => p.PrintEnterLetterOrCommandMessage(), Times.AtLeast(2));
+            var printer = new ConsolePrinter();
+            var consoleOutput = new ConsoleOutput();
+            int revealedLettersCount = 3;
+
+            var expected = string.Format(GlobalMessages.MultipleLettersRevealed, revealedLettersCount) + Environment.NewLine;
+            printer.PrintNumberOfRevealedLetters(revealedLettersCount);
+
+            Assert.AreEqual(expected, consoleOutput.GetOuput());
         }
 
         [TestMethod]
-        public void PrintAllRecordsIsCalledAtLeastTwice()
+        public void PrintNoRevealedLettersMessageIsCorrect()
         {
-            var topFivePlayers = new List<Player>();
-            var fakerPrinter = new Mock<IPrinter>();
-            fakerPrinter.Setup(p => p.PrintAllRecords(topFivePlayers));
-            fakerPrinter.Object.PrintAllRecords(topFivePlayers);
-            fakerPrinter.Object.PrintAllRecords(topFivePlayers);
-            fakerPrinter.Verify(p => p.PrintAllRecords(topFivePlayers), Times.AtLeast(2));
+            var printer = new ConsolePrinter();
+            var consoleOutput = new ConsoleOutput();
+            char revealedLetter = 'A';
+
+            var expected = string.Format(GlobalMessages.LetterNotRevealed, revealedLetter) + Environment.NewLine;
+            printer.PrintNoRevealedLettersMessage(revealedLetter);
+
+            Assert.AreEqual(expected, consoleOutput.GetOuput());
         }
 
         [TestMethod]
-        public void WriteIsCalledAtLeastTwice()
+        public void PrintEnterLetterOrCommandMessageIsCorrect()
+        {
+            var printer = new ConsolePrinter();
+            var consoleOutput = new ConsoleOutput();
+
+            var expected = GlobalMessages.EnterLetterOrCommand;
+            printer.PrintEnterLetterOrCommandMessage();
+
+            Assert.AreEqual(expected, consoleOutput.GetOuput());
+        }
+
+        [TestMethod]
+        public void PrintAllRecordsIsCorrect()
+        {
+            var printer = new ConsolePrinter();
+            var consoleOutput = new ConsoleOutput();
+            
+            var expected = GlobalMessages.HighScores + Environment.NewLine;
+
+            for (int i = 0; i < fakeTopFiveRecords.Count; i++)
+            {
+                string name = fakeTopFiveRecords[i].PlayerName;
+                uint mistakes = fakeTopFiveRecords[i].Score;
+                expected += string.Format(GlobalMessages.ScoreFormat, i + 1, name, mistakes) + Environment.NewLine;
+            }
+
+            printer.PrintAllRecords(fakeTopFiveRecords);
+
+            Assert.AreEqual(expected, consoleOutput.GetOuput());
+        }
+
+        [TestMethod]
+        public void WriteVanWriteAnyMessage()
         {
             string message = "Abrakadabra";
             var fakerPrinter = new Mock<IPrinter>();
