@@ -26,7 +26,7 @@
             Console.Write(GlobalMessages.SecretWord);
             foreach (var letter in wordToGuess)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.Write("{0} ", letter);
             }
 
