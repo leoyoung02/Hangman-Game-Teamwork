@@ -152,7 +152,7 @@
         {
             var printer = new ConsolePrinter();
             var consoleOutput = new ConsoleOutput();
-            
+
             var expected = GlobalMessages.HighScores + Environment.NewLine;
 
             for (int i = 0; i < fakeTopFiveRecords.Count; i++)
@@ -171,21 +171,25 @@
         public void WriteVanWriteAnyMessage()
         {
             string message = "Abrakadabra";
-            var fakerPrinter = new Mock<IPrinter>();
-            fakerPrinter.Setup(p => p.Write(message));
-            fakerPrinter.Object.Write(message);
-            fakerPrinter.Object.Write(message);
-            fakerPrinter.Verify(p => p.Write(message), Times.AtLeast(2));
+            var printer = new ConsolePrinter();
+            var consoleOutput = new ConsoleOutput();
+
+            var expected = message + Environment.NewLine;
+            printer.Write(message);
+
+            Assert.AreEqual(expected, consoleOutput.GetOuput());
         }
 
         [TestMethod]
-        public void PrintLetterAlreadyRevealedMessageIsCalledAtLEastTwice()
+        public void PrintLetterAlreadyRevealedMessageIsCorrect()
         {
-            var fakerPrinter = new Mock<IPrinter>();
-            fakerPrinter.Setup(p => p.PrintLetterAlreadyRevealedMessage());
-            fakerPrinter.Object.PrintLetterAlreadyRevealedMessage();
-            fakerPrinter.Object.PrintLetterAlreadyRevealedMessage();
-            fakerPrinter.Verify(p => p.PrintLetterAlreadyRevealedMessage(), Times.AtLeast(2));
+            var printer = new ConsolePrinter();
+            var consoleOutput = new ConsoleOutput();
+
+            var expected = "The letter you have entered is already revealed!" + Environment.NewLine;
+            printer.PrintLetterAlreadyRevealedMessage();
+
+            Assert.AreEqual(expected, consoleOutput.GetOuput());
         }
     }
 }
