@@ -5,6 +5,9 @@
     using Factories;
     using Utils;
 
+    /// <summary>
+    ///  Holds key information and logic required for engines.
+    /// </summary>
     public abstract class GameEngine : IGameEngine
     {
         private Scoreboard scoreboard;
@@ -27,22 +30,49 @@
             this.Game = game;
         }
 
+        /// <summary>
+        ///  Holds Instance of the Scoreboard class that holds information about players.
+        /// </summary>
         public Scoreboard Scoreboard { get; set; }
 
+        /// <summary>
+        ///  Property that holds the selected printer. Could be console or graphical printer.
+        /// </summary>
         public IPrinter Printer { get; set; }
 
+        /// <summary>
+        ///  Property for the class that handles users' input commands
+        /// </summary>
         public IReader InputReader { get; set; }
 
+        /// <summary>
+        ///  Property for the class that generates commands.
+        /// </summary>
         public CommandFactory CommandFactory { get; set; }
 
+        /// <summary>
+        ///  Property for the class that ensures valid data is passed.
+        /// </summary>
         public Validator Validator { get; set; }
 
+        /// <summary>
+        ///  Property that holds all games' status
+        /// </summary>
         public bool HaveAllGamesEnded { get; set; }
 
+        /// <summary>
+        ///  Property that holds current game's status
+        /// </summary>
         public bool HasCurrentGameEnded { get; set; }
 
+        /// <summary>
+        ///  Property that checks if help is used
+        /// </summary>
         public bool IsHelpUsed { get; set; }    
 
+        /// <summary>
+        ///  Instance of the abstract class Game.
+        /// </summary>
         public Game Game { get; set; }
 
         public abstract bool CheckIfGameIsWon();

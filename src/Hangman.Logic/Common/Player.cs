@@ -1,8 +1,8 @@
-﻿using Hangman.Logic.Common;
-using System;
-
-namespace Hangman.Logic
+﻿namespace Hangman.Logic
 {
+    using System;
+    using Common;
+
     /// <summary>
     /// Player class. Stores player name and score.
     /// </summary>
@@ -30,6 +30,7 @@ namespace Hangman.Logic
             {
                 return this.playerName;
             }
+
             set
             {
                 if (string.IsNullOrWhiteSpace(value))

@@ -2,6 +2,10 @@ namespace Hangman.Logic.Utils
 {
     using System;
 
+    /// <summary>
+    ///  Class that holds information about the word the user is guessing.
+    ///  Also generates random word for the user to guess.
+    /// </summary>
     public class WordInitializer
     {
         private string word;
@@ -13,6 +17,9 @@ namespace Hangman.Logic.Utils
             this.GuessedWordLetters = this.wordOfUnderscores;
         }
 
+        /// <summary>
+        ///  Property that holds the word to guess.
+        /// </summary>
         public string Word
         {
             get
@@ -26,6 +33,9 @@ namespace Hangman.Logic.Utils
             }
         }
 
+        /// <summary>
+        ///     Array that holds chars that are guessed by the user.
+        /// </summary>
         public char[] GuessedWordLetters
         {
             get 

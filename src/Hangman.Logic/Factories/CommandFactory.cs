@@ -1,20 +1,20 @@
 ﻿namespace Hangman.Logic.Factories
 {
-    using System.Collections.Generic;
     using Commands;
+    using Common;
     using Contracts;
     using System;
-    using Common;
+    using System.Collections.Generic;
 
     public class CommandFactory
     {
+        private readonly Dictionary<string, ICommand> commandDictionary = new Dictionary<string, ICommand>();
+
         /// <summary>
         /// Factory method for creating commands
         /// </summary>
         /// <param name="inputCommand">User input string</param>
         /// <returns>ICommand object</returns>
-        private readonly Dictionary<string, ICommand> commandDictionary = new Dictionary<string, ICommand>();
-
         public ICommand CreateCommand(string inputCommand)
         {
             inputCommand = inputCommand.ToLower();

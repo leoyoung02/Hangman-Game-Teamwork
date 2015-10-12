@@ -8,6 +8,10 @@
     /// </summary>
     public interface IPrinter
     {
+        /// <summary>
+        ///     Display five players with highest score.
+        /// </summary>
+        /// <param name="topFiveRecords"></param>
         void PrintAllRecords(List<Player> topFiveRecords);
 
         void PrintEnterLetterOrCommandMessage();

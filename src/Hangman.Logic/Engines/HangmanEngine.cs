@@ -6,6 +6,9 @@
     using Games;
     using Utils;
 
+    /// <summary>
+    /// Main engine of the Hangman Game. Responsible for main operations
+    /// </summary>
     public class HangmanEngine : GameEngine, IGameEngine
     {
         private const int NumberOfAlreadyRevealedLetters = -1;
@@ -19,6 +22,10 @@
 
         public HangmanGame HangmanGame { get; set; }
 
+        /// <summary>
+        /// Create instance of the HangmanGame that is responsible for operations handling the manupilation of the guessed word.
+        /// </summary>
+        /// <returns>IGameEngine</returns>
         public override IGameEngine Initialize()
         {
             this.HangmanGame = new HangmanGame(new WordInitializer());
@@ -26,6 +33,10 @@
             return this;
         }
 
+        /// <summary>
+        ///     Invoke all methods for the gameplay.
+        /// </summary>
+        /// <returns>Bool value. Returns true or false if the all games have ended.</returns>
         public override bool StartGame()
         {
             this.Printer.PrintWelcomeMessage();
@@ -44,6 +55,10 @@
             return this.HaveAllGamesEnded;
         }
 
+        /// <summary>
+        ///   Performs a check on bool property to establish if the game has ended.  
+        /// </summary>
+        /// <returns>Bool value that signals if the game has ended.</returns>
         public override bool CheckIfGameIsWon()
         {
             bool isWordRevealed = this.CheckIfWordIsRevealed(this.HangmanGame.WordInitializer.GuessedWordLetters);
@@ -59,6 +74,9 @@
             return isWordRevealed;
         }
 
+        /// <summary>
+        ///     Method responsible for handling game operations required if the user has guessed the word.
+        /// </summary>
         public void HandleVictory()
         {
             if (!this.IsHelpUsed)
@@ -69,6 +87,9 @@
             }
         }
 
+        /// <summary>
+        ///     Method responsible for handling the user input.
+        /// </summary>
         public override void GetUserInput()
         {
             bool isInputValid = false;

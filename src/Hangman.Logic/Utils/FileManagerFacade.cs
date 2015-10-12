@@ -1,11 +1,13 @@
 ﻿namespace Hangman.Logic.Utils
 {
-    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Text.RegularExpressions;
 
+    /// <summary>
+    ///  Implements Facade Design Pattern for better use of operations with files.
+    /// </summary>
     internal class FileManagerFacade
     {
         private const string FilePath = "HighScores.txt";
@@ -14,6 +16,10 @@
         {
         }
 
+        /// <summary>
+        ///     Extracts data about players and their scores from file.
+        /// </summary>
+        /// <returns>List of players</returns>
         public List<Player> LoadRecords()
         {
             List<Player> records = new List<Player>();
@@ -35,17 +41,12 @@
             }
 
             return records;
-
-            // TODO: Remove unnecessary comments
-            // var x = new XmlSerializer(this.TopFiveRecords.GetType());
-            // if (File.Exists(FilePath))
-            // {
-            //    var file = new StreamReader(FilePath);
-            //     memory.ScoreboardMemento = (ScoreboardMemento)x.Deserialize(file);
-            // }
-            // return memory.ScoreboardMemento;
         }
 
+        /// <summary>
+        ///     Save the top five players that are holded in the scoreboard instance to file.
+        /// </summary>
+        /// <param name="memento">Instance of scoreboard that holds information about the top five players.</param>
         public void SaveRecordsToFile(ScoreboardMemento memento)
         {
             string encodedFile = Encoder.GetEncodedFile(memento);
@@ -54,11 +55,6 @@
             File.SetAttributes(FilePath, File.GetAttributes(FilePath) & ~FileAttributes.Hidden);
             File.WriteAllText(FilePath, encodedFile);
             File.SetAttributes(FilePath, File.GetAttributes(FilePath) | FileAttributes.Hidden);
-
-            // var x = new XmlSerializer(memento.GetType());
-            // var file = new StreamWriter(FilePath);
-            // x.Serialize(file, memento);
-            // file.Close();
         }
 
         private void CreateHiddenFileForRecords()
