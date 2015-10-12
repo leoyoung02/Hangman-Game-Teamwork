@@ -1,10 +1,10 @@
 ﻿namespace Hangman.Logic.Factories
 {
+    using System;
+    using System.Collections.Generic;
     using Commands;
     using Common;
     using Contracts;
-    using System;
-    using System.Collections.Generic;
 
     public class CommandFactory
     {
